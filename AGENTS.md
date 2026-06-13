@@ -23,6 +23,8 @@ To repozytorium jest źródłem prawdy dla kodu developerskiego:
 - automatyzacja deploymentu,
 - dokumentacja projektu.
 
+Projekt musi być tworzony z dbałością o zgodność z WCAG, wysoką jakość accessibility oraz rozsądną wydajność frontendu.
+
 ## Granice architektury
 
 ### Agent może edytować
@@ -99,3 +101,27 @@ npm run build
 W takim przypadku wygenerowane pliki w `dist/` są częścią paczki deploy i mogą zostać dodane do commita, mimo że `dist/` jest normalnie traktowany jako katalog wygenerowany.
 
 Agent może przygotować aktualne `dist/` po buildzie, ale decyzję o commicie i pushu zostawia właścicielowi projektu, chyba że właściciel poprosi inaczej.
+
+## Performance
+
+Przy zmianach wpływających na performance agent musi przed zakończeniem pracy sprawdzić:
+
+- `npm run build` przechodzi poprawnie,
+- nie dodano dużej zależności bez uzasadnienia,
+- CSS nie wpływa przypadkowo na Bricks editor,
+- animacje respektują `prefers-reduced-motion`,
+- ciężkie animacje są inicjalizowane lazy,
+- skrypty są ładowane jako deferred/module, jeśli to możliwe,
+- assety nie są ładowane globalnie bez potrzeby,
+- nowe fonty/obrazy mają uzasadnienie i notatkę optymalizacyjną.
+
+## Accessibility
+
+Przy zmianach UI, template’ów PHP i animacji agent musi:
+
+- zachować obsługę klawiaturą,
+- nie usuwać widocznych focus states,
+- respektować `prefers-reduced-motion`,
+- nie ukrywać ważnych treści wyłącznie za hoverem,
+- nie tworzyć animacji blokujących czytanie,
+- zachowywać semantic HTML w template’ach PHP.
