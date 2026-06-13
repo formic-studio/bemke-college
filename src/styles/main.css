@@ -26,7 +26,7 @@ body {
   font-style: normal;
 }
 
-:where(#brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]) {
+:where(a.footer-link[href], a.footer_link[href], #brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]) {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -35,12 +35,8 @@ body {
   transition: background-size 340ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-:where(#brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]):is(:hover, :focus-visible, [aria-current="page"]) {
+:where(a.footer-link[href], a.footer_link[href], #brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]):not(.bemke-link-hover-reset):is(:hover, :focus-visible) {
   background-size: 100% 0.08em;
-}
-
-:where(#brx-footer a[href][aria-current="page"]:not(:has(img, svg)), footer a[href][aria-current="page"]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]) {
-  cursor: default;
 }
 
 #brx-footer #brxe-phijrf,
@@ -58,8 +54,8 @@ footer #brxe-phijrf > .brxe-text-basic {
   width: fit-content;
 }
 
-#brx-footer #brxe-phijrf:is(:hover, :focus-visible) > .brxe-text-basic,
-footer #brxe-phijrf:is(:hover, :focus-visible) > .brxe-text-basic {
+#brx-footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .brxe-text-basic,
+footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .brxe-text-basic {
   background-size: 100% 0.08em;
 }
 
@@ -106,7 +102,7 @@ footer #brxe-phijrf:is(:hover, :focus-visible) > .brxe-text-basic {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(#brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]),
+  :where(a.footer-link[href], a.footer_link[href], #brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]),
   #brx-footer #brxe-phijrf > .brxe-text-basic,
   footer #brxe-phijrf > .brxe-text-basic,
   .social-link svg :not([fill="none"]) {
