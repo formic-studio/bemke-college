@@ -13,7 +13,6 @@ const transitionMs = 640;
 const dragThreshold = 46;
 
 let sliderId = 0;
-const preloadedImages = new Set();
 
 const wrapIndex = (index, length) => (index + length) % length;
 
@@ -66,46 +65,11 @@ const setTrackOffset = (track, offset) => {
   track.style.transform = `translate3d(${offset}px, 0, 0)`;
 };
 
-const preloadImage = (image) => {
-  const src = image.currentSrc || image.getAttribute('src') || image.src;
-
-  if (!src || (image.complete && image.naturalWidth > 0)) {
-    return;
-  }
-
-  if (typeof image.decode === 'function') {
-    image.decode().catch(() => {});
-  }
-
-  const preload = new Image();
-  const srcset = image.getAttribute('srcset');
-  const sizes = image.getAttribute('sizes');
-
-  if (srcset) {
-    preload.srcset = srcset;
-  }
-
-  if (sizes) {
-    preload.sizes = sizes;
-  }
-
-  preload.decoding = 'async';
-  preload.onload = () => preloadedImages.delete(preload);
-  preload.onerror = () => preloadedImages.delete(preload);
-  preloadedImages.add(preload);
-  preload.src = src;
-};
-
-const prepareImages = (slide, preload = false) => {
+const prepareImages = (slide) => {
   slide.querySelectorAll('img').forEach((image) => {
     image.setAttribute('draggable', 'false');
-    image.setAttribute('loading', 'eager');
     image.setAttribute('decoding', 'async');
     image.draggable = false;
-
-    if (preload) {
-      preloadImage(image);
-    }
   });
 };
 
@@ -139,7 +103,7 @@ const makeGhostSlide = (slide) => {
       element.setAttribute('tabindex', '-1');
     });
 
-  prepareImages(clone, false);
+  prepareImages(clone);
 
   return clone;
 };
@@ -283,7 +247,7 @@ const initSlider = (root) => {
   let dragState = null;
 
   root.setAttribute(readyAttribute, '1');
-  slides.forEach((slide) => prepareImages(slide, true));
+  slides.forEach((slide) => prepareImages(slide));
   prepareStructure(root, track, slides);
   bindControls(controls, track, {
     onPrev: () => goToDirection(-1),
