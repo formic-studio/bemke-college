@@ -1,0 +1,69 @@
+/*
+  Minimal font-size aliases for Bricks + child theme.
+  Source of truth: this file.
+  Bricks should contain only the same public aliases, so they are selectable in the builder.
+
+  Important:
+  - 1rem = 10px.
+  - Line-height is intentionally ignored.
+  - Italic variants are not separate variables when they share the same font-size as the standard style.
+  - Hover/default variants are not separate variables when they share the same font-size.
+  - Tablet values intentionally start as desktop values and can be adjusted later.
+  - Mobile overrides are included only where the mobile value differs from desktop.
+*/
+
+html:root {
+  --fs-display: 8.4rem; /* Display / Display Italic: 84px desktop, 62px mobile */
+  --fs-h1: 4.2rem; /* H1 / H1 Italic: 42px desktop, 30px mobile */
+  --fs-h2: 3.4rem; /* H2 / H2 Italic: 34px desktop, 26px mobile */
+  --fs-h3: 2.4rem; /* H3 / H3 Italic: 24px desktop, 22px mobile */
+  --fs-h4: 2rem; /* H4 / H4 Italic: 20px desktop and mobile */
+  --fs-body-xl: 2.4rem; /* Body XL: 24px desktop, 20px mobile */
+  --fs-body-l: 2rem; /* Body L: 20px desktop, 18px mobile */
+  --fs-body-m: 1.7rem; /* Body M: 17px desktop, 16px mobile */
+  --fs-body: 1.45rem; /* Body: 14.5px desktop, 14px mobile */
+  --fs-body-xs: 1.3rem; /* Body XS: 13px desktop and mobile */
+  --fs-caption-big: 1.8rem; /* Caption Italic Big -> Caption Big size: 18px desktop, 16px mobile */
+  --fs-caption: 1.5rem; /* Caption Italic -> Caption size: 15px desktop, 14px mobile */
+  --fs-caption-small: 1.4rem; /* Caption Small / Caption Italic Small: 14px desktop, 13px mobile */
+  --fs-button: 1.6rem; /* Button Default / Hover: 16px desktop and mobile */
+  --fs-button-small: 1.4rem; /* Button Small Default / Hover: 14px desktop and mobile */
+  --fs-link: 1.4rem; /* Link Default / Hover: 14px desktop and mobile */
+}
+
+@media (max-width: 991px) {
+  html:root {
+    --fs-display: 8.4rem; /* tablet */
+    --fs-h1: 4.2rem; /* tablet */
+    --fs-h2: 3.4rem; /* tablet */
+    --fs-h3: 2.4rem; /* tablet */
+    --fs-h4: 2rem; /* tablet */
+    --fs-body-xl: 2.4rem; /* tablet */
+    --fs-body-l: 2rem; /* tablet */
+    --fs-body-m: 1.7rem; /* tablet */
+    --fs-body: 1.45rem; /* tablet */
+    --fs-body-xs: 1.3rem; /* tablet */
+    --fs-caption-big: 1.8rem; /* tablet */
+    --fs-caption: 1.5rem; /* tablet */
+    --fs-caption-small: 1.4rem; /* tablet */
+    --fs-button: 1.6rem; /* tablet */
+    --fs-button-small: 1.4rem; /* tablet */
+    --fs-link: 1.4rem; /* tablet */
+  }
+}
+
+@media (max-width: 767px) {
+  html:root {
+    --fs-display: 6.2rem; /* mobile */
+    --fs-h1: 3rem; /* mobile */
+    --fs-h2: 2.6rem; /* mobile */
+    --fs-h3: 2.2rem; /* mobile */
+    --fs-body-xl: 2rem; /* mobile */
+    --fs-body-l: 1.8rem; /* mobile */
+    --fs-body-m: 1.6rem; /* mobile */
+    --fs-body: 1.4rem; /* mobile */
+    --fs-caption-big: 1.6rem; /* mobile */
+    --fs-caption: 1.4rem; /* mobile */
+    --fs-caption-small: 1.3rem; /* mobile */
+  }
+}

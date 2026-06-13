@@ -1,3 +1,5 @@
+@import './font-sizes.css';
+
 :root {
   --bemke-color-text: #151515;
   --bemke-color-muted: #5c6470;
