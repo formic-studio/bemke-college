@@ -26,7 +26,43 @@ body {
   font-style: normal;
 }
 
-:where(a, button, input, textarea, select):focus-visible {
+.slider .slider-wrapper {
+  touch-action: pan-y;
+  transition: transform 640ms ease;
+  will-change: transform;
+}
+
+.slider.is-resetting .slider-wrapper,
+.slider .slider-wrapper.is-dragging {
+  transition: none;
+}
+
+.slider .slide {
+  transition: opacity 300ms ease;
+}
+
+.slider .slide[slide-active="1"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slider .slide.is-ghost {
+  pointer-events: none;
+}
+
+.slider .arrow {
+  cursor: pointer;
+}
+
+:where(a, button, input, textarea, select, [role="button"]):focus-visible,
+.slider:focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--bemke-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider .slider-wrapper,
+  .slider .slide {
+    transition: none;
+  }
 }
