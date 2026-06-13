@@ -2,7 +2,11 @@
 node_modules/
 
 # Build output
-dist/
+dist/*
+!dist/manifest.json
+!dist/assets/
+!dist/assets/*.css
+!dist/assets/*.js
 
 # Local environment
 .env
