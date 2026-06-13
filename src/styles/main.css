@@ -64,7 +64,7 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 }
 
 .social-link:is(:hover, :focus-visible) svg :not([fill="none"]) {
-  fill: var(--color-white-blue) !important;
+  fill: var(--color-baby-blue) !important;
 }
 
 .slider .slider-wrapper {
