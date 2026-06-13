@@ -43,6 +43,26 @@ body {
   cursor: default;
 }
 
+#brx-footer #brxe-phijrf,
+footer #brxe-phijrf {
+  background-image: none;
+}
+
+#brx-footer #brxe-phijrf > .brxe-text-basic,
+footer #brxe-phijrf > .brxe-text-basic {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 0.08em;
+  transition: background-size 340ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: fit-content;
+}
+
+#brx-footer #brxe-phijrf:is(:hover, :focus-visible) > .brxe-text-basic,
+footer #brxe-phijrf:is(:hover, :focus-visible) > .brxe-text-basic {
+  background-size: 100% 0.08em;
+}
+
 .social-link svg :not([fill="none"]) {
   transition: fill 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -87,6 +107,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   :where(#brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]),
+  #brx-footer #brxe-phijrf > .brxe-text-basic,
+  footer #brxe-phijrf > .brxe-text-basic,
   .social-link svg :not([fill="none"]) {
     transition: none;
   }
