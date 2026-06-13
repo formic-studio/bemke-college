@@ -16,6 +16,16 @@ body {
   color: var(--bemke-color-text);
 }
 
+.sans-font {
+  font-family: "Season Sans", sans-serif;
+  font-style: normal;
+}
+
+.mix-font {
+  font-family: "Season Mix", sans-serif;
+  font-style: normal;
+}
+
 :where(a, button, input, textarea, select):focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--bemke-focus-ring);
