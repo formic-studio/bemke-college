@@ -1,0 +1,1 @@
+:root{--bemke-color-text:#151515;--bemke-color-muted:#5c6470;--bemke-color-accent:#b89157;--bemke-color-surface:#fff;--bemke-focus-ring:0 0 0 3px #b8915747}html.bemke-college-js{scroll-behavior:smooth}body{color:var(--bemke-color-text)}:where(a,button,input,textarea,select):focus-visible{box-shadow:var(--bemke-focus-ring);outline:2px solid #0000}
