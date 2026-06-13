@@ -5,14 +5,6 @@ const getReferenceIds = (value) => value
   .map((id) => id.trim())
   .filter(Boolean);
 
-const getFallbackReference = (element, attribute) => {
-  if (attribute === 'aria-labelledby') {
-    return element.querySelector('label, legend');
-  }
-
-  return element.querySelector('[role="note"], .description, .form-description, .error, .message');
-};
-
 const repairAriaReference = (element, attribute) => {
   const referenceIds = getReferenceIds(element.getAttribute(attribute) || '');
 
@@ -20,28 +12,10 @@ const repairAriaReference = (element, attribute) => {
     return;
   }
 
-  const repairedIds = referenceIds
-    .map((id) => {
-      if (document.getElementById(id)) {
-        return id;
-      }
+  const validIds = referenceIds.filter((id) => document.getElementById(id));
 
-      const fallback = getFallbackReference(element, attribute);
-
-      if (!fallback) {
-        return null;
-      }
-
-      if (!fallback.id) {
-        fallback.id = id;
-      }
-
-      return fallback.id;
-    })
-    .filter(Boolean);
-
-  if (repairedIds.length > 0) {
-    element.setAttribute(attribute, [...new Set(repairedIds)].join(' '));
+  if (validIds.length > 0) {
+    element.setAttribute(attribute, [...new Set(validIds)].join(' '));
   } else {
     element.removeAttribute(attribute);
   }
