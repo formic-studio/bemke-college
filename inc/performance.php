@@ -46,6 +46,7 @@ function bemke_college_tune_slider_image_loading( array $attr, WP_Post $attachme
     $attr['loading']       = 'lazy';
     $attr['decoding']      = 'async';
     $attr['fetchpriority'] = 'low';
+    $attr['sizes']         = '(max-width: 767px) 100vw, 800px';
 
     return $attr;
 }
