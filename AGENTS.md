@@ -65,3 +65,37 @@ Jeżeli zmiana wymaga ręcznej pracy w Bricks Builder, agent musi opisać tę zm
 ```txt
 docs/release-notes.md
 ```
+
+## Workflow pracy
+
+Domyślny zakres pracy agenta:
+
+- wprowadzić zmianę w kodzie,
+- uruchomić wymagane lokalne komendy, np. `npm run build`,
+- zweryfikować wynik na tyle, na ile pozwala środowisko,
+- zostawić zmiany w working tree do review właściciela projektu.
+
+Agent nie powinien domyślnie wykonywać `git commit`, `git push` ani `Commit & Sync`.
+
+Commit i push wykonuje właściciel projektu, chyba że właściciel wyraźnie poprosi agenta o:
+
+- przygotowanie commita,
+- wykonanie commita,
+- wypchnięcie zmian do GitHub,
+- przygotowanie paczki release.
+
+## Deployment przez WP Pusher
+
+Strona jest aktualizowana przez WP Pusher po pushu do GitHub.
+
+WP Pusher pobiera pliki z repozytorium, ale nie uruchamia `npm run build` na serwerze.
+
+Jeżeli zmiana dotyczy assetów Vite i ma być widoczna po deployu przez WP Pusher, trzeba przed commitem uruchomić:
+
+```bash
+npm run build
+```
+
+W takim przypadku wygenerowane pliki w `dist/` są częścią paczki deploy i mogą zostać dodane do commita, mimo że `dist/` jest normalnie traktowany jako katalog wygenerowany.
+
+Agent może przygotować aktualne `dist/` po buildzie, ale decyzję o commicie i pushu zostawia właścicielowi projektu, chyba że właściciel poprosi inaczej.
