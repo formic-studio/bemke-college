@@ -26,6 +26,31 @@ body {
   font-style: normal;
 }
 
+:where(#brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]) {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 0.08em;
+  text-decoration: none;
+  transition: background-size 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:where(#brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]):is(:hover, :focus-visible, [aria-current="page"]) {
+  background-size: 100% 0.08em;
+}
+
+:where(#brx-footer a[href][aria-current="page"]:not(:has(img, svg)), footer a[href][aria-current="page"]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]) {
+  cursor: default;
+}
+
+.social-link svg :not([fill="none"]) {
+  transition: fill 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.social-link:is(:hover, :focus-visible) svg :not([fill="none"]) {
+  fill: var(--color-white-blue) !important;
+}
+
 .slider .slider-wrapper {
   touch-action: pan-y;
   transition: transform 640ms ease;
@@ -61,6 +86,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :where(#brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]),
+  .social-link svg :not([fill="none"]) {
+    transition: none;
+  }
+
   .slider .slider-wrapper,
   .slider .slide {
     transition: none;
