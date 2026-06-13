@@ -1,0 +1,20 @@
+{
+  "name": "bemke-college",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WordPress child theme for Bemke College built with Bricks Builder and Vite.",
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0",
+    "npm": ">=10"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "lint:php": "find . -name '*.php' -not -path './node_modules/*' -not -path './vendor/*' -print0 | xargs -0 -n 1 php -l"
+  },
+  "devDependencies": {
+    "vite": "^8.0.16"
+  }
+}
