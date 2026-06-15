@@ -1,0 +1,272 @@
+:root {
+  --a11y-font-scale: 1;
+  --a11y-bg: var(--color-baby-blue, #fffdfb);
+  --a11y-surface: var(--color-baby-blue, #fffdfb);
+  --a11y-text: var(--color-brown, #131312);
+  --a11y-border: var(--color-yellow, #edb664);
+  --a11y-control-bg: var(--color-baby-blue, #fffdfb);
+  --a11y-control-text: var(--color-brown, #131312);
+  --a11y-control-border: var(--color-yellow, #edb664);
+}
+
+:where([data-a11y-scale], [data-contrast]):focus-visible {
+  border-radius: 999px;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+[data-a11y-scale][aria-pressed="true"] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+[data-contrast][aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+[data-a11y-contrast-fixed][data-contrast="default"] {
+  background-color: var(--color-baby-blue, #fffdfb) !important;
+  border-color: var(--color-yellow, #edb664) !important;
+  color: var(--color-brown, #131312) !important;
+}
+
+[data-a11y-contrast-fixed][data-contrast="white-black"] {
+  background-color: #000000 !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+[data-a11y-contrast-fixed][data-contrast="black-yellow"] {
+  background-color: #ffeb3b !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
+}
+
+[data-a11y-contrast-fixed][data-contrast="yellow-black"] {
+  background-color: #000000 !important;
+  border-color: #ffeb3b !important;
+  color: #ffeb3b !important;
+}
+
+html[data-contrast="white-black"] {
+  --a11y-bg: #000000;
+  --a11y-surface: #000000;
+  --a11y-text: #ffffff;
+  --a11y-border: #ffffff;
+  --a11y-control-bg: #ffffff;
+  --a11y-control-text: #000000;
+  --a11y-control-border: #ffffff;
+}
+
+html[data-contrast="black-yellow"] {
+  --a11y-bg: #ffeb3b;
+  --a11y-surface: #ffeb3b;
+  --a11y-text: #000000;
+  --a11y-border: #000000;
+  --a11y-control-bg: #000000;
+  --a11y-control-text: #ffeb3b;
+  --a11y-control-border: #000000;
+}
+
+html[data-contrast="yellow-black"] {
+  --a11y-bg: #000000;
+  --a11y-surface: #000000;
+  --a11y-text: #ffeb3b;
+  --a11y-border: #ffeb3b;
+  --a11y-control-bg: #ffeb3b;
+  --a11y-control-text: #000000;
+  --a11y-control-border: #ffeb3b;
+}
+
+html[data-contrast]:not([data-contrast="default"]) {
+  --bemke-color-text: var(--a11y-text);
+  --bemke-color-muted: var(--a11y-text);
+  --bemke-color-accent: var(--a11y-border);
+  --bemke-color-surface: var(--a11y-surface);
+  --bemke-focus-ring: 0 0 0 3px var(--a11y-border);
+  --color-burgundy: var(--a11y-surface);
+  --color-yellow: var(--a11y-surface);
+  --color-blue-light: var(--a11y-surface);
+  --color-baby-blue: var(--a11y-surface);
+  --color-red: var(--a11y-surface);
+  --color-cream: var(--a11y-surface);
+  --color-blue-dark: var(--a11y-surface);
+  --color-brown: var(--a11y-text);
+  --color-white-blue: var(--a11y-surface);
+  --color-vine: var(--a11y-text);
+}
+
+html[data-contrast]:not([data-contrast="default"]) body,
+html[data-contrast]:not([data-contrast="default"]) .brx-body {
+  background-color: var(--a11y-bg) !important;
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .brxe-section {
+  background-color: var(--a11y-bg) !important;
+  background-image: none !important;
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  #brx-header,
+  #brx-header .brxe-section,
+  #brx-footer,
+  #brx-footer .brxe-section,
+  footer,
+  footer .brxe-section,
+  .section_wcag,
+  .page-info,
+  .card,
+  .accordin-item,
+  .slider-text-wrapper,
+  .slide-text,
+  .history-slide,
+  .history-slide-wrapper
+):not([data-a11y-contrast-fixed]) {
+  background-color: var(--a11y-bg) !important;
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .brxe-heading,
+  .brxe-text-basic,
+  .brxe-text-link,
+  .page-info,
+  .page-info *,
+  .font-color-DarkCream,
+  .font-color-Cream-dark,
+  .history-slide,
+  .history-slide *,
+  .slider-text-wrapper,
+  .slider-text-wrapper *,
+  .slide-text,
+  .slide-text *
+) {
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) a:not([data-contrast]) {
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .brxe-button,
+  .btn,
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  .arrow,
+  .yellow-arrow,
+  .accordin-btn,
+  .lang-switcher,
+  .tab.brxe-block,
+  .brxe-block.tab,
+  .bricks-button
+):not([data-contrast]):not([data-a11y-contrast-fixed]) {
+  background-color: var(--a11y-control-bg) !important;
+  border-color: var(--a11y-control-border) !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  color: var(--a11y-control-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .brxe-button,
+  .btn,
+  button,
+  .arrow,
+  .yellow-arrow,
+  .accordin-btn,
+  .bricks-button
+):not([data-contrast]):not([data-a11y-contrast-fixed]) :is(
+  .brxe-heading,
+  .brxe-text-basic,
+  .brxe-text-link,
+  span,
+  div
+) {
+  color: var(--a11y-control-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(.card, input, select, textarea) {
+  border-color: var(--a11y-border) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .brxe-divider .line {
+  border-color: var(--a11y-border) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .arrow,
+  .yellow-arrow,
+  .accordin-btn,
+  .brxe-button,
+  .btn,
+  #brx-header,
+  #brx-footer,
+  footer,
+  .brxe-svg
+) svg {
+  color: currentColor !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .brxe-button,
+  .btn,
+  #brx-header,
+  #brx-footer,
+  footer,
+  .brxe-svg
+) svg [fill]:not([fill="none"]) {
+  fill: currentColor !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .arrow,
+  .yellow-arrow,
+  .accordin-btn,
+  .brxe-button,
+  .btn,
+  #brx-header,
+  #brx-footer,
+  footer,
+  .brxe-svg
+) svg [stroke]:not([stroke="none"]) {
+  stroke: currentColor !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .a11y-decorative-bg,
+html[data-contrast]:not([data-contrast="default"]) [data-a11y-decorative-bg="true"] {
+  background-image: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .a11y-contrast-fixed,
+html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] {
+  --color-burgundy: #3b0615;
+  --color-yellow: #edb664;
+  --color-blue-light: #d1e2fb;
+  --color-baby-blue: #fffdfb;
+  --color-red: #924342;
+  --color-cream: #fff9f4;
+  --color-blue-dark: #2d3f53;
+  --color-brown: #131312;
+  --color-white-blue: #e7f2ff;
+  --color-vine: #501819;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .a11y-contrast-fixed :is(
+  .brxe-heading,
+  .brxe-text-basic,
+  .brxe-text-link,
+  a
+),
+html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] :is(
+  .brxe-heading,
+  .brxe-text-basic,
+  .brxe-text-link,
+  a
+) {
+  color: inherit !important;
+}

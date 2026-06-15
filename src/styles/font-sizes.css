@@ -14,40 +14,41 @@
 */
 
 html {
-  font-size: 0.625rem;
+  font-size: calc(0.625rem * var(--a11y-font-scale, 1));
 }
 
 @media screen and (max-width: 1920px) {
   html {
-    font-size: 0.625rem;
+    font-size: calc(0.625rem * var(--a11y-font-scale, 1));
   }
 }
 
 @media screen and (max-width: 1440px) {
   html {
-    font-size: calc(0.15625000000000006rem + 0.5208333333333333vw);
+    font-size: calc((0.15625000000000006rem + 0.5208333333333333vw) * var(--a11y-font-scale, 1));
   }
 }
 
 @media screen and (max-width: 960px) {
   html {
-    font-size: calc(0.24999999999999994rem + 0.6250000000000001vw);
+    font-size: calc((0.24999999999999994rem + 0.6250000000000001vw) * var(--a11y-font-scale, 1));
   }
 }
 
 @media screen and (max-width: 720px) {
   html {
-    font-size: 0.625rem;
+    font-size: calc(0.625rem * var(--a11y-font-scale, 1));
   }
 }
 
 @media screen and (max-width: 360px) {
   html {
-    font-size: calc(0.37430362116991645rem + 1.1142061281337046vw);
+    font-size: calc((0.37430362116991645rem + 1.1142061281337046vw) * var(--a11y-font-scale, 1));
   }
 }
 
 html:root {
+  --a11y-font-scale: 1;
   --fs-display: 8.4rem; /* Display / Display Italic: 84px desktop, 62px mobile */
   --fs-h1: 4.2rem; /* H1 / H1 Italic: 42px desktop, 30px mobile */
   --fs-h2: 3.4rem; /* H2 / H2 Italic: 34px desktop, 26px mobile */

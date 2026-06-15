@@ -1,4 +1,5 @@
 @import './font-sizes.css';
+@import './wcag-toolbar.css';
 
 :root {
   --bemke-color-text: #151515;
