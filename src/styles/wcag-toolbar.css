@@ -32,6 +32,10 @@ html[data-a11y-font-scale="x-large"] {
   text-underline-offset: 0.2em;
 }
 
+html[data-contrast]:not([data-contrast="default"]) [data-a11y-scale] {
+  color: var(--a11y-text) !important;
+}
+
 [data-contrast][aria-pressed="true"] {
   box-shadow: inset 0 0 0 2px currentColor;
 }
@@ -243,6 +247,42 @@ html[data-contrast]:not([data-contrast="default"]) svg [style*="fill: none"] {
 html[data-contrast]:not([data-contrast="default"]) svg [style*="stroke:none"],
 html[data-contrast]:not([data-contrast="default"]) svg [style*="stroke: none"] {
   stroke: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .brxe-button,
+  .btn,
+  button,
+  .arrow,
+  .yellow-arrow,
+  .accordin-btn,
+  .bricks-button
+):not([data-contrast]):not([data-a11y-contrast-fixed]) :is(svg, .brxe-svg) {
+  color: var(--a11y-control-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .brxe-button,
+  .btn,
+  button,
+  .arrow,
+  .yellow-arrow,
+  .accordin-btn,
+  .bricks-button
+):not([data-contrast]):not([data-a11y-contrast-fixed]) svg :not([fill="none"]) {
+  fill: currentColor !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(
+  .brxe-button,
+  .btn,
+  button,
+  .arrow,
+  .yellow-arrow,
+  .accordin-btn,
+  .bricks-button
+):not([data-contrast]):not([data-a11y-contrast-fixed]) svg :not([stroke="none"]) {
+  stroke: currentColor !important;
 }
 
 html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] svg {

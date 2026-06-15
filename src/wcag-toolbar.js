@@ -33,6 +33,9 @@ let refreshFrame = 0;
 
 const uniqueElements = (elements) => Array.from(new Set(elements));
 
+const isRootStateElement = (element) =>
+  element === document.documentElement || element === document.body;
+
 const safeReadStorage = (key) => {
   try {
     return window.localStorage.getItem(key);
@@ -85,7 +88,9 @@ const getStoredFontScale = () => {
 };
 
 const getContrastControls = () =>
-  Array.from(document.querySelectorAll('[data-contrast]'));
+  Array.from(document.querySelectorAll('[data-contrast]')).filter(
+    (element) => !isRootStateElement(element),
+  );
 
 const getFontScaleControlEntries = () => {
   const controls = [];
@@ -174,6 +179,25 @@ const setupFontScaleControls = () => {
   });
 };
 
+const cleanupRootStateElement = () => {
+  const root = document.documentElement;
+
+  if (root.getAttribute('role') === 'button') {
+    root.removeAttribute('role');
+  }
+
+  if (root.getAttribute('tabindex') === '0') {
+    root.removeAttribute('tabindex');
+  }
+
+  if (CONTRAST_OPTIONS.has(root.getAttribute('aria-label'))) {
+    root.removeAttribute('aria-label');
+  }
+
+  root.removeAttribute('aria-pressed');
+  root.removeAttribute('data-a11y-contrast-fixed');
+};
+
 const setContrast = (contrast, shouldPersist = true) => {
   activeContrast = normalizeContrast(contrast);
   document.documentElement.setAttribute('data-contrast', activeContrast);
@@ -204,7 +228,9 @@ const getClosestContrastControl = (target) => {
     return null;
   }
 
-  return target.closest('[data-contrast]');
+  const control = target.closest('[data-contrast]');
+
+  return control && !isRootStateElement(control) ? control : null;
 };
 
 const getClosestFontScaleControl = (target) => {
@@ -240,6 +266,7 @@ const getScaleFromControl = (control) => {
 };
 
 const refreshControls = () => {
+  cleanupRootStateElement();
   setupContrastControls();
   setupFontScaleControls();
   setContrast(getStoredContrast() ?? activeContrast, false);
