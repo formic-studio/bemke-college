@@ -68,6 +68,20 @@ Jeżeli zmiana wymaga ręcznej pracy w Bricks Builder, agent musi opisać tę zm
 docs/release-notes.md
 ```
 
+## Typografia i fluid design
+
+W Bricks Builder rozmiary fontów są ustawiane tylko dla widoku desktop.
+
+Responsywne wartości dla tablet i mobile oraz fluid design są kontrolowane w kodzie, w pliku:
+
+```txt
+src/styles/font-sizes.css
+```
+
+Ten plik jest źródłem prawdy dla aliasów rozmiarów fontów, zmiennych CSS i responsywnych nadpisań typografii.
+
+Agent nie powinien dodawać ani zmieniać responsywnych rozmiarów fontów bezpośrednio w Bricks Builder, chyba że właściciel projektu wyraźnie o to poprosi. Przy zmianach typografii należy najpierw sprawdzić i aktualizować `src/styles/font-sizes.css`.
+
 ## Workflow pracy
 
 Domyślny zakres pracy agenta:

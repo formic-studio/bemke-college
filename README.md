@@ -38,6 +38,12 @@ npm run build
 
 Build trafia do `dist/`, a WordPress ładuje assety na podstawie `dist/manifest.json`.
 
+## Typografia
+
+W Bricks Builder rozmiary fontów są ustawione tylko dla desktopu. Wartości dla tablet i mobile oraz fluid design są obsługiwane w CSS przez `src/styles/font-sizes.css`.
+
+Plik `font-sizes.css` jest źródłem prawdy dla aliasów font-size, zmiennych CSS i responsywnych nadpisań typografii.
+
 ## Struktura
 
 - `functions.php` - entrypoint child theme
