@@ -14,36 +14,36 @@
 */
 
 html {
-  font-size: calc(0.625rem * var(--a11y-font-scale, 1));
+  font-size: calc(0.625rem * var(--a11y-font-scale, 1)) !important;
 }
 
 @media screen and (max-width: 1920px) {
   html {
-    font-size: calc(0.625rem * var(--a11y-font-scale, 1));
+    font-size: calc(0.625rem * var(--a11y-font-scale, 1)) !important;
   }
 }
 
 @media screen and (max-width: 1440px) {
   html {
-    font-size: calc((0.15625000000000006rem + 0.5208333333333333vw) * var(--a11y-font-scale, 1));
+    font-size: calc((0.15625000000000006rem + 0.5208333333333333vw) * var(--a11y-font-scale, 1)) !important;
   }
 }
 
 @media screen and (max-width: 960px) {
   html {
-    font-size: calc((0.24999999999999994rem + 0.6250000000000001vw) * var(--a11y-font-scale, 1));
+    font-size: calc((0.24999999999999994rem + 0.6250000000000001vw) * var(--a11y-font-scale, 1)) !important;
   }
 }
 
 @media screen and (max-width: 720px) {
   html {
-    font-size: calc(0.625rem * var(--a11y-font-scale, 1));
+    font-size: calc(0.625rem * var(--a11y-font-scale, 1)) !important;
   }
 }
 
 @media screen and (max-width: 360px) {
   html {
-    font-size: calc((0.37430362116991645rem + 1.1142061281337046vw) * var(--a11y-font-scale, 1));
+    font-size: calc((0.37430362116991645rem + 1.1142061281337046vw) * var(--a11y-font-scale, 1)) !important;
   }
 }
 

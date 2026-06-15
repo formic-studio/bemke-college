@@ -15,6 +15,18 @@
   outline-offset: 2px;
 }
 
+html[data-a11y-font-scale="normal"] {
+  --a11y-font-scale: 1;
+}
+
+html[data-a11y-font-scale="large"] {
+  --a11y-font-scale: 1.125;
+}
+
+html[data-a11y-font-scale="x-large"] {
+  --a11y-font-scale: 1.25;
+}
+
 [data-a11y-scale][aria-pressed="true"] {
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -198,43 +210,43 @@ html[data-contrast]:not([data-contrast="default"]) .brxe-divider .line {
   border-color: var(--a11y-border) !important;
 }
 
-html[data-contrast]:not([data-contrast="default"]) :is(
-  .arrow,
-  .yellow-arrow,
-  .accordin-btn,
-  .brxe-button,
-  .btn,
-  #brx-header,
-  #brx-footer,
-  footer,
-  .brxe-svg
-) svg {
+html[data-contrast]:not([data-contrast="default"]) :is(svg, .brxe-svg) {
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) svg,
+html[data-contrast]:not([data-contrast="default"]) svg * {
   color: currentColor !important;
 }
 
-html[data-contrast]:not([data-contrast="default"]) :is(
-  .brxe-button,
-  .btn,
-  #brx-header,
-  #brx-footer,
-  footer,
-  .brxe-svg
-) svg [fill]:not([fill="none"]) {
+html[data-contrast]:not([data-contrast="default"]) svg :not([fill="none"]) {
   fill: currentColor !important;
 }
 
-html[data-contrast]:not([data-contrast="default"]) :is(
-  .arrow,
-  .yellow-arrow,
-  .accordin-btn,
-  .brxe-button,
-  .btn,
-  #brx-header,
-  #brx-footer,
-  footer,
-  .brxe-svg
-) svg [stroke]:not([stroke="none"]) {
+html[data-contrast]:not([data-contrast="default"]) svg :not([stroke="none"]) {
   stroke: currentColor !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) svg [fill="none"] {
+  fill: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) svg [stroke="none"] {
+  stroke: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) svg [style*="fill:none"],
+html[data-contrast]:not([data-contrast="default"]) svg [style*="fill: none"] {
+  fill: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) svg [style*="stroke:none"],
+html[data-contrast]:not([data-contrast="default"]) svg [style*="stroke: none"] {
+  stroke: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] svg {
+  color: inherit !important;
 }
 
 html[data-contrast]:not([data-contrast="default"]) .a11y-decorative-bg,

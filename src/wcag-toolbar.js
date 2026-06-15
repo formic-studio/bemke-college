@@ -11,14 +11,17 @@ const CONTRAST_OPTIONS = new Map([
 
 const FONT_SCALE_OPTIONS = [
   {
+    key: 'normal',
     label: 'Normalny rozmiar tekstu',
     scale: 1,
   },
   {
+    key: 'large',
     label: 'Duży rozmiar tekstu',
     scale: 1.125,
   },
   {
+    key: 'x-large',
     label: 'Bardzo duży rozmiar tekstu',
     scale: 1.25,
   },
@@ -61,6 +64,12 @@ const normalizeScale = (scale) => {
       ? option
       : closest,
   ).scale;
+};
+
+const getScaleOption = (scale) => {
+  const normalizedScale = normalizeScale(scale);
+
+  return FONT_SCALE_OPTIONS.find((option) => option.scale === normalizedScale) ?? FONT_SCALE_OPTIONS[0];
 };
 
 const getStoredContrast = () => {
@@ -177,7 +186,10 @@ const setContrast = (contrast, shouldPersist = true) => {
 };
 
 const setFontScale = (scale, shouldPersist = true) => {
-  activeFontScale = normalizeScale(scale);
+  const option = getScaleOption(scale);
+
+  activeFontScale = option.scale;
+  document.documentElement.setAttribute('data-a11y-font-scale', option.key);
   document.documentElement.style.setProperty('--a11y-font-scale', String(activeFontScale));
 
   if (shouldPersist) {
@@ -301,8 +313,8 @@ export const initWcagToolbar = () => {
   }
 
   window[BOOTED_KEY] = true;
-  document.addEventListener('click', handlePointerClick);
-  document.addEventListener('keydown', handleKeyboardActivation);
+  document.addEventListener('click', handlePointerClick, true);
+  document.addEventListener('keydown', handleKeyboardActivation, true);
   document.addEventListener('bricks/ajax/end', queueRefreshControls);
 
   if (!window.MutationObserver || !document.body) {
