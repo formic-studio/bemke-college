@@ -1,9 +1,21 @@
 {
+  "src/bricks-slider.js": {
+    "file": "assets/bricks-slider.BcxX-KnA.js",
+    "name": "bricks-slider",
+    "src": "src/bricks-slider.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ]
+  },
   "src/main.js": {
-    "file": "assets/main.BICTd5Gr.js",
+    "file": "assets/main.BcluN6LJ.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
+    "dynamicImports": [
+      "src/bricks-slider.js"
+    ],
     "css": [
       "assets/main.u3dlk3_4.css"
     ]

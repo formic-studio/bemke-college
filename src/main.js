@@ -1,16 +1,27 @@
 import './styles/main.css';
 import { initBricksFormA11y } from './bricks-form-a11y.js';
-import { initBricksSliders } from './bricks-slider.js';
 import { initMotionPreference } from './motion-preference.js';
 import { initMobileMenu } from './mobile-menu.js';
 import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
 
+const initSliderFeature = () => {
+  const sliderSelector = '.slider:not(.slider-thinktank) > .slider-wrapper > .slide';
+
+  if (!document.querySelector(sliderSelector)) {
+    return;
+  }
+
+  import('./bricks-slider.js').then(({ initBricksSliders }) => {
+    initBricksSliders();
+  });
+};
+
 const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
   initBricksFormA11y();
-  initBricksSliders();
+  initSliderFeature();
   initMobileMenu();
   initOnePageLinks();
   initWcagToolbar();
