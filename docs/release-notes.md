@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Dodano do `.scroll-highlight` lazy-loaded animację GSAP ScrollTrigger + SplitText, która przy scrollowaniu wzmacnia kolejne słowa z bezpiecznego kontrastowo `opacity: 0.62` do pełnego koloru. SplitText zachowuje pełne zdanie dla technologii asystujących, a przy ograniczeniu ruchu tekst wyświetla się od razu bez podziału i animacji.
 - Dodano dla `.mobile-scroll` dostępny, natywny poziomy rząd kart w zakresie 321–767 px: swipe i przewijanie pozostają funkcją przeglądarki, a wizualny pasek został ukryty; region otrzymuje nazwę, instrukcję, obsługę klawiatury i widoczny focus. Tor wychodzi wyłącznie poziomo poza `--padding-global`, pokazując fragment sąsiedniej karty po obu stronach. Przy szerokości 320 px i mniejszej karty wracają do jednej kolumny zgodnie z WCAG 2.2 Reflow.
 - Zabezpieczono mobilny hamburger przed utworzeniem więcej niż jednej instancji podczas ponownej inicjalizacji frontendowego DOM.
 - Dodano dostępne odwracanie całych kart reverse-card z kompletną strukturą front/back. Na urządzeniach z myszą działa stabilny hover z możliwością zamknięcia przez Escape; klik, touch i klawiatura korzystają z niewidocznego przycisku oraz zsynchronizowanych aria-expanded, aria-hidden i inert. Nieruchoma, przezroczysta powłoka karty utrzymuje stabilny obszar interakcji, a cała widoczna powierzchnia front/back obraca się wewnątrz niej.

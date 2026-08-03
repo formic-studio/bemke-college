@@ -1,10 +1,14 @@
 {
+  "_ScrollTrigger.DB-27tMc.js": {
+    "file": "assets/ScrollTrigger.DB-27tMc.js",
+    "name": "ScrollTrigger"
+  },
   "_gsap.D_956-p2.js": {
     "file": "assets/gsap.D_956-p2.js",
     "name": "gsap"
   },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.DXVwHupR.js",
+    "file": "assets/bricks-slider.B46J2aml.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
@@ -14,18 +18,19 @@
     ]
   },
   "src/main.js": {
-    "file": "assets/main.CHkkzpbB.js",
+    "file": "assets/main.CBT09fRE.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
     "dynamicImports": [
       "src/bricks-slider.js",
       "src/scroll-expand-images.js",
+      "src/scroll-highlight.js",
       "src/reverse-cards.js",
       "src/mobile-scroll.js"
     ],
     "css": [
-      "assets/main.CAIcWVDh.css"
+      "assets/main.CtfKvSEI.css"
     ]
   },
   "src/mobile-scroll.js": {
@@ -41,13 +46,25 @@
     "isDynamicEntry": true
   },
   "src/scroll-expand-images.js": {
-    "file": "assets/scroll-expand-images.WEhRgO22.js",
+    "file": "assets/scroll-expand-images.BHL443LK.js",
     "name": "scroll-expand-images",
     "src": "src/scroll-expand-images.js",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_gsap.D_956-p2.js"
+      "_gsap.D_956-p2.js",
+      "_ScrollTrigger.DB-27tMc.js"
+    ]
+  },
+  "src/scroll-highlight.js": {
+    "file": "assets/scroll-highlight.DtH-xqrH.js",
+    "name": "scroll-highlight",
+    "src": "src/scroll-highlight.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_gsap.D_956-p2.js",
+      "_ScrollTrigger.DB-27tMc.js"
     ]
   }
 }

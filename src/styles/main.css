@@ -218,6 +218,19 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   width: 100%;
 }
 
+html.bemke-college-js
+  .scroll-highlight:not([data-bemke-scroll-highlight-ready="1"]) {
+  opacity: 0.62;
+}
+
+.bemke-scroll-highlight-word {
+  display: inline-block;
+}
+
+html[data-bemke-reduced-motion="true"] .scroll-highlight {
+  opacity: 1;
+}
+
 .mobile-scroll[data-bemke-mobile-scroll-ready="1"]
   > .mobile-scroll__track {
   display: contents;
