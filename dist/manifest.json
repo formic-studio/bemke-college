@@ -4,7 +4,7 @@
     "name": "gsap"
   },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.DBLKiEFM.js",
+    "file": "assets/bricks-slider.C6tHu0Dx.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
@@ -14,7 +14,7 @@
     ]
   },
   "src/main.js": {
-    "file": "assets/main.MEw3mm-z.js",
+    "file": "assets/main.D0Lr9ngk.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -24,17 +24,17 @@
       "src/reverse-cards.js"
     ],
     "css": [
-      "assets/main.D_AzJ16t.css"
+      "assets/main.BeNB_c1G.css"
     ]
   },
   "src/reverse-cards.js": {
-    "file": "assets/reverse-cards.DGOHQ4l1.js",
+    "file": "assets/reverse-cards.DbT2J47J.js",
     "name": "reverse-cards",
     "src": "src/reverse-cards.js",
     "isDynamicEntry": true
   },
   "src/scroll-expand-images.js": {
-    "file": "assets/scroll-expand-images.DeNO1n4r.js",
+    "file": "assets/scroll-expand-images.XLvKdwVG.js",
     "name": "scroll-expand-images",
     "src": "src/scroll-expand-images.js",
     "isDynamicEntry": true,

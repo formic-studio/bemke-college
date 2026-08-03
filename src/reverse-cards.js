@@ -52,10 +52,13 @@ const initReverseCard = (root) => {
 
   const title = getCardTitle(front);
   const { label, toggle } = createToggle(title, back.id);
+  let isHoverSuppressed = false;
+  let isPointerInside = false;
+  let isPinned = false;
   let isFlipped = false;
 
-  const syncState = (nextState) => {
-    isFlipped = Boolean(nextState);
+  const syncState = () => {
+    isFlipped = isPinned || (isPointerInside && !isHoverSuppressed);
     root.classList.toggle(flippedClass, isFlipped);
     toggle.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
     label.textContent = isFlipped
@@ -66,7 +69,14 @@ const initReverseCard = (root) => {
   };
 
   toggle.addEventListener('click', () => {
-    syncState(!isFlipped);
+    if (isPinned) {
+      isPinned = false;
+      isHoverSuppressed = isPointerInside;
+    } else {
+      isPinned = true;
+    }
+
+    syncState();
   });
 
   toggle.addEventListener('keydown', (event) => {
@@ -75,12 +85,47 @@ const initReverseCard = (root) => {
     }
 
     event.preventDefault();
-    syncState(false);
+    isPinned = false;
+    isHoverSuppressed = isPointerInside;
+    syncState();
+  });
+
+  root.addEventListener('pointerenter', (event) => {
+    if (
+      event.pointerType !== 'mouse' ||
+      !window.matchMedia?.('(hover: hover) and (pointer: fine)').matches
+    ) {
+      return;
+    }
+
+    isPointerInside = true;
+    syncState();
+  });
+
+  root.addEventListener('pointerleave', (event) => {
+    if (event.pointerType !== 'mouse') {
+      return;
+    }
+
+    isPointerInside = false;
+    isHoverSuppressed = false;
+    syncState();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !isPointerInside || !isFlipped) {
+      return;
+    }
+
+    event.preventDefault();
+    isPinned = false;
+    isHoverSuppressed = true;
+    syncState();
   });
 
   root.prepend(toggle);
   root.setAttribute(readyAttribute, '1');
-  syncState(false);
+  syncState();
 };
 
 export const initReverseCards = (scope = document) => {

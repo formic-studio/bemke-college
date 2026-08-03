@@ -221,15 +221,17 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 .reverse-card[data-bemke-reverse-card-ready="1"] {
   cursor: pointer;
   isolation: isolate;
-  perspective: 1200px;
   position: relative;
+  transform: perspective(1200px) rotateY(0deg);
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] > .reverse-card__inner {
   display: grid !important;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
   width: 100%;
 }
 
@@ -250,9 +252,8 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   transform: rotateY(180deg) translateZ(1px);
 }
 
-.reverse-card[data-bemke-reverse-card-ready="1"].is-flipped
-  > .reverse-card__inner {
-  transform: rotateY(180deg);
+.reverse-card[data-bemke-reverse-card-ready="1"].is-flipped {
+  transform: perspective(1200px) rotateY(180deg);
 }
 
 .reverse-card__toggle {
@@ -277,7 +278,13 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 }
 
 .reverse-card__toggle:focus-visible {
-  border-radius: inherit;
+  box-shadow: none;
+  outline: none;
+}
+
+.reverse-card[data-bemke-reverse-card-ready="1"]:has(
+    > .reverse-card__toggle:focus-visible
+  ) {
   box-shadow: 0 0 0 6px var(--color-vine, #501819);
   outline: 3px solid var(--color-baby-blue, #fffdfb);
   outline-offset: 2px;
@@ -294,8 +301,7 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 }
 
 html[data-bemke-reduced-motion="true"]
-  .reverse-card[data-bemke-reverse-card-ready="1"]
-  > .reverse-card__inner {
+  .reverse-card[data-bemke-reverse-card-ready="1"] {
   transition: none;
 }
 
@@ -512,8 +518,7 @@ html[data-bemke-reduced-motion="true"]
 
   .slider .slider-wrapper,
   .slider .slide,
-  .reverse-card[data-bemke-reverse-card-ready="1"]
-    > .reverse-card__inner {
+  .reverse-card[data-bemke-reverse-card-ready="1"] {
     transition: none;
   }
 
