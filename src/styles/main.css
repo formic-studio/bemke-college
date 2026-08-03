@@ -196,32 +196,201 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   }
 }
 
-.slider .slider-wrapper {
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slider-wrapper {
   touch-action: pan-y;
-  transition: transform 640ms ease;
+  transition: none;
+  user-select: none;
+  -webkit-user-select: none;
   will-change: transform;
 }
 
-.slider.is-resetting .slider-wrapper,
-.slider .slider-wrapper.is-dragging {
-  transition: none;
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+  --bemke-home-slide-width: min(
+    clamp(280px, 61.7vw, 1024px),
+    calc(100vw - 32px)
+  );
+  flex: 0 0 var(--bemke-home-slide-width);
+  width: var(--bemke-home-slide-width) !important;
+  max-width: var(--bemke-home-slide-width);
+  height: auto !important;
+  box-sizing: border-box;
+  transform: scale(0.96);
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transition: opacity 0.42s ease;
+  will-change: transform, opacity;
 }
 
-.slider .slide {
-  transition: opacity 300ms ease;
+/* Bricks can emit `.slide.brxe-block { pointer-events: none; }`. The active
+   card must remain a hit target so touch events can bubble to the track. */
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+  .slide[aria-hidden="false"]:not(.is-ghost) {
+  pointer-events: auto !important;
 }
 
-.slider .slide[slide-active="1"] {
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+  .slide[slide-active="1"] {
   opacity: 1;
-  pointer-events: auto;
+  transform: scale(1);
 }
 
-.slider .slide.is-ghost {
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide *,
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide img {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide img {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+  max-height: none;
+  aspect-ratio: 1024 / 734;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+}
+
+@media screen and (max-width: 1660px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+    --bemke-home-slide-width: min(
+      clamp(240px, 48vw, 820px),
+      calc(100vw - 32px)
+    );
+  }
+}
+
+@media screen and (max-width: 1660px) and (max-height: 820px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+    --bemke-home-slide-width: min(
+      clamp(220px, 42vw, 680px),
+      calc(100vw - 32px)
+    );
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+    --bemke-home-slide-width: min(
+      clamp(220px, 40vw, 600px),
+      calc(100vw - 32px)
+    );
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) and (max-height: 820px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+    --bemke-home-slide-width: min(
+      clamp(210px, 36vw, 520px),
+      calc(100vw - 32px)
+    );
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+    --bemke-home-slide-width: min(
+      clamp(190px, 33vw, 390px),
+      calc(100vw - 32px)
+    );
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) and (max-height: 820px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+    --bemke-home-slide-width: min(
+      clamp(180px, 30vw, 340px),
+      calc(100vw - 32px)
+    );
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] {
+    margin-inline-start: calc(50% - 50vw) !important;
+    max-width: none !important;
+    width: 100vw !important;
+  }
+
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
+    --bemke-home-slide-width: min(
+      clamp(280px, 72vw, 360px),
+      calc(100vw - 32px)
+    );
+  }
+}
+
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+  .slider-wrapper.is-dragging,
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"].is-resetting
+  .slider-wrapper {
+  transition: none !important;
+}
+
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+  .slide[aria-hidden="true"],
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide.is-ghost {
   pointer-events: none;
 }
 
-.slider .arrow {
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .arrow {
+  --bemke-home-pagination-size: clamp(42px, 3.1vw, 56px);
+  align-items: center;
+  block-size: var(--bemke-home-pagination-size) !important;
   cursor: pointer;
+  display: inline-flex;
+  inline-size: var(--bemke-home-pagination-size) !important;
+  justify-content: center;
+  min-block-size: 32px;
+  min-inline-size: 32px;
+}
+
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .arrow:focus {
+  outline: none;
+}
+
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+  .arrow.is-disabled {
+  cursor: default;
+  opacity: 0.42;
+}
+
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+  .arrow:focus-visible {
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 2px var(--color-vine, #501819);
+}
+
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]:focus-visible {
+  outline: 2px solid var(--color-vine, #501819);
+  outline-offset: 4px;
+}
+
+@media screen and (max-width: 1660px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .arrow {
+    --bemke-home-pagination-size: clamp(36px, 2.6vw, 46px);
+  }
+}
+
+@media screen and (max-width: 1660px) and (max-height: 820px) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .arrow {
+    --bemke-home-pagination-size: clamp(32px, 2.4vw, 40px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slider-wrapper {
+    cursor: grab;
+  }
+
+  .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+    .slider-wrapper.is-dragging {
+    cursor: grabbing;
+  }
 }
 
 :where(a, button, input, textarea, select, [role="button"]):focus-visible,
