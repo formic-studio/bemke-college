@@ -9,6 +9,11 @@
   --bemke-focus-ring: 0 0 0 3px rgb(184 145 87 / 28%);
 }
 
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
 html.bemke-college-js {
   scroll-behavior: smooth;
 }
