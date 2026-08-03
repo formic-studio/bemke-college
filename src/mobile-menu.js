@@ -1,6 +1,8 @@
 const MOBILE_MENU_QUERY = '(max-width: 767px)';
 const MOBILE_MENU_SELECTOR = '#brx-header .nav-menu';
 const MOBILE_MENU_HEADER_SELECTOR = '#brx-header #brxe-lmzjvw';
+const MOBILE_MENU_TOGGLE_SELECTOR = '.bemke-mobile-menu-toggle';
+const MOBILE_MENU_TOGGLE_READY_ATTRIBUTE = 'data-bemke-mobile-menu-ready';
 const FOCUSABLE_SELECTOR = [
   'a[href]',
   'button:not([disabled])',
@@ -14,6 +16,7 @@ let menuState;
 
 const createToggle = (menu) => {
   const button = document.createElement('button');
+  button.id = 'bemke-mobile-menu-toggle';
   button.className = 'bemke-mobile-menu-toggle';
   button.type = 'button';
   button.setAttribute('aria-controls', menu.id);
@@ -26,6 +29,17 @@ const createToggle = (menu) => {
   ].join('');
 
   return button;
+};
+
+const getSingleToggle = (headerInner) => {
+  const toggles = Array.from(
+    headerInner.querySelectorAll(MOBILE_MENU_TOGGLE_SELECTOR),
+  );
+  const toggle = toggles.shift() ?? null;
+
+  toggles.forEach((duplicate) => duplicate.remove());
+
+  return toggle;
 };
 
 const getFocusableItems = (menu, toggle) => [toggle, ...Array.from(menu.querySelectorAll(FOCUSABLE_SELECTOR))]
@@ -104,10 +118,22 @@ export const initMobileMenu = () => {
     menu.id = 'bemke-mobile-menu';
   }
 
-  const media = window.matchMedia(MOBILE_MENU_QUERY);
-  const toggle = createToggle(menu);
+  const existingToggle = getSingleToggle(headerInner);
 
-  headerInner.appendChild(toggle);
+  if (
+    existingToggle?.getAttribute(MOBILE_MENU_TOGGLE_READY_ATTRIBUTE) === '1'
+  ) {
+    return;
+  }
+
+  const media = window.matchMedia(MOBILE_MENU_QUERY);
+  const toggle = existingToggle ?? createToggle(menu);
+
+  if (!existingToggle) {
+    headerInner.appendChild(toggle);
+  }
+
+  toggle.setAttribute(MOBILE_MENU_TOGGLE_READY_ATTRIBUTE, '1');
 
   menuState = {
     isOpen: false,

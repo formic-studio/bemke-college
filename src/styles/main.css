@@ -489,9 +489,15 @@ html[data-bemke-reduced-motion="true"]
     padding-block-end: var(--space-16);
     scroll-padding-inline: 1px;
     scroll-snap-type: inline proximity;
-    scrollbar-gutter: stable;
+    scrollbar-width: none;
     width: 100%;
     -webkit-overflow-scrolling: touch;
+  }
+
+  body.bricks-is-frontend
+    .mobile-scroll[data-bemke-mobile-scroll-ready="1"]
+    > .mobile-scroll__track::-webkit-scrollbar {
+    display: none;
   }
 
   body.bricks-is-frontend
@@ -519,6 +525,14 @@ html[data-bemke-reduced-motion="true"]
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: inline proximity;
+    scrollbar-width: none;
+  }
+
+  body.bricks-is-frontend
+    .mobile-scroll:not(
+      [data-bemke-mobile-scroll-ready="1"]
+    )::-webkit-scrollbar {
+    display: none;
   }
 
   body.bricks-is-frontend
