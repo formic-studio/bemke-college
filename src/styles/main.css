@@ -479,18 +479,26 @@ html[data-bemke-reduced-motion="true"]
   body.bricks-is-frontend
     .mobile-scroll[data-bemke-mobile-scroll-ready="1"]
     > .mobile-scroll__track {
+    --bemke-mobile-scroll-gutter: var(--padding-global, 4rem);
+
     align-items: stretch;
+    box-sizing: border-box;
     column-gap: var(--space-24);
     display: flex;
-    max-width: 100%;
+    margin-inline: calc(0px - var(--bemke-mobile-scroll-gutter));
+    max-width: none;
     min-width: 0;
     overflow-x: auto;
     overflow-y: hidden;
     padding-block-end: var(--space-16);
-    scroll-padding-inline: 1px;
+    padding-inline: var(--bemke-mobile-scroll-gutter);
+    scroll-padding-inline: var(--bemke-mobile-scroll-gutter);
     scroll-snap-type: inline proximity;
     scrollbar-width: none;
-    width: 100%;
+    width: calc(
+      100% + var(--bemke-mobile-scroll-gutter) +
+        var(--bemke-mobile-scroll-gutter)
+    );
     -webkit-overflow-scrolling: touch;
   }
 
@@ -506,7 +514,7 @@ html[data-bemke-reduced-motion="true"]
     > .card {
     flex: 0 0 clamp(26rem, calc(100vw - 8.8rem), 34rem);
     min-width: 0;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
 
   body.bricks-is-frontend
@@ -514,18 +522,29 @@ html[data-bemke-reduced-motion="true"]
     > .mobile-scroll__track:focus-visible {
     border-radius: 4px;
     outline: 3px solid var(--color-vine, #501819);
-    outline-offset: 4px;
+    outline-offset: -3px;
   }
 
   body.bricks-is-frontend
     .mobile-scroll:not([data-bemke-mobile-scroll-ready="1"]) {
+    --bemke-mobile-scroll-gutter: var(--padding-global, 4rem);
+
     align-items: stretch;
+    box-sizing: border-box;
     column-gap: var(--space-24);
     flex-direction: row !important;
+    margin-inline: calc(0px - var(--bemke-mobile-scroll-gutter));
+    max-width: none;
     overflow-x: auto;
     overflow-y: hidden;
+    padding-inline: var(--bemke-mobile-scroll-gutter);
+    scroll-padding-inline: var(--bemke-mobile-scroll-gutter);
     scroll-snap-type: inline proximity;
     scrollbar-width: none;
+    width: calc(
+      100% + var(--bemke-mobile-scroll-gutter) +
+        var(--bemke-mobile-scroll-gutter)
+    );
   }
 
   body.bricks-is-frontend
@@ -540,7 +559,7 @@ html[data-bemke-reduced-motion="true"]
     > .card {
     flex: 0 0 clamp(26rem, calc(100vw - 8.8rem), 34rem);
     min-width: 0;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
   }
 }
 
