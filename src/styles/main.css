@@ -13,6 +13,10 @@ html.bemke-college-js {
   scroll-behavior: smooth;
 }
 
+html.bemke-scroll-expand-active {
+  overflow-anchor: none;
+}
+
 body {
   color: var(--bemke-color-text);
 }
@@ -194,6 +198,19 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
     text-align: right;
     text-transform: uppercase;
   }
+}
+
+/* Scroll-expand images in the Boarding section. The direct-child selector
+   establishes the initial size before JavaScript adds the source-project class. */
+.img-scroll-expand,
+#brxe-zoveny .grid-2x1 > img {
+  max-width: 100%;
+  width: 300px;
+}
+
+.bemke-scroll-expand-frame {
+  min-width: 0;
+  width: 100%;
 }
 
 .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slider-wrapper {

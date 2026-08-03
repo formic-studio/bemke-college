@@ -1,23 +1,39 @@
 {
+  "_gsap.D_956-p2.js": {
+    "file": "assets/gsap.D_956-p2.js",
+    "name": "gsap"
+  },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.BcxX-KnA.js",
+    "file": "assets/bricks-slider.CqWuZmkB.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
     "imports": [
-      "src/main.js"
+      "src/main.js",
+      "_gsap.D_956-p2.js"
     ]
   },
   "src/main.js": {
-    "file": "assets/main.BcluN6LJ.js",
+    "file": "assets/main.DUvDQVge.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
     "dynamicImports": [
-      "src/bricks-slider.js"
+      "src/bricks-slider.js",
+      "src/scroll-expand-images.js"
     ],
     "css": [
-      "assets/main.u3dlk3_4.css"
+      "assets/main.DFmehwsZ.css"
+    ]
+  },
+  "src/scroll-expand-images.js": {
+    "file": "assets/scroll-expand-images.BeTK4Mwc.js",
+    "name": "scroll-expand-images",
+    "src": "src/scroll-expand-images.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_gsap.D_956-p2.js"
     ]
   }
 }
