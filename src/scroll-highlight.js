@@ -10,7 +10,7 @@ const HIGHLIGHT_SELECTOR = '.scroll-highlight';
 const READY_ATTRIBUTE = 'data-bemke-scroll-highlight-ready';
 const WORD_CLASS = 'bemke-scroll-highlight-word';
 const START_OPACITY = 0.4;
-const SCROLL_SCRUB = 1.2;
+const SCROLL_SCRUB = 0.8;
 
 const killAnimation = (state) => {
   state.animation?.scrollTrigger?.kill();
@@ -50,14 +50,14 @@ const createAnimation = (state) => {
       opacity: 1,
       stagger: 0.1,
       scrollTrigger: {
-        end: 'bottom 25%',
+        end: 'bottom 30%',
         invalidateOnRefresh: true,
         onEnter: () => gsap.set(words, { willChange: 'opacity' }),
         onEnterBack: () => gsap.set(words, { willChange: 'opacity' }),
         onLeave: () => gsap.set(words, { clearProps: 'willChange' }),
         onLeaveBack: () => gsap.set(words, { clearProps: 'willChange' }),
         scrub: SCROLL_SCRUB,
-        start: 'top 75%',
+        start: 'top 70%',
         trigger: state.element,
       },
     },
