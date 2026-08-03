@@ -220,7 +220,7 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 
 html.bemke-college-js
   .scroll-highlight:not([data-bemke-scroll-highlight-ready="1"]) {
-  opacity: 0.62;
+  opacity: 0.4;
 }
 
 .bemke-scroll-highlight-word {
