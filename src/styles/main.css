@@ -218,6 +218,21 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   width: 100%;
 }
 
+.mobile-scroll[data-bemke-mobile-scroll-ready="1"]
+  > .mobile-scroll__track {
+  display: contents;
+}
+
+.mobile-scroll__instructions {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .reverse-card[data-bemke-reverse-card-ready="1"] {
   --bemke-reverse-card-surface: var(--color-white-blue, #f4f8ff);
 
@@ -457,6 +472,61 @@ html[data-bemke-reduced-motion="true"]
       clamp(280px, 72vw, 360px),
       calc(100vw - 32px)
     );
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+  body.bricks-is-frontend
+    .mobile-scroll[data-bemke-mobile-scroll-ready="1"]
+    > .mobile-scroll__track {
+    align-items: stretch;
+    column-gap: var(--space-24);
+    display: flex;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-block-end: var(--space-16);
+    scroll-padding-inline: 1px;
+    scroll-snap-type: inline proximity;
+    scrollbar-gutter: stable;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.bricks-is-frontend
+    .mobile-scroll[data-bemke-mobile-scroll-ready="1"]
+    > .mobile-scroll__track
+    > .card {
+    flex: 0 0 clamp(26rem, calc(100vw - 8.8rem), 34rem);
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  body.bricks-is-frontend
+    .mobile-scroll[data-bemke-mobile-scroll-active="1"]
+    > .mobile-scroll__track:focus-visible {
+    border-radius: 4px;
+    outline: 3px solid var(--color-vine, #501819);
+    outline-offset: 4px;
+  }
+
+  body.bricks-is-frontend
+    .mobile-scroll:not([data-bemke-mobile-scroll-ready="1"]) {
+    align-items: stretch;
+    column-gap: var(--space-24);
+    flex-direction: row !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: inline proximity;
+  }
+
+  body.bricks-is-frontend
+    .mobile-scroll:not([data-bemke-mobile-scroll-ready="1"])
+    > .card {
+    flex: 0 0 clamp(26rem, calc(100vw - 8.8rem), 34rem);
+    min-width: 0;
+    scroll-snap-align: start;
   }
 }
 

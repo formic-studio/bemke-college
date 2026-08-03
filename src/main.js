@@ -6,6 +6,7 @@ import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
 
 const scrollExpandImageSelector = '#brxe-zoveny .grid-2x1 > img';
+const mobileScrollSelector = '.mobile-scroll > .card';
 const reverseCardSelector =
   '.reverse-card > .reverse-card__inner > .reverse-card__front';
 
@@ -53,6 +54,16 @@ const initReverseCardFeature = () => {
   });
 };
 
+const initMobileScrollFeature = () => {
+  if (!document.querySelector(mobileScrollSelector)) {
+    return;
+  }
+
+  import('./mobile-scroll.js').then(({ initMobileScrolls }) => {
+    initMobileScrolls();
+  });
+};
+
 const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
@@ -60,6 +71,7 @@ const initBemkeCollege = () => {
   initSliderFeature();
   initScrollExpandFeature();
   initReverseCardFeature();
+  initMobileScrollFeature();
   initMobileMenu();
   initOnePageLinks();
   initWcagToolbar();
