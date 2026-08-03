@@ -40,28 +40,24 @@ const createAnimation = (state) => {
 
   const words = state.split.words;
 
-  state.animation = gsap.fromTo(
-    words,
-    {
-      opacity: START_OPACITY,
+  gsap.set(words, { opacity: START_OPACITY });
+
+  state.animation = gsap.to(words, {
+    ease: 'none',
+    opacity: 1,
+    stagger: 0.1,
+    scrollTrigger: {
+      end: 'bottom 45%',
+      invalidateOnRefresh: true,
+      onEnter: () => gsap.set(words, { willChange: 'opacity' }),
+      onEnterBack: () => gsap.set(words, { willChange: 'opacity' }),
+      onLeave: () => gsap.set(words, { clearProps: 'willChange' }),
+      onLeaveBack: () => gsap.set(words, { clearProps: 'willChange' }),
+      scrub: SCROLL_SCRUB,
+      start: 'top 80%',
+      trigger: state.element,
     },
-    {
-      ease: 'none',
-      opacity: 1,
-      stagger: 0.1,
-      scrollTrigger: {
-        end: 'bottom 45%',
-        invalidateOnRefresh: true,
-        onEnter: () => gsap.set(words, { willChange: 'opacity' }),
-        onEnterBack: () => gsap.set(words, { willChange: 'opacity' }),
-        onLeave: () => gsap.set(words, { clearProps: 'willChange' }),
-        onLeaveBack: () => gsap.set(words, { clearProps: 'willChange' }),
-        scrub: SCROLL_SCRUB,
-        start: 'top 80%',
-        trigger: state.element,
-      },
-    },
-  );
+  });
 
   state.element.setAttribute(READY_ATTRIBUTE, '1');
 };
