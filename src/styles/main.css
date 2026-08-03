@@ -218,6 +218,87 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   width: 100%;
 }
 
+.reverse-card[data-bemke-reverse-card-ready="1"] {
+  cursor: pointer;
+  isolation: isolate;
+  perspective: 1200px;
+  position: relative;
+}
+
+.reverse-card[data-bemke-reverse-card-ready="1"] > .reverse-card__inner {
+  display: grid !important;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+}
+
+.reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__face {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  grid-area: 1 / 1;
+  min-height: 100%;
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+.reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__front {
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+.reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__back {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+.reverse-card[data-bemke-reverse-card-ready="1"].is-flipped
+  > .reverse-card__inner {
+  transform: rotateY(180deg);
+}
+
+.reverse-card__toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: inherit;
+  box-shadow: none;
+  color: inherit;
+  cursor: pointer;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  touch-action: manipulation;
+  z-index: 4;
+}
+
+.reverse-card__toggle:focus {
+  outline: none;
+}
+
+.reverse-card__toggle:focus-visible {
+  border-radius: inherit;
+  box-shadow: 0 0 0 6px var(--color-vine, #501819);
+  outline: 3px solid var(--color-baby-blue, #fffdfb);
+  outline-offset: 2px;
+}
+
+.reverse-card__toggle-label {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+html[data-bemke-reduced-motion="true"]
+  .reverse-card[data-bemke-reverse-card-ready="1"]
+  > .reverse-card__inner {
+  transition: none;
+}
+
 .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slider-wrapper {
   touch-action: pan-y;
   transition: none;
@@ -430,7 +511,9 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   }
 
   .slider .slider-wrapper,
-  .slider .slide {
+  .slider .slide,
+  .reverse-card[data-bemke-reverse-card-ready="1"]
+    > .reverse-card__inner {
     transition: none;
   }
 
