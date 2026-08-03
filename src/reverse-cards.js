@@ -17,23 +17,6 @@ const setFaceVisibility = (face, isVisible) => {
 const getCardTitle = (front) =>
   normalizeText(front.querySelector('h2, h3, h4, h5, h6')?.textContent) || 'Card';
 
-const getPointerBounds = (element) => {
-  const rect = element.getBoundingClientRect();
-
-  return {
-    bottom: rect.bottom + window.scrollY,
-    left: rect.left + window.scrollX,
-    right: rect.right + window.scrollX,
-    top: rect.top + window.scrollY,
-  };
-};
-
-const isPointInside = (bounds, x, y) =>
-  x >= bounds.left &&
-  x <= bounds.right &&
-  y >= bounds.top &&
-  y <= bounds.bottom;
-
 const createToggle = (title, backId) => {
   const toggle = document.createElement('button');
   const label = document.createElement('span');
@@ -73,7 +56,6 @@ const initReverseCard = (root) => {
   let isPointerInside = false;
   let isPinned = false;
   let isFlipped = false;
-  let pointerBounds = null;
 
   const syncState = () => {
     isFlipped = isPinned || (isPointerInside && !isHoverSuppressed);
@@ -110,35 +92,23 @@ const initReverseCard = (root) => {
 
   root.addEventListener('pointerenter', (event) => {
     if (
-      isPointerInside ||
       event.pointerType !== 'mouse' ||
       !window.matchMedia?.('(hover: hover) and (pointer: fine)').matches
     ) {
       return;
     }
 
-    pointerBounds = getPointerBounds(root);
     isPointerInside = true;
     syncState();
   });
 
-  document.addEventListener('pointermove', (event) => {
-    if (
-      event.pointerType !== 'mouse' ||
-      !isPointerInside ||
-      !pointerBounds ||
-      isPointInside(
-        pointerBounds,
-        event.clientX + window.scrollX,
-        event.clientY + window.scrollY,
-      )
-    ) {
+  root.addEventListener('pointerleave', (event) => {
+    if (event.pointerType !== 'mouse') {
       return;
     }
 
     isPointerInside = false;
     isHoverSuppressed = false;
-    pointerBounds = null;
     syncState();
   });
 

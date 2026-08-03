@@ -219,60 +219,62 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] {
+  --bemke-reverse-card-surface: var(--color-white-blue, #f4f8ff);
+
+  background-color: transparent !important;
   cursor: pointer;
   isolation: isolate;
+  padding: 0 !important;
+  perspective: 1200px;
   position: relative;
-  transform: perspective(1200px) rotateY(0deg);
-  transform-origin: center;
-  transform-style: preserve-3d;
-  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reverse-card.dark[data-bemke-reverse-card-ready="1"] {
+  --bemke-reverse-card-surface: var(--color-burgundy, #501819);
+}
+
+:where(
+  .reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__face
+) {
+  background-color: var(--bemke-reverse-card-surface);
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] > .reverse-card__inner {
+  border-radius: inherit;
   display: grid !important;
   height: 100%;
+  min-height: 100%;
+  transform: rotateY(0deg);
+  transform-origin: center;
   transform-style: preserve-3d;
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
   width: 100%;
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__face {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  border-radius: inherit;
+  box-sizing: border-box;
   grid-area: 1 / 1;
   min-height: 100%;
-  transition:
-    opacity 0s 310ms,
-    visibility 0s 310ms;
+  overflow: hidden;
+  padding: var(--space-24);
   transform-style: preserve-3d;
   width: 100%;
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__front {
-  opacity: 1;
   transform: rotateY(0deg) translateZ(1px);
-  visibility: visible;
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__back {
-  opacity: 0;
   transform: rotateY(180deg) translateZ(1px);
-  visibility: hidden;
-}
-
-.reverse-card[data-bemke-reverse-card-ready="1"].is-flipped {
-  transform: perspective(1200px) rotateY(180deg);
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"].is-flipped
-  .reverse-card__front {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.reverse-card[data-bemke-reverse-card-ready="1"].is-flipped
-  .reverse-card__back {
-  opacity: 1;
-  visibility: visible;
+  > .reverse-card__inner {
+  transform: rotateY(180deg);
 }
 
 .reverse-card__toggle {
@@ -321,12 +323,12 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 
 html[data-bemke-reduced-motion="true"]
   .reverse-card[data-bemke-reverse-card-ready="1"] {
-  transition: none;
+  perspective: none;
 }
 
 html[data-bemke-reduced-motion="true"]
   .reverse-card[data-bemke-reverse-card-ready="1"]
-  .reverse-card__face {
+  > .reverse-card__inner {
   transition: none;
 }
 
@@ -543,8 +545,8 @@ html[data-bemke-reduced-motion="true"]
 
   .slider .slider-wrapper,
   .slider .slide,
-  .reverse-card[data-bemke-reverse-card-ready="1"],
-  .reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__face {
+  .reverse-card[data-bemke-reverse-card-ready="1"]
+    > .reverse-card__inner {
     transition: none;
   }
 
