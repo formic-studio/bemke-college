@@ -247,24 +247,11 @@ html[data-bemke-reduced-motion="true"] .scroll-highlight {
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] {
-  --bemke-reverse-card-surface: var(--color-white-blue, #f4f8ff);
-
-  background-color: transparent !important;
   cursor: pointer;
   isolation: isolate;
   padding: 0 !important;
   perspective: 1200px;
   position: relative;
-}
-
-.reverse-card.dark[data-bemke-reverse-card-ready="1"] {
-  --bemke-reverse-card-surface: var(--color-burgundy, #501819);
-}
-
-:where(
-  .reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__face
-) {
-  background-color: var(--bemke-reverse-card-surface);
 }
 
 .reverse-card[data-bemke-reverse-card-ready="1"] > .reverse-card__inner {
