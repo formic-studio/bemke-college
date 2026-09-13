@@ -15,7 +15,7 @@ const REVEAL_VARIANTS = {
     y: 14,
   },
   text: {
-    delay: 0.12,
+    delay: 0.22,
     duration: 1.25,
     scale: 1,
     start: "top 90%",
