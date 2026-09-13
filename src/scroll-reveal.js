@@ -1,33 +1,30 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  MOTION_CHANGE_EVENT,
-  isReducedMotion,
-} from './motion-preference.js';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MOTION_CHANGE_EVENT, isReducedMotion } from "./motion-preference.js";
 
-const REVEAL_SELECTOR = '[data-scroll-reveal]';
-const READY_ATTRIBUTE = 'data-bemke-scroll-reveal-ready';
-const COMPLETE_ATTRIBUTE = 'data-bemke-scroll-reveal-complete';
+const REVEAL_SELECTOR = "[data-scroll-reveal]";
+const READY_ATTRIBUTE = "data-bemke-scroll-reveal-ready";
+const COMPLETE_ATTRIBUTE = "data-bemke-scroll-reveal-complete";
 
 const REVEAL_VARIANTS = {
   heading: {
     delay: 0,
-    duration: 1.4,
+    duration: 1.8,
     scale: 0.992,
-    start: 'top 88%',
+    start: "top 88%",
     y: 14,
   },
   text: {
     delay: 0.12,
     duration: 1.25,
     scale: 1,
-    start: 'top 90%',
+    start: "top 90%",
     y: 10,
   },
 };
 
 const getVariant = (element) =>
-  REVEAL_VARIANTS[element.getAttribute('data-scroll-reveal')] ??
+  REVEAL_VARIANTS[element.getAttribute("data-scroll-reveal")] ??
   REVEAL_VARIANTS.text;
 
 const killAnimation = (state) => {
@@ -39,26 +36,26 @@ const killAnimation = (state) => {
 
 const clearAnimationStyles = (element) => {
   gsap.set(element, {
-    clearProps: 'opacity,transform,willChange',
+    clearProps: "opacity,transform,willChange",
   });
 };
 
 const showWithoutMotion = (state) => {
   killAnimation(state);
   clearAnimationStyles(state.element);
-  state.element.setAttribute(READY_ATTRIBUTE, '1');
-  state.element.setAttribute(COMPLETE_ATTRIBUTE, '1');
+  state.element.setAttribute(READY_ATTRIBUTE, "1");
+  state.element.setAttribute(COMPLETE_ATTRIBUTE, "1");
 };
 
 const completeAnimation = (state) => {
-  state.element.setAttribute(COMPLETE_ATTRIBUTE, '1');
+  state.element.setAttribute(COMPLETE_ATTRIBUTE, "1");
   clearAnimationStyles(state.element);
 };
 
 const createAnimation = (state) => {
   killAnimation(state);
 
-  if (state.element.getAttribute(COMPLETE_ATTRIBUTE) === '1') {
+  if (state.element.getAttribute(COMPLETE_ATTRIBUTE) === "1") {
     clearAnimationStyles(state.element);
     return;
   }
@@ -75,10 +72,11 @@ const createAnimation = (state) => {
     {
       delay: variant.delay,
       duration: variant.duration,
-      ease: 'power2.out',
+      ease: "power2.out",
       opacity: 1,
       onComplete: () => completeAnimation(state),
-      onStart: () => gsap.set(state.element, { willChange: 'transform, opacity' }),
+      onStart: () =>
+        gsap.set(state.element, { willChange: "transform, opacity" }),
       scale: 1,
       scrollTrigger: {
         invalidateOnRefresh: true,
@@ -90,7 +88,7 @@ const createAnimation = (state) => {
     },
   );
 
-  state.element.setAttribute(READY_ATTRIBUTE, '1');
+  state.element.setAttribute(READY_ATTRIBUTE, "1");
 };
 
 export const initScrollReveals = (scope = document) => {
@@ -120,8 +118,8 @@ export const initScrollReveals = (scope = document) => {
   syncAnimations();
   document.addEventListener(MOTION_CHANGE_EVENT, syncAnimations);
 
-  if (document.readyState !== 'complete') {
-    window.addEventListener('load', () => ScrollTrigger.refresh(), {
+  if (document.readyState !== "complete") {
+    window.addEventListener("load", () => ScrollTrigger.refresh(), {
       once: true,
     });
   }
