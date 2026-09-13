@@ -25,13 +25,19 @@ html {
 
 @media screen and (max-width: 1440px) {
   html {
-    font-size: calc((0.15625000000000006rem + 0.5208333333333333vw) * var(--a11y-font-scale, 1)) !important;
+    font-size: calc(
+      (0.15625000000000006rem + 0.5208333333333333vw) *
+        var(--a11y-font-scale, 1)
+    ) !important;
   }
 }
 
 @media screen and (max-width: 960px) {
   html {
-    font-size: calc((0.24999999999999994rem + 0.6250000000000001vw) * var(--a11y-font-scale, 1)) !important;
+    font-size: calc(
+      (0.24999999999999994rem + 0.6250000000000001vw) *
+        var(--a11y-font-scale, 1)
+    ) !important;
   }
 }
 
@@ -43,14 +49,18 @@ html {
 
 @media screen and (max-width: 360px) {
   html {
-    font-size: calc((0.37430362116991645rem + 1.1142061281337046vw) * var(--a11y-font-scale, 1)) !important;
+    font-size: calc(
+      (0.37430362116991645rem + 1.1142061281337046vw) *
+        var(--a11y-font-scale, 1)
+    ) !important;
   }
 }
 
 html:root {
   --a11y-font-scale: 1;
   --fs-display: 8.4rem; /* Display / Display Italic: 84px desktop, 62px mobile */
-  --fs-h1: 4.2rem; /* H1 / H1 Italic: 42px desktop, 30px mobile */
+  --fs-h0: 6.4rem;
+  --fs-h1: 5.4rem; /* H1 / H1 Italic: 42px desktop, 30px mobile */
   --fs-h2: 3.4rem; /* H2 / H2 Italic: 34px desktop, 26px mobile */
   --fs-h3: 2.4rem; /* H3 / H3 Italic: 24px desktop, 22px mobile */
   --fs-h4: 2rem; /* H4 / H4 Italic: 20px desktop and mobile */
@@ -70,7 +80,8 @@ html:root {
 @media (max-width: 991px) {
   html:root {
     --fs-display: 8.4rem; /* tablet */
-    --fs-h1: 4.2rem; /* tablet */
+    --fs-h0: 6.4rem;
+    --fs-h1: 5.4rem; /* tablet */
     --fs-h2: 3.4rem; /* tablet */
     --fs-h3: 2.4rem; /* tablet */
     --fs-h4: 2rem; /* tablet */
@@ -91,6 +102,7 @@ html:root {
 @media (max-width: 767px) {
   html:root {
     --fs-display: 6.2rem; /* mobile */
+    --fs-h0: 3.6rem;
     --fs-h1: 3rem; /* mobile */
     --fs-h2: 2.6rem; /* mobile */
     --fs-h3: 2.2rem; /* mobile */
