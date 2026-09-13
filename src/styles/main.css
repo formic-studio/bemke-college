@@ -81,6 +81,115 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   fill: var(--color-baby-blue) !important;
 }
 
+.btn-blue-dark-hover {
+  --bemke-college-button-bg: var(--color-blue-dark);
+  --bemke-college-button-bg-hover: var(--color-brown);
+  --bemke-college-button-text: var(--color-cream);
+  --bemke-college-button-text-hover: var(--color-cream);
+  --bemke-college-button-text-steps: 12;
+}
+
+.bg-pink {
+  --bemke-college-button-bg: var(--color-red);
+  --bemke-college-button-bg-hover: var(--color-vine);
+  --bemke-college-button-text: var(--color-cream);
+  --bemke-college-button-text-hover: var(--color-cream);
+  --bemke-college-button-text-steps: 12;
+}
+
+:is(.btn-blue-dark-hover, .bg-pink) {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--bemke-college-button-bg) !important;
+  color: var(--bemke-college-button-text) !important;
+  transition:
+    background-color 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:is(.btn-blue-dark-hover, .bg-pink)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--bemke-college-button-bg-hover);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+:is(.btn-blue-dark-hover, .bg-pink) .brxe-text,
+:is(.btn-blue-dark-hover, .bg-pink) > span,
+:is(.btn-blue-dark-hover, .bg-pink) > div {
+  position: relative;
+  z-index: 1;
+  color: transparent !important;
+  background-image: linear-gradient(
+    to right,
+    var(--bemke-college-button-text-hover) 50%,
+    var(--bemke-college-button-text) 50%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: background-position 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-timing-function: steps(
+    var(--bemke-college-button-text-steps),
+    end
+  );
+  -webkit-text-fill-color: transparent;
+}
+
+:is(.btn-blue-dark-hover, .bg-pink):is(:hover, :focus-visible)::before {
+  transform: scaleX(1);
+}
+
+:is(.btn-blue-dark-hover, .bg-pink):is(:hover, :focus-visible) {
+  background: var(--bemke-college-button-bg) !important;
+  background-color: var(--bemke-college-button-bg) !important;
+  color: var(--bemke-college-button-text-hover) !important;
+}
+
+:is(.btn-blue-dark-hover, .bg-pink):is(:hover, :focus-visible),
+:is(.btn-blue-dark-hover, .bg-pink):is(:hover, :focus-visible) .brxe-text,
+:is(.btn-blue-dark-hover, .bg-pink):is(:hover, :focus-visible) > span,
+:is(.btn-blue-dark-hover, .bg-pink):is(:hover, :focus-visible) > div {
+  background-position: 0 0;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  :is(.btn-blue-dark-hover, .bg-pink):not([data-contrast]):not(
+    [data-a11y-contrast-fixed]
+  ) {
+  background: var(--a11y-control-bg) !important;
+  border-color: var(--a11y-control-border) !important;
+  color: var(--a11y-control-text) !important;
+  transition: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  :is(.btn-blue-dark-hover, .bg-pink):not([data-contrast]):not(
+    [data-a11y-contrast-fixed]
+  )::before {
+  display: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  :is(.btn-blue-dark-hover, .bg-pink):not([data-contrast]):not(
+    [data-a11y-contrast-fixed]
+  )
+  :is(.brxe-text, span, div) {
+  color: inherit !important;
+  background-image: none !important;
+  transition: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
 @media (max-width: 767px) {
   html.bemke-mobile-menu-open,
   html.bemke-mobile-menu-open body {
@@ -655,6 +764,14 @@ html[data-bemke-reduced-motion="true"]
 
   .bemke-mobile-menu-toggle__line,
   #brx-header .nav-menu.brxe-block {
+    transition: none;
+  }
+
+  :is(.btn-blue-dark-hover, .bg-pink),
+  :is(.btn-blue-dark-hover, .bg-pink)::before,
+  :is(.btn-blue-dark-hover, .bg-pink) .brxe-text,
+  :is(.btn-blue-dark-hover, .bg-pink) > span,
+  :is(.btn-blue-dark-hover, .bg-pink) > div {
     transition: none;
   }
 }
