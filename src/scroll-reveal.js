@@ -12,17 +12,17 @@ const COMPLETE_ATTRIBUTE = 'data-bemke-scroll-reveal-complete';
 const REVEAL_VARIANTS = {
   heading: {
     delay: 0,
-    duration: 0.9,
-    scale: 0.985,
+    duration: 1.4,
+    scale: 0.992,
     start: 'top 88%',
-    y: 24,
+    y: 14,
   },
   text: {
-    delay: 0.08,
-    duration: 0.8,
+    delay: 0.12,
+    duration: 1.25,
     scale: 1,
     start: 'top 90%',
-    y: 16,
+    y: 10,
   },
 };
 
