@@ -314,6 +314,32 @@ html[data-contrast]:not([data-contrast="default"])
   }
 }
 
+/* Keep the programme card media columns equal. Bricks renders these image
+   elements as auto-sized flex items, so their widths otherwise depend on the
+   neighbouring paragraph's intrinsic width. */
+@media screen and (min-width: 479px) {
+  .card-img-block > .academic-img {
+    align-self: flex-start;
+    aspect-ratio: 1 / 1.21;
+    flex: 0 0 32%;
+    height: auto;
+    overflow: hidden;
+    width: 32%;
+  }
+
+  .card-img-block > .academic-img > img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .card-img-block > .brxe-text-basic {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
 /* Scroll-expand images in the Boarding section. The direct-child selector
    establishes the initial size before JavaScript adds the source-project class. */
 .img-scroll-expand,
