@@ -2,6 +2,7 @@ const POPUP_SELECTOR = '.popup-block';
 const OPEN_EVENT = 'bemke:popup-open';
 const OPEN_TRIGGER_SELECTOR = '.btn-popup-open, [data-bemke-popup-open]';
 const SESSION_KEY = 'bemke_college_popup_seen';
+const READY_ATTRIBUTE = 'data-bemke-popup-ready';
 
 const safeReadSeen = () => {
   try {
@@ -41,9 +42,12 @@ export function initPopupModal() {
   const popupBlock = document.querySelector(POPUP_SELECTOR);
   const content = popupBlock?.querySelector(':scope > .contact-form');
 
-  if (!popupBlock || !content || !('showModal' in HTMLDialogElement.prototype)) {
+  if (!popupBlock || !content || popupBlock.hasAttribute(READY_ATTRIBUTE) ||
+    !('showModal' in HTMLDialogElement.prototype)) {
     return;
   }
+
+  popupBlock.setAttribute(READY_ATTRIBUTE, '1');
 
   const heading = content.querySelector('h1, h2, h3, h4, h5, h6');
   const dialog = document.createElement('dialog');
@@ -71,6 +75,7 @@ export function initPopupModal() {
 
     previousFocus = document.activeElement;
     popupBlock.removeAttribute('aria-hidden');
+    popupBlock.removeAttribute('inert');
     popupBlock.inert = false;
     dialog.append(popupBlock);
     dialog.showModal();

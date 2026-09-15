@@ -3,7 +3,7 @@
   position: fixed;
   inset: 0;
   width: min(69rem, calc(100vw - 3.2rem));
-  height: fit-content;
+  height: min(60rem, calc(100dvh - 3.2rem));
   max-height: calc(100dvh - 3.2rem);
   margin: auto;
   padding: 0;
@@ -14,9 +14,9 @@
 }
 
 .bemke-popup-dialog::backdrop {
-  background-color: rgb(19 19 18 / 50%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgb(19 19 18 / 38%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .bemke-popup-dialog .popup-block.brxe-block {
@@ -31,9 +31,11 @@
 }
 
 .bemke-popup-dialog .contact-form {
+  box-sizing: border-box;
   position: relative;
   width: 100%;
   max-width: none;
+  min-height: 100%;
 }
 
 .bemke-popup-close {
@@ -74,6 +76,7 @@ body.bemke-popup-open {
 @media (max-width: 767px) {
   .bemke-popup-dialog {
     width: calc(100vw - 2rem);
+    height: min(60rem, calc(100dvh - 2rem));
     max-height: calc(100dvh - 2rem);
   }
 
