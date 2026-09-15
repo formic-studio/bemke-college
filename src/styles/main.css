@@ -203,13 +203,13 @@ html[data-contrast]:not([data-contrast="default"])
 }
 
 @media (max-width: 767px) {
-  html,
-  body {
+  html:has(body.bemke-popup-public),
+  body.bemke-popup-public {
     overflow-x: clip;
   }
 
-  html.bemke-mobile-menu-open,
-  html.bemke-mobile-menu-open body {
+  html.bemke-mobile-menu-open:has(body.bemke-popup-public),
+  html.bemke-mobile-menu-open body.bemke-popup-public {
     overflow: hidden;
   }
 

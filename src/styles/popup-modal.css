@@ -88,7 +88,7 @@ html[data-contrast]:not([data-contrast="default"]) .contact-form .bemke-popup-cl
   color: var(--color-cream, #fff9f4) !important;
 }
 
-body.bemke-popup-open {
+body.bemke-popup-public.bemke-popup-open {
   overflow: hidden !important;
 }
 

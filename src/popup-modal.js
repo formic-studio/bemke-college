@@ -36,7 +36,8 @@ const createCloseButton = () => {
 
 export function initPopupModal() {
   // Keep the Bricks builder canvas editable.
-  if (window.self !== window.top) {
+  if (window.self !== window.top ||
+    !document.body.classList.contains('bemke-popup-public')) {
     return;
   }
 
