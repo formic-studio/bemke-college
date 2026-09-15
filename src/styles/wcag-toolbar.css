@@ -34,6 +34,23 @@
   transition: background-color 0.2s ease;
 }
 
+.lang-switcher-block[data-bemke-language-switch-ready="1"] .lang-switcher[aria-disabled="false"] {
+  cursor: pointer;
+}
+
+.lang-switcher-block[data-bemke-language-switch-ready="1"] .lang-switcher[aria-disabled="true"] {
+  cursor: default;
+}
+
+.lang-switcher-block[data-bemke-language-switch-ready="1"] .lang-switcher:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+html[lang^="pl"] .lang-switcher-block .lang-switcher.brxe-block {
+  justify-content: flex-end;
+}
+
 .lang-switcher-block.is-active .animation-switcher {
   align-items: flex-start;
   background-color: var(--color-blue-dark, #2d3f53);

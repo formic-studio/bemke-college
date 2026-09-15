@@ -6,6 +6,7 @@ import { initDecorativeVideoMotion } from './decorative-video-motion.js';
 import { initMobileMenu } from './mobile-menu.js';
 import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
+import { initLanguageSwitcher } from './language-switcher.js';
 
 const scrollExpandImageSelector = '#brxe-zoveny .grid-2x1 > img';
 const scrollHighlightSelector = '.scroll-highlight';
@@ -114,6 +115,7 @@ const initBemkeCollege = () => {
   initMobileMenu();
   initOnePageLinks();
   initWcagToolbar();
+  initLanguageSwitcher();
 };
 
 if (document.readyState === 'loading') {
