@@ -36,7 +36,7 @@
 
 .lang-switcher-block.is-active .animation-switcher {
   align-items: flex-start;
-  background-color: var(--color-yellow, #edb664);
+  background-color: var(--color-blue-dark, #2d3f53);
 }
 
 html[data-bemke-reduced-motion="true"] {
