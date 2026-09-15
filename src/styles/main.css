@@ -326,6 +326,12 @@ html[data-contrast]:not([data-contrast="default"])
   }
 }
 
+/* Keep the personal development card descriptions aligned at the top;
+   shorter cards leave their extra space below the content. */
+.card.card-personal-dev.brxe-block {
+  justify-content: flex-start;
+}
+
 /* Keep the programme card media columns equal. Bricks renders these image
    elements as auto-sized flex items, so their widths otherwise depend on the
    neighbouring paragraph's intrinsic width. */
