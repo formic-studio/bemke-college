@@ -29,8 +29,14 @@
   cursor: default;
 }
 
+.lang-switcher-block[data-bemke-motion-switch-ready="1"] .animation-switcher {
+  align-items: flex-end;
+  transition: background-color 0.2s ease;
+}
+
 .lang-switcher-block.is-active .animation-switcher {
-  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: var(--color-yellow, #edb664);
 }
 
 html[data-bemke-reduced-motion="true"] {
@@ -366,6 +372,7 @@ html[data-contrast]:not([data-contrast="default"]) [data-a11y-decorative-bg="tru
 }
 
 html[data-contrast]:not([data-contrast="default"]) .a11y-contrast-fixed,
+html[data-contrast]:not([data-contrast="default"]) .contact-form,
 html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] {
   --color-burgundy: #3b0615;
   --color-yellow: #edb664;
@@ -377,6 +384,20 @@ html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="tr
   --color-brown: #131312;
   --color-white-blue: #e7f2ff;
   --color-vine: #501819;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .contact-form {
+  background-color: var(--color-blue-dark) !important;
+  color: var(--color-cream) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .contact-form :is(
+  .brxe-heading,
+  .brxe-text-basic,
+  .brxe-text-link,
+  a
+) {
+  color: inherit !important;
 }
 
 html[data-contrast]:not([data-contrast="default"]) .a11y-contrast-fixed :is(
