@@ -633,10 +633,11 @@ html[data-bemke-reduced-motion="true"]
 }
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
+  /* Bricks changes .padding-global to --space-24 at this breakpoint. */
   body.bricks-is-frontend
     .mobile-scroll[data-bemke-mobile-scroll-ready="1"]
     > .mobile-scroll__track {
-    --bemke-mobile-scroll-gutter: var(--padding-global, 4rem);
+    --bemke-mobile-scroll-gutter: var(--space-24, 2.4rem);
 
     align-items: stretch;
     box-sizing: border-box;
@@ -684,7 +685,7 @@ html[data-bemke-reduced-motion="true"]
 
   body.bricks-is-frontend
     .mobile-scroll:not([data-bemke-mobile-scroll-ready="1"]) {
-    --bemke-mobile-scroll-gutter: var(--padding-global, 4rem);
+    --bemke-mobile-scroll-gutter: var(--space-24, 2.4rem);
 
     align-items: stretch;
     box-sizing: border-box;
