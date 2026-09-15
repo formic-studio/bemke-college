@@ -26,6 +26,17 @@ body {
   color: var(--bemke-color-text);
 }
 
+.bemke-college-getresponse-native-form {
+  box-sizing: border-box;
+  min-height: 12rem;
+  width: 100%;
+}
+
+.bemke-college-getresponse-native-form getresponse-form {
+  display: block;
+  width: 100%;
+}
+
 .sans-font {
   font-family: "Season Sans", sans-serif;
   font-style: normal;
