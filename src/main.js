@@ -1,6 +1,8 @@
 import './styles/main.css';
 import { initBricksFormA11y } from './bricks-form-a11y.js';
 import { initMotionPreference } from './motion-preference.js';
+import { initAccessibilityMotionSwitch } from './accessibility-motion-switch.js';
+import { initDecorativeVideoMotion } from './decorative-video-motion.js';
 import { initMobileMenu } from './mobile-menu.js';
 import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
@@ -89,6 +91,8 @@ const initMobileScrollFeature = () => {
 const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
+  initAccessibilityMotionSwitch();
+  initDecorativeVideoMotion();
   initBricksFormA11y();
   initSliderFeature();
   initScrollExpandFeature();

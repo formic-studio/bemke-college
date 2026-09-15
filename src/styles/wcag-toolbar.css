@@ -15,6 +15,50 @@
   outline-offset: 2px;
 }
 
+.lang-switcher-block[data-bemke-motion-switch-ready="1"] {
+  cursor: pointer;
+}
+
+.lang-switcher-block[data-bemke-motion-switch-ready="1"]:focus-visible {
+  border-radius: 0.4rem;
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.lang-switcher-block[aria-disabled="true"] {
+  cursor: default;
+}
+
+.lang-switcher-block.is-active .animation-switcher {
+  justify-content: flex-start;
+}
+
+html[data-bemke-reduced-motion="true"] {
+  scroll-behavior: auto !important;
+}
+
+html[data-bemke-reduced-motion="true"] *,
+html[data-bemke-reduced-motion="true"] *::before,
+html[data-bemke-reduced-motion="true"] *::after {
+  animation-delay: 0ms !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-delay: 0ms !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html *,
+  html *::before,
+  html *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 html[data-a11y-font-scale="normal"] {
   --a11y-font-scale: 1;
 }
@@ -122,6 +166,33 @@ html[data-contrast]:not([data-contrast="default"]) .brxe-section {
   background-color: var(--a11y-bg) !important;
   background-image: none !important;
   color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .section_hero .video {
+  display: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) #brx-header :is(
+  .brxe-container,
+  .brxe-block
+):not([data-a11y-contrast-fixed]):not(.animation-switcher):not(.lang-switcher) {
+  background-color: var(--a11y-bg) !important;
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) #brx-header .switch-block {
+  background-color: var(--a11y-control-bg) !important;
+  border: 1px solid var(--a11y-control-border) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) #brx-header .animation-switcher {
+  background-color: var(--a11y-bg) !important;
+  border: 1px solid var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) #brx-header .lang-switcher .switch-block {
+  background-color: var(--a11y-bg) !important;
+  border-color: var(--a11y-text) !important;
 }
 
 html[data-contrast]:not([data-contrast="default"]) :is(
