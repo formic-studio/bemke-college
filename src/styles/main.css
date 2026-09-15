@@ -326,10 +326,14 @@ html[data-contrast]:not([data-contrast="default"])
   }
 }
 
-/* Keep the personal development card descriptions aligned at the top;
-   shorter cards leave their extra space below the content. */
+/* The shared .svg-wrapper grows to fill each card, pushing short descriptions
+   down. Keep its media at its natural height and leave surplus below the text. */
 .card.card-personal-dev.brxe-block {
   justify-content: flex-start;
+}
+
+.card.card-personal-dev.brxe-block > .svg-wrapper.brxe-block {
+  flex: 0 0 auto;
 }
 
 /* Keep the programme card media columns equal. Bricks renders these image
