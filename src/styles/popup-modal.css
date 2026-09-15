@@ -30,10 +30,10 @@
   box-sizing: border-box;
   position: relative;
   width: min(69rem, calc(100vw - 3.2rem)) !important;
-  height: min(60rem, calc(100dvh - 3.2rem)) !important;
+  height: auto !important;
   min-height: 0 !important;
   max-width: none !important;
-  max-height: calc(100dvh - 3.2rem);
+  max-height: calc(100dvh - 3.2rem) !important;
   overflow: auto;
   background-color: var(--color-blue-dark, #2d3f53) !important;
 }
@@ -95,8 +95,7 @@ body.bemke-popup-public.bemke-popup-open {
 @media (max-width: 767px) {
   .bemke-popup-public .popup-block.brxe-block .contact-form {
     width: calc(100vw - 2rem) !important;
-    height: min(60rem, calc(100dvh - 2rem)) !important;
-    max-height: calc(100dvh - 2rem);
+    max-height: calc(100dvh - 2rem) !important;
     padding-top: 5.2rem !important;
   }
 }
