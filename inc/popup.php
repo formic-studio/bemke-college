@@ -10,10 +10,10 @@ defined( 'ABSPATH' ) || exit;
 add_filter( 'body_class', 'bemke_college_popup_body_class' );
 
 /**
- * Exclude the Bricks builder canvas so the popup stays visible while editing.
+ * Exclude the Bricks builder canvas from frontend-only integrations.
  */
-function bemke_college_is_public_homepage(): bool {
-    if ( is_admin() || ! is_front_page() ) {
+function bemke_college_is_public_request(): bool {
+    if ( is_admin() ) {
         return false;
     }
 
@@ -24,6 +24,13 @@ function bemke_college_is_public_homepage(): bool {
     }
 
     return true;
+}
+
+/**
+ * Show the custom popup only on the public homepage.
+ */
+function bemke_college_is_public_homepage(): bool {
+    return is_front_page() && bemke_college_is_public_request();
 }
 
 /**
