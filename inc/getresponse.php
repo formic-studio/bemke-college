@@ -11,7 +11,7 @@ const BEMKE_COLLEGE_GETRESPONSE_FORM_ID = 'b2ac1302-032a-4e81-9c0f-46e8f9b223b1'
 const BEMKE_COLLEGE_GETRESPONSE_EMBED_VARIANT = '0';
 const BEMKE_COLLEGE_GETRESPONSE_WEB_CONNECT_URL = 'https://an.gr-wcon.com/script/9ec4bda8-b9b6-4218-b35b-940fcfff91d0/ga.js';
 
-add_action( 'wp_head', 'bemke_college_getresponse_print_web_connect', 20 );
+add_action( 'wp_head', 'bemke_college_getresponse_print_web_connect', 1 );
 add_shortcode( 'bemke_college_getresponse_form', 'bemke_college_getresponse_form_shortcode' );
 
 /**
@@ -22,6 +22,8 @@ function bemke_college_getresponse_print_web_connect(): void {
         return;
     }
     ?>
+    <link rel="preconnect" href="https://an.gr-wcon.com" crossorigin="use-credentials">
+    <link rel="preconnect" href="https://ga2.getresponse.com" crossorigin="use-credentials">
     <!-- GetResponse Analytics -->
     <script type="text/javascript">
         (function(m, o, n, t, e, r, _) {

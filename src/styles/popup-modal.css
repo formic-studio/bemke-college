@@ -1,3 +1,13 @@
+.bemke-popup-public .popup-block {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.bemke-popup-public .bemke-popup-dialog[open] .popup-block {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 .bemke-popup-dialog {
   box-sizing: border-box;
   position: fixed;
@@ -36,6 +46,25 @@
   width: 100%;
   max-width: none;
   min-height: 100%;
+}
+
+.bemke-popup-dialog .bemke-college-getresponse-native-form {
+  position: relative;
+}
+
+.bemke-popup-form-loading {
+  position: absolute;
+  top: 2.4rem;
+  right: 0;
+  left: 0;
+  margin: 0;
+  color: var(--color-cream, #fff9f4);
+  text-align: center;
+  pointer-events: none;
+}
+
+.bemke-popup-form-loading[hidden] {
+  display: none !important;
 }
 
 .bemke-popup-close {
