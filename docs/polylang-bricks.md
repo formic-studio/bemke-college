@@ -2,7 +2,17 @@
 
 ## Aktualny stan staging
 
-Home Page (EN) ma język `en_GB`, a po instalacji Polylang ma przypięte tłumaczenie PL znajdujące się w koszu. W nagłówku HTML widać adres `/pl/home-page-polski__trashed/` jako `hreflang="pl"`. Na liście stron widać ikonę ołówka w kolumnie PL zamiast plusa oraz `Trash (1)`. Przed tworzeniem kolejnej strony PL otwórz **Pages > Trash** i sprawdź ten wpis. Jeśli jest to pusta strona przygotowana przez kreator, usuń ją na stałe i odśwież listę stron: przy Home Page powinien wrócić plus w kolumnie PL. Jeśli zawiera już pracę, przywróć ją i edytuj tę stronę zamiast tworzyć duplikat.
+Home Page (EN) ma język `en_GB`. W trakcie instalacji Polylang powstało puste tłumaczenie PL w koszu, które zostało później zastąpione stroną Home Page PL (ID 728). Ta nowa strona jest obecnie opublikowana z adresem `/pl/home-page-pl/`, ale adres zwraca 404; `/pl/` też zwraca 404. EN Home Page nadal ma plus w kolumnie PL, więc stron nie połączono jako tłumaczeń. Próba **Edit with Bricks** przy PL kończy się komunikatem **Invalid post type**. Publiczne API WordPressa wskazuje, że ID 728 jest zwykłą stroną (`type: page`), więc nie należy zmieniać jej typu wpisu ani slugu w ciemno.
+
+## Naprawa strony PL i Bricks
+
+1. W **Pages > All Pages > Home Page PL > Quick Edit** ustaw status **Draft** i zapisz, jeśli treść PL nie jest jeszcze gotowa.
+2. W **Settings > Permalinks** kliknij **Save Changes** bez zmiany struktury adresów. To odświeża reguły routingu WordPressa.
+3. W **Bricks > Settings > General > Post types** sprawdź, czy **Pages** jest włączone. EN Home Page korzysta z Bricks, więc to kontrola konfiguracji, nie potwierdzona przyczyna.
+4. Otwórz **Home Page PL > Edit** w zwykłym edytorze WordPressa. W panelu **Languages** sprawdź język **Polski**, a w polu tłumaczenia **English** wskaż **Home Page**. Zapisz szkic pełnym przyciskiem **Save Draft / Update**.
+5. Z tego edytora ponownie kliknij **Edit with Bricks**. Jeżeli błąd nadal wystąpi, sprawdź, czy angielska Home Page nadal otwiera się w Bricks; jeśli tak, problem dotyczy tłumaczenia PL lub jego relacji, a nie globalnego ustawienia Pages.
+
+Po połączeniu tłumaczeń sprawdź **Languages > Settings > URL modifications**: dla statycznej strony głównej ustaw URL z samym kodem języka. Po ukończeniu i publikacji strony PL oczekiwany adres to `/pl/`, a nie `/pl/home-page-pl/`.
 
 ## Bricks: brak akcji Duplicate
 
