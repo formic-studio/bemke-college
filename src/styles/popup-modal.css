@@ -1,54 +1,44 @@
-.bemke-popup-public .popup-block {
+.bemke-popup-public .popup-block.brxe-block {
+  box-sizing: border-box;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  max-width: none !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
   opacity: 0 !important;
   pointer-events: none !important;
-}
-
-.bemke-popup-public .bemke-popup-dialog[open] .popup-block {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
-.bemke-popup-dialog {
-  box-sizing: border-box;
-  position: fixed;
-  inset: 0;
-  width: min(69rem, calc(100vw - 3.2rem));
-  height: min(60rem, calc(100dvh - 3.2rem));
-  max-height: calc(100dvh - 3.2rem);
-  margin: auto;
-  padding: 0;
-  border: 0;
-  border-radius: 8px;
-  background: var(--color-blue-dark, #2d3f53);
-  overflow: auto;
-}
-
-.bemke-popup-dialog::backdrop {
-  background-color: rgb(19 19 18 / 38%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.bemke-popup-dialog .popup-block.brxe-block {
-  position: static !important;
-  z-index: auto !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 100% !important;
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-.bemke-popup-dialog .contact-form {
-  box-sizing: border-box;
-  position: relative;
-  width: 100%;
-  max-width: none;
-  min-height: 100%;
+.bemke-popup-public .popup-block.brxe-block[data-bemke-popup-active="true"] {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  background: rgb(19 19 18 / 38%) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
-.bemke-popup-dialog .bemke-college-getresponse-native-form {
+.bemke-popup-public .popup-block.brxe-block .contact-form {
+  box-sizing: border-box;
+  position: relative;
+  width: min(69rem, calc(100vw - 3.2rem)) !important;
+  height: min(60rem, calc(100dvh - 3.2rem)) !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: calc(100dvh - 3.2rem);
+  overflow: auto;
+  background-color: var(--color-blue-dark, #2d3f53) !important;
+}
+
+.bemke-popup-public .popup-block .bemke-college-getresponse-native-form {
   position: relative;
 }
 
@@ -103,13 +93,10 @@ body.bemke-popup-open {
 }
 
 @media (max-width: 767px) {
-  .bemke-popup-dialog {
-    width: calc(100vw - 2rem);
-    height: min(60rem, calc(100dvh - 2rem));
+  .bemke-popup-public .popup-block.brxe-block .contact-form {
+    width: calc(100vw - 2rem) !important;
+    height: min(60rem, calc(100dvh - 2rem)) !important;
     max-height: calc(100dvh - 2rem);
-  }
-
-  .bemke-popup-dialog .contact-form {
     padding-top: 5.2rem !important;
   }
 }

@@ -3,6 +3,7 @@ const OPEN_EVENT = 'bemke:popup-open';
 const OPEN_TRIGGER_SELECTOR = '.btn-popup-open, [data-bemke-popup-open]';
 const SESSION_KEY = 'bemke_college_popup_seen';
 const READY_ATTRIBUTE = 'data-bemke-popup-ready';
+const OPEN_ATTRIBUTE = 'data-bemke-popup-active';
 
 const safeReadSeen = () => {
   try {
@@ -20,32 +21,21 @@ const safeMarkSeen = () => {
   }
 };
 
+const isPolishPage = () => document.documentElement.lang.toLowerCase().startsWith('pl');
+
 const createCloseButton = () => {
   const button = document.createElement('button');
-  const isPolish = document.documentElement.lang.toLowerCase().startsWith('pl');
 
   button.type = 'button';
   button.className = 'bemke-popup-close';
-  button.setAttribute('aria-label', isPolish ? 'Zamknij okno' : 'Close popup');
-  button.setAttribute('autofocus', '');
+  button.setAttribute('aria-label', isPolishPage() ? 'Zamknij okno' : 'Close popup');
   button.innerHTML = '<span aria-hidden="true">&times;</span>';
 
   return button;
 };
 
-const createFormLoadingStatus = () => {
-  const status = document.createElement('p');
-  const isPolish = document.documentElement.lang.toLowerCase().startsWith('pl');
-
-  status.className = 'bemke-popup-form-loading';
-  status.setAttribute('role', 'status');
-  status.textContent = isPolish ? 'Ładowanie formularza…' : 'Loading the form…';
-
-  return status;
-};
-
 export function initPopupModal() {
-  // Bricks uses an iframe for the builder canvas. Keep its editable block intact.
+  // Keep the Bricks builder canvas editable.
   if (window.self !== window.top) {
     return;
   }
@@ -53,41 +43,43 @@ export function initPopupModal() {
   const popupBlock = document.querySelector(POPUP_SELECTOR);
   const content = popupBlock?.querySelector(':scope > .contact-form');
 
-  if (!popupBlock || !content || popupBlock.hasAttribute(READY_ATTRIBUTE) ||
-    !('showModal' in HTMLDialogElement.prototype)) {
+  if (!popupBlock || !content || popupBlock.hasAttribute(READY_ATTRIBUTE)) {
     return;
   }
 
   popupBlock.setAttribute(READY_ATTRIBUTE, '1');
+  popupBlock.setAttribute('role', 'dialog');
+  popupBlock.setAttribute('aria-modal', 'true');
+  popupBlock.setAttribute('aria-hidden', 'true');
+  popupBlock.inert = true;
 
   const heading = content.querySelector('h1, h2, h3, h4, h5, h6');
-  const dialog = document.createElement('dialog');
-  const closeButton = createCloseButton();
-  const originalPosition = document.createComment('Bemke popup position');
-  let previousFocus = null;
-  let openedCount = 0;
-  let formElement = content.querySelector('getresponse-form');
-  let formWasReady = false;
-  let loadingTimer = null;
-  let recoveryTimer = null;
-  const loadingStatus = formElement ? createFormLoadingStatus() : null;
-
-  popupBlock.after(originalPosition);
-  dialog.className = 'bemke-popup-dialog';
 
   if (heading) {
     heading.id ||= 'bemke-popup-title';
-    dialog.setAttribute('aria-labelledby', heading.id);
+    popupBlock.setAttribute('aria-labelledby', heading.id);
   } else {
-    dialog.setAttribute('aria-label', 'Bemke College Open Day');
+    popupBlock.setAttribute('aria-label', 'Bemke College Open Day');
   }
 
-  popupBlock.setAttribute('aria-hidden', 'true');
-  popupBlock.inert = true;
-  document.body.append(dialog);
-  content.prepend(closeButton);
-  formElement?.before(loadingStatus);
+  const closeButton = createCloseButton();
+  const formElement = content.querySelector('getresponse-form');
+  const backgroundInertState = new Map();
+  let previousFocus = null;
+  let loadingStatus = null;
+  let loadingTimer = null;
+  let slowTimer = null;
 
+  content.prepend(closeButton);
+
+  if (formElement) {
+    loadingStatus = document.createElement('p');
+    loadingStatus.className = 'bemke-popup-form-loading';
+    loadingStatus.setAttribute('role', 'status');
+    formElement.before(loadingStatus);
+  }
+
+  const isOpen = () => popupBlock.hasAttribute(OPEN_ATTRIBUTE);
   const isFormRendered = () => formElement?.hasAttribute('data-ready') &&
     formElement.getBoundingClientRect().height > 0;
 
@@ -96,132 +88,162 @@ export function initPopupModal() {
       return;
     }
 
-    const rendered = isFormRendered();
-    loadingStatus.hidden = rendered;
-    formWasReady ||= rendered;
+    loadingStatus.hidden = isFormRendered();
 
-    if (rendered && loadingTimer !== null) {
+    if (loadingStatus.hidden && loadingTimer !== null) {
       window.clearInterval(loadingTimer);
       loadingTimer = null;
     }
+
+    if (loadingStatus.hidden && slowTimer !== null) {
+      window.clearTimeout(slowTimer);
+      slowTimer = null;
+    }
   };
 
-  const formObserver = formElement ? new MutationObserver(updateFormLoading) : null;
-  formObserver?.observe(formElement, { attributes: true });
+  if (formElement) {
+    new MutationObserver(updateFormLoading).observe(formElement, { attributes: true });
+  }
 
-  const recoverFormIfMissing = () => {
-    recoveryTimer = null;
+  const lockBackground = () => {
+    let current = popupBlock;
 
-    if (!dialog.open || !formElement || !formWasReady || isFormRendered()) {
-      return;
+    while (current.parentElement) {
+      const parent = current.parentElement;
+
+      for (const sibling of parent.children) {
+        if (sibling !== current && sibling instanceof HTMLElement &&
+          !backgroundInertState.has(sibling)) {
+          backgroundInertState.set(sibling, sibling.inert);
+          sibling.inert = true;
+        }
+      }
+
+      if (parent === document.body) {
+        break;
+      }
+
+      current = parent;
     }
+  };
 
-    const replacement = document.createElement('getresponse-form');
-
-    for (const attribute of ['form-id', 'e']) {
-      if (formElement.hasAttribute(attribute)) {
-        replacement.setAttribute(attribute, formElement.getAttribute(attribute));
+  const unlockBackground = () => {
+    for (const [element, wasInert] of backgroundInertState) {
+      if (element.isConnected) {
+        element.inert = wasInert;
       }
     }
 
-    formElement.replaceWith(replacement);
-    formElement = replacement;
-    formObserver?.disconnect();
-    formObserver?.observe(formElement, { attributes: true });
-    updateFormLoading();
+    backgroundInertState.clear();
   };
 
   const open = () => {
-    if (dialog.open) {
+    if (isOpen()) {
       return;
     }
 
     previousFocus = document.activeElement;
     popupBlock.removeAttribute('aria-hidden');
-    popupBlock.removeAttribute('inert');
     popupBlock.inert = false;
-    dialog.append(popupBlock);
-    dialog.showModal();
+    popupBlock.setAttribute(OPEN_ATTRIBUTE, 'true');
+    lockBackground();
     document.body.classList.add('bemke-popup-open');
     closeButton.focus({ preventScroll: true });
-    openedCount += 1;
-    updateFormLoading();
-
-    if (loadingStatus && !loadingStatus.hidden && loadingTimer === null) {
-      loadingTimer = window.setInterval(updateFormLoading, 250);
-    }
-
-    if (recoveryTimer !== null) {
-      window.clearTimeout(recoveryTimer);
-      recoveryTimer = null;
-    }
-
-    if (openedCount > 1 && formWasReady) {
-      recoveryTimer = window.setTimeout(recoverFormIfMissing, 800);
-    }
-
     safeMarkSeen();
+
+    if (loadingStatus) {
+      loadingStatus.textContent = isPolishPage() ?
+        'Ładowanie formularza…' : 'Loading the form…';
+      updateFormLoading();
+
+      if (!loadingStatus.hidden) {
+        loadingTimer = window.setInterval(updateFormLoading, 250);
+        slowTimer = window.setTimeout(() => {
+          if (isOpen() && !loadingStatus.hidden) {
+            loadingStatus.textContent = isPolishPage() ?
+              'Formularz ładuje się dłużej niż zwykle. Odśwież stronę.' :
+              'The form is taking longer than usual. Please refresh the page.';
+          }
+        }, 8000);
+      }
+    }
   };
 
   const close = () => {
-    if (dialog.open) {
-      dialog.close();
-    }
-  };
-
-  closeButton.addEventListener('click', close);
-  dialog.addEventListener('click', (event) => {
-    if (event.target !== dialog) {
+    if (!isOpen()) {
       return;
     }
 
-    const rect = dialog.getBoundingClientRect();
-    const outside = event.clientX < rect.left || event.clientX > rect.right ||
-      event.clientY < rect.top || event.clientY > rect.bottom;
-
-    if (outside) {
-      close();
-    }
-  });
-  dialog.addEventListener('close', () => {
-    if (dialog.open) {
-      return;
-    }
-
+    popupBlock.removeAttribute(OPEN_ATTRIBUTE);
     popupBlock.setAttribute('aria-hidden', 'true');
     popupBlock.inert = true;
-    originalPosition.before(popupBlock);
+    unlockBackground();
     document.body.classList.remove('bemke-popup-open');
-    if (formElement?.hasAttribute('data-ready')) {
-      formWasReady = true;
-    }
 
     if (loadingTimer !== null) {
       window.clearInterval(loadingTimer);
       loadingTimer = null;
     }
 
-    if (recoveryTimer !== null) {
-      window.clearTimeout(recoveryTimer);
-      recoveryTimer = null;
+    if (slowTimer !== null) {
+      window.clearTimeout(slowTimer);
+      slowTimer = null;
     }
 
     if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
       previousFocus.focus({ preventScroll: true });
     }
+  };
+
+  document.querySelectorAll(OPEN_TRIGGER_SELECTOR).forEach((trigger) => {
+    trigger.setAttribute('aria-haspopup', 'dialog');
+
+    if (popupBlock.id) {
+      trigger.setAttribute('aria-controls', popupBlock.id);
+    }
+
+    if (!trigger.matches('button, a[href]')) {
+      if (!trigger.hasAttribute('role')) {
+        trigger.setAttribute('role', 'button');
+      }
+
+      if (!trigger.hasAttribute('tabindex')) {
+        trigger.setAttribute('tabindex', '0');
+      }
+    }
   });
 
+  closeButton.addEventListener('click', close);
+  popupBlock.addEventListener('click', (event) => {
+    if (event.target === popupBlock) {
+      close();
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (isOpen() && event.key === 'Escape') {
+      event.preventDefault();
+      close();
+      return;
+    }
+
+    const target = event.target instanceof Element ? event.target : null;
+    const trigger = target?.closest(OPEN_TRIGGER_SELECTOR);
+
+    if (!isOpen() && trigger && !trigger.matches('button, a[href]') &&
+      (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      open();
+    }
+  });
   document.addEventListener(OPEN_EVENT, open);
   document.addEventListener('click', (event) => {
     const target = event.target instanceof Element ? event.target : null;
     const trigger = target?.closest(OPEN_TRIGGER_SELECTOR);
 
-    if (!trigger) {
-      return;
+    if (trigger) {
+      event.preventDefault();
+      open();
     }
-
-    event.preventDefault();
-    open();
   });
 
   if (!safeReadSeen()) {
