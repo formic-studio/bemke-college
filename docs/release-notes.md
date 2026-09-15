@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Zabezpieczono stronę przed poziomym scrollem na mobile. Nakładka `.popup-block` i pełnoekranowe menu używają teraz `inset: 0` z automatyczną szerokością zamiast `100vw`; zamknięte menu odsłania się przez `clip-path` bez przesuwania niewidocznego bloku poza viewport. Dokument ma `overflow-x: clip` wyłącznie na mobile, podczas gdy karuzela i rząd kart zachowują własne przewijanie poziome.
 - Poprawiono szerokość poziomego rzędu kart `.mobile-scroll` na mobile: jego wysunięcie poza kontener używa teraz tego samego odstępu 24 px co mobilny `.padding-global` w Bricks. Wcześniejsza wartość 40 px poszerzała dokument o 16 px z każdej strony i pozwalała przesuwać całą stronę w poziomie.
 - Popup na publicznej stronie głównej ma `opacity: 0` przed inicjalizacją i po zamknięciu, dzięki czemu nie miga podczas ładowania sekcji; w Bricks Builder pozostaje widoczny do edycji. Formularz GetResponse nie jest przenoszony ani montowany ponownie przy otwarciu lub zamknięciu. Do czasu renderowania pól pokazuje się komunikat ładowania, który po 8 sekundach podaje sposób odświeżenia strony zamiast pozostawać bez końca w stanie „Loading”. Web Connect zaczyna ładować się wcześniej w `<head>`, z preconnect do domen GetResponse. Rzeczywisty czas renderowania pól zależy nadal od skryptu GetResponse i połączenia użytkownika.
 - W kartach `.card-personal-dev` wyłączono pionowe rozciąganie przez `space-between` oraz `flex-grow` współdzielonego bloku `.svg-wrapper`. Obrazy i opisy zaczynają się na wspólnych wysokościach, a wolne miejsce pozostaje pod krótszym opisem.
