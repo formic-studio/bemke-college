@@ -1,5 +1,6 @@
 @import './font-sizes.css';
 @import './wcag-toolbar.css';
+@import './popup-modal.css';
 
 :root {
   --bemke-color-text: #151515;

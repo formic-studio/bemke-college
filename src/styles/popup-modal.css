@@ -1,0 +1,83 @@
+.bemke-popup-dialog {
+  box-sizing: border-box;
+  position: fixed;
+  inset: 0;
+  width: min(69rem, calc(100vw - 3.2rem));
+  height: fit-content;
+  max-height: calc(100dvh - 3.2rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  overflow: auto;
+}
+
+.bemke-popup-dialog::backdrop {
+  background-color: rgb(19 19 18 / 50%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.bemke-popup-dialog .popup-block.brxe-block {
+  position: static !important;
+  z-index: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.bemke-popup-dialog .contact-form {
+  position: relative;
+  width: 100%;
+  max-width: none;
+}
+
+.bemke-popup-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-cream, #fff9f4);
+  font: inherit;
+  font-size: 2.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bemke-popup-close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .contact-form .bemke-popup-close {
+  background: transparent !important;
+  border-color: var(--color-cream, #fff9f4) !important;
+  color: var(--color-cream, #fff9f4) !important;
+}
+
+body.bemke-popup-open {
+  overflow: hidden !important;
+}
+
+@media (max-width: 767px) {
+  .bemke-popup-dialog {
+    width: calc(100vw - 2rem);
+    max-height: calc(100dvh - 2rem);
+  }
+
+  .bemke-popup-dialog .contact-form {
+    padding-top: 5.2rem !important;
+  }
+}

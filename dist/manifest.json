@@ -8,7 +8,7 @@
     "name": "gsap"
   },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.B2mvLsy_.js",
+    "file": "assets/bricks-slider._nWIk2Fw.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
@@ -18,7 +18,7 @@
     ]
   },
   "src/main.js": {
-    "file": "assets/main.C_ODAe9p.js",
+    "file": "assets/main.Cb4ESXyq.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -28,16 +28,23 @@
       "src/scroll-highlight.js",
       "src/scroll-reveal.js",
       "src/reverse-cards.js",
-      "src/mobile-scroll.js"
+      "src/mobile-scroll.js",
+      "src/popup-modal.js"
     ],
     "css": [
-      "assets/main.edjqRr1l.css"
+      "assets/main.CaJJaHho.css"
     ]
   },
   "src/mobile-scroll.js": {
     "file": "assets/mobile-scroll.C-R5jqnw.js",
     "name": "mobile-scroll",
     "src": "src/mobile-scroll.js",
+    "isDynamicEntry": true
+  },
+  "src/popup-modal.js": {
+    "file": "assets/popup-modal.D8mUDQqG.js",
+    "name": "popup-modal",
+    "src": "src/popup-modal.js",
     "isDynamicEntry": true
   },
   "src/reverse-cards.js": {
@@ -47,7 +54,7 @@
     "isDynamicEntry": true
   },
   "src/scroll-expand-images.js": {
-    "file": "assets/scroll-expand-images.CBHd9uhA.js",
+    "file": "assets/scroll-expand-images.f3CoG3VC.js",
     "name": "scroll-expand-images",
     "src": "src/scroll-expand-images.js",
     "isDynamicEntry": true,
@@ -58,7 +65,7 @@
     ]
   },
   "src/scroll-highlight.js": {
-    "file": "assets/scroll-highlight.DGMAYBlJ.js",
+    "file": "assets/scroll-highlight.BraKihJ1.js",
     "name": "scroll-highlight",
     "src": "src/scroll-highlight.js",
     "isDynamicEntry": true,
@@ -69,7 +76,7 @@
     ]
   },
   "src/scroll-reveal.js": {
-    "file": "assets/scroll-reveal.Dw1ufWdQ.js",
+    "file": "assets/scroll-reveal.Dh5K8jtT.js",
     "name": "scroll-reveal",
     "src": "src/scroll-reveal.js",
     "isDynamicEntry": true,

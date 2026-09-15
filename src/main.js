@@ -88,6 +88,16 @@ const initMobileScrollFeature = () => {
   });
 };
 
+const initPopupFeature = () => {
+  if (!document.querySelector('.popup-block')) {
+    return;
+  }
+
+  import('./popup-modal.js').then(({ initPopupModal }) => {
+    initPopupModal();
+  });
+};
+
 const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
@@ -100,6 +110,7 @@ const initBemkeCollege = () => {
   initScrollRevealFeature();
   initReverseCardFeature();
   initMobileScrollFeature();
+  initPopupFeature();
   initMobileMenu();
   initOnePageLinks();
   initWcagToolbar();
