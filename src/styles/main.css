@@ -308,23 +308,19 @@ html[data-contrast]:not([data-contrast="default"])
 
   #brx-header .nav-menu.brxe-block {
     --bemke-mobile-menu-gutter: var(--padding-global, 4rem);
-    align-items: stretch !important;
     background-color: var(--color-blue-light);
-    display: flex;
-    flex-direction: column !important;
-    height: 100vh;
-    height: 100dvh;
+    box-sizing: border-box;
+    display: block !important;
+    height: auto !important;
     inset: 0;
-    justify-content: flex-start !important;
-    min-height: 100dvh;
+    min-height: 0 !important;
     opacity: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     overscroll-behavior: contain;
-    padding: clamp(12rem, 18vh, 18rem) 0 0;
+    padding: 0 !important;
     pointer-events: none;
     position: fixed;
-    row-gap: clamp(2rem, 4.2vh, 3.6rem);
+    top: var(--bemke-mobile-menu-top, 7rem);
     clip-path: inset(0 0 0 100%);
     transition:
       opacity 320ms ease,
@@ -347,12 +343,32 @@ html[data-contrast]:not([data-contrast="default"])
     display: none;
   }
 
+  #brx-header .bemke-mobile-menu__content {
+    align-items: stretch;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.6rem, 2.4vh, 2.4rem);
+    height: 100%;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-top: 3.2rem;
+    scrollbar-width: thin;
+    width: 100%;
+  }
+
+  #brx-header .bemke-mobile-menu__content > svg {
+    display: none;
+  }
+
   #brx-header .nav-menu .nav-mobile {
-    align-self: flex-end;
+    align-self: flex-end !important;
     color: var(--color-brown);
     font-size: clamp(2.8rem, 8vw, 4.8rem);
     line-height: 1.1;
-    margin-right: var(--bemke-mobile-menu-gutter);
+    margin-right: var(--bemke-mobile-menu-gutter) !important;
     text-align: right;
     text-transform: uppercase;
   }

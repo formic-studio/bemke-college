@@ -121,6 +121,31 @@ const createAccessibilityPanel = (header, menu, media) => {
   return section;
 };
 
+const createMobileContent = (menu, media) => {
+  const content = document.createElement('div');
+  content.className = 'bemke-mobile-menu__content';
+
+  const sync = () => {
+    if (media.matches) {
+      if (!content.parentNode) {
+        content.append(...menu.childNodes);
+        menu.appendChild(content);
+      }
+      return;
+    }
+
+    if (content.parentNode) {
+      content.before(...content.childNodes);
+      content.remove();
+    }
+  };
+
+  media.addEventListener('change', sync);
+  sync();
+
+  return content;
+};
+
 const createToggle = (menu) => {
   const button = document.createElement('button');
   button.id = 'bemke-mobile-menu-toggle';
@@ -169,6 +194,11 @@ const setMenuAccessibility = (state) => {
 };
 
 const setMenuState = (state, isOpen, shouldRestoreFocus = true) => {
+  if (isOpen && state.media.matches) {
+    state.updateMenuTop();
+    state.content.scrollTop = 0;
+  }
+
   state.isOpen = isOpen;
   document.documentElement.classList.toggle('bemke-mobile-menu-open', isOpen);
   state.toggle.setAttribute('aria-expanded', String(isOpen));
@@ -242,6 +272,13 @@ export const initMobileMenu = () => {
   const media = window.matchMedia(MOBILE_MENU_QUERY);
   const toggle = existingToggle ?? createToggle(menu);
   const labels = getMenuLabels();
+  const updateMenuTop = () => {
+    if (media.matches) {
+      menu.style.setProperty('--bemke-mobile-menu-top', `${Math.max(0, headerInner.getBoundingClientRect().bottom)}px`);
+    } else {
+      menu.style.removeProperty('--bemke-mobile-menu-top');
+    }
+  };
 
   if (!existingToggle) {
     headerInner.appendChild(toggle);
@@ -253,15 +290,20 @@ export const initMobileMenu = () => {
   toggle.setAttribute('aria-label', labels.open);
   toggle.setAttribute(MOBILE_MENU_TOGGLE_READY_ATTRIBUTE, '1');
 
+  createAccessibilityPanel(header, menu, media);
+  const content = createMobileContent(menu, media);
+  updateMenuTop();
+
   menuState = {
+    content,
     isOpen: false,
     labels,
     media,
     menu,
     toggle,
+    updateMenuTop,
   };
 
-  createAccessibilityPanel(header, menu, media);
   setMenuAccessibility(menuState);
 
   toggle.addEventListener('click', () => {
@@ -286,5 +328,12 @@ export const initMobileMenu = () => {
     handleTabTrap(event, menuState);
   });
 
-  media.addEventListener('change', () => syncBreakpointState(menuState));
+  media.addEventListener('change', () => {
+    updateMenuTop();
+    syncBreakpointState(menuState);
+  });
+  window.addEventListener('resize', updateMenuTop);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(updateMenuTop).observe(headerInner);
+  }
 };
