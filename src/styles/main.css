@@ -600,7 +600,8 @@ html[data-contrast]:not([data-contrast="default"])
   }
 
   .card-img-block > .academic-img > img,
-  .card-img-block > .bemke-programme-image > .academic-img > img {
+  .card-img-block > .bemke-programme-image > .academic-img > img,
+  .card-img-block > .bemke-programme-image > img.academic-img {
     display: block;
     height: 100%;
     object-fit: cover;

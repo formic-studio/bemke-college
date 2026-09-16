@@ -55,10 +55,10 @@ function bemke_college_tune_slider_image_loading( array $attr, WP_Post $attachme
 /**
  * Use the current programme image at every width and add its AI label.
  *
- * Bricks still stores older mobile-only sources for these two pictures. Remove
- * those sources from public HTML so the responsive img/srcset follows any later
- * desktop image change automatically. Wrap the image and badge together so the
- * label stays anchored to the image rather than the card's text column.
+ * Bricks may render these elements as a picture or a plain img, depending on
+ * whether a mobile source is still configured. Remove any older mobile source
+ * so the responsive img/srcset follows later image changes. Wrap the image and
+ * badge together so the label stays anchored to the image, not the text column.
  *
  * @param string $html    Rendered Bricks element HTML.
  * @param object $element Bricks element instance.
@@ -77,7 +77,10 @@ function bemke_college_prepare_programme_images( string $html, $element ): strin
         return $html;
     }
 
-    if ( false === strpos( $html, '<picture' ) || false !== strpos( $html, 'bemke-programme-image' ) ) {
+    if (
+        ( false === strpos( $html, '<picture' ) && false === strpos( $html, '<img' ) ) ||
+        false !== strpos( $html, 'bemke-programme-image' )
+    ) {
         return $html;
     }
 
