@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'init', 'bemke_college_disable_frontend_emoji_assets' );
 add_filter( 'wp_get_attachment_image_attributes', 'bemke_college_tune_slider_image_loading', 20, 3 );
+add_filter( 'bricks/frontend/render_element', 'bemke_college_sync_programme_images_on_mobile', 20, 2 );
 
 /**
  * Remove WordPress emoji assets from the public frontend.
@@ -49,4 +50,37 @@ function bemke_college_tune_slider_image_loading( array $attr, WP_Post $attachme
     $attr['sizes']         = '(max-width: 767px) 100vw, 800px';
 
     return $attr;
+}
+
+/**
+ * Let the current programme card image render at every viewport size.
+ *
+ * Bricks still stores older mobile-only sources for these two pictures. Remove
+ * those sources from public HTML so the responsive img/srcset follows any later
+ * desktop image change automatically.
+ *
+ * @param string $html    Rendered Bricks element HTML.
+ * @param object $element Bricks element instance.
+ *
+ * @return string
+ */
+function bemke_college_sync_programme_images_on_mobile( string $html, $element ): string {
+    if (
+        function_exists( 'bricks_is_builder_main' ) &&
+        ( bricks_is_builder_main() || bricks_is_builder_iframe() || bricks_is_builder_call() )
+    ) {
+        return $html;
+    }
+
+    if ( ! isset( $element->id ) || ! in_array( $element->id, array( 'nxpfdw', 'kydcmi' ), true ) ) {
+        return $html;
+    }
+
+    if ( false === strpos( $html, '<picture' ) || false === strpos( $html, '<source' ) ) {
+        return $html;
+    }
+
+    $updated = preg_replace( '/<source\b[^>]*>/i', '', $html );
+
+    return null === $updated ? $html : $updated;
 }

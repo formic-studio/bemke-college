@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Dwa zdjęcia kart programów IGCSE i A Levels miały w Bricks osobne, stare pliki `collegemobile1.jpg` i `collegemobile2.jpg` dla ekranów do 478 px, mimo że zdjęcia główne zostały już zmienione na `ProgramIGCSE.webp` i `ProgramALevel.webp`. Na publicznej stronie filtr usuwa te mobilne źródła z obu wersji językowych, więc telefon korzysta z aktualnego obrazu i jego responsywnego `srcset`. Późniejsza podmiana zdjęcia głównego będzie widoczna także na mobile. Stare przypisania pozostają zapisane w edytorze Bricks; jeśli kiedyś potrzebny będzie celowo inny kadr na telefon, trzeba zmienić tę regułę.
 - Na iOS warstwa menu zachowuje wysokość `100dvh`; odstęp pod paskiem z logo jest teraz wewnątrz przewijanej zawartości. Dzięki temu pozycjonowanie `fixed` nie może sprowadzić wysokości otwartego menu do zera. Przenoszenie elementów menu używa podstawowych operacji DOM zgodnych z Safari.
 - Mobilne menu ma teraz pełnoekranową warstwę oraz osobny kontener przewijania dla linków i sekcji dostępności. Wysokość paska z logo jest mierzona po stronie klienta, a przewijana zawartość zaczyna się pod nim. Sekcja dostępności pozostaje kolejnym elementem tego samego scrolla, zgodnie z układem menu na bemke.pl.
 - Poprawiono szerokość sekcji dostępności w otwartym menu mobilnym: panel zajmuje całą szerokość ekranu, a linki menu zachowują prawy margines. Usunięto obliczanie szerokości i ujemne marginesy, które wypychały panel poza viewport.
