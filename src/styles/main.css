@@ -548,11 +548,49 @@ html[data-contrast]:not([data-contrast="default"])
   flex: 0 0 auto;
 }
 
+/* Keep the programme image and its AI label in one positioning context. */
+.card-img-block > .bemke-programme-image {
+  min-width: 0;
+  position: relative;
+}
+
+.card-img-block > .bemke-programme-image > .academic-img,
+.card-img-block > .bemke-programme-image > .academic-img > img {
+  display: block;
+  width: 100%;
+}
+
+.bemke-programme-image > .badge-ai {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  background-color: #aea4a126;
+  border-radius: 8px;
+  bottom: 10px;
+  box-sizing: border-box;
+  color: var(--color-cream);
+  font-size: 1.1rem;
+  left: 10px;
+  letter-spacing: 0.22px;
+  line-height: 1.3;
+  max-width: calc(100% - 20px);
+  padding: 1px 12px 2px;
+  pointer-events: none;
+  position: absolute;
+  width: max-content;
+  z-index: 1;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-programme-image > .badge-ai {
+  background-color: var(--a11y-control-bg) !important;
+  color: var(--a11y-control-text) !important;
+}
+
 /* Keep the programme card media columns equal. Bricks renders these image
    elements as auto-sized flex items, so their widths otherwise depend on the
    neighbouring paragraph's intrinsic width. */
 @media screen and (min-width: 479px) {
-  .card-img-block > .academic-img {
+  .card-img-block > :is(.academic-img, .bemke-programme-image) {
     align-self: flex-start;
     aspect-ratio: 1 / 1.21;
     flex: 0 0 32%;
@@ -561,7 +599,8 @@ html[data-contrast]:not([data-contrast="default"])
     width: 32%;
   }
 
-  .card-img-block > .academic-img > img {
+  .card-img-block > .academic-img > img,
+  .card-img-block > .bemke-programme-image > .academic-img > img {
     display: block;
     height: 100%;
     object-fit: cover;

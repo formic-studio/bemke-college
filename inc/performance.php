@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'init', 'bemke_college_disable_frontend_emoji_assets' );
 add_filter( 'wp_get_attachment_image_attributes', 'bemke_college_tune_slider_image_loading', 20, 3 );
-add_filter( 'bricks/frontend/render_element', 'bemke_college_sync_programme_images_on_mobile', 20, 2 );
+add_filter( 'bricks/frontend/render_element', 'bemke_college_prepare_programme_images', 20, 2 );
 
 /**
  * Remove WordPress emoji assets from the public frontend.
@@ -53,18 +53,19 @@ function bemke_college_tune_slider_image_loading( array $attr, WP_Post $attachme
 }
 
 /**
- * Let the current programme card image render at every viewport size.
+ * Use the current programme image at every width and add its AI label.
  *
  * Bricks still stores older mobile-only sources for these two pictures. Remove
  * those sources from public HTML so the responsive img/srcset follows any later
- * desktop image change automatically.
+ * desktop image change automatically. Wrap the image and badge together so the
+ * label stays anchored to the image rather than the card's text column.
  *
  * @param string $html    Rendered Bricks element HTML.
  * @param object $element Bricks element instance.
  *
  * @return string
  */
-function bemke_college_sync_programme_images_on_mobile( string $html, $element ): string {
+function bemke_college_prepare_programme_images( string $html, $element ): string {
     if (
         function_exists( 'bricks_is_builder_main' ) &&
         ( bricks_is_builder_main() || bricks_is_builder_iframe() || bricks_is_builder_call() )
@@ -76,11 +77,16 @@ function bemke_college_sync_programme_images_on_mobile( string $html, $element )
         return $html;
     }
 
-    if ( false === strpos( $html, '<picture' ) || false === strpos( $html, '<source' ) ) {
+    if ( false === strpos( $html, '<picture' ) || false !== strpos( $html, 'bemke-programme-image' ) ) {
         return $html;
     }
 
     $updated = preg_replace( '/<source\b[^>]*>/i', '', $html );
 
-    return null === $updated ? $html : $updated;
+    if ( null === $updated ) {
+        return $html;
+    }
+
+    return '<div class="badge-ai-wrapper bemke-programme-image">' . $updated .
+        '<span class="badge-ai bemke-programme-image__badge">modified with AI</span></div>';
 }
