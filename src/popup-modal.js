@@ -251,4 +251,6 @@ export function initPopupModal() {
   if (!safeReadSeen()) {
     open();
   }
+
+  document.dispatchEvent(new CustomEvent('bemke:popup-ready'));
 }

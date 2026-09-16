@@ -3,6 +3,7 @@ import { MOTION_CHANGE_EVENT, isReducedMotion } from './motion-preference.js';
 const SELECTOR = '.video video';
 const BOOTED_KEY = '__bemkeDecorativeVideoMotionBooted';
 const MOBILE_QUERY = window.matchMedia('(max-width: 767px)');
+const ANDROID_QUERY = /Android/i;
 const ACTIVATION_EVENTS = ['pointerdown', 'touchstart', 'keydown'];
 const states = new WeakMap();
 const videos = new Set();
@@ -15,7 +16,10 @@ const shouldPauseVideo = () =>
   (document.documentElement.getAttribute('data-contrast') ?? 'default') !== 'default';
 
 const hydrateVideo = (video) => {
-  const source = video.dataset.bemkeSrc;
+  const useMobileSource = MOBILE_QUERY.matches || ANDROID_QUERY.test(navigator.userAgent);
+  const source = useMobileSource && video.dataset.bemkeMobileSrc
+    ? video.dataset.bemkeMobileSrc
+    : video.dataset.bemkeSrc;
 
   if (!source || shouldPauseVideo()) {
     return;
@@ -25,6 +29,9 @@ const hydrateVideo = (video) => {
   video.preload = 'metadata';
   video.src = source;
   delete video.dataset.bemkeSrc;
+  delete video.dataset.bemkeMobileSrc;
+  video.muted = true;
+  video.playsInline = true;
   video.loop = state.loop;
   video.autoplay = state.autoplay;
   video.load();
@@ -83,6 +90,11 @@ const scheduleDeferredVideos = () => {
   removeMobileActivation();
 
   if (shouldPauseVideo() || !Array.from(videos).some((video) => video.dataset.bemkeSrc)) {
+    return;
+  }
+
+  if (document.body.classList.contains('bemke-popup-public') &&
+    document.querySelector('.popup-block:not([data-bemke-popup-ready])')) {
     return;
   }
 
@@ -173,6 +185,7 @@ export function initDecorativeVideoMotion() {
   window[BOOTED_KEY] = true;
   document.addEventListener(MOTION_CHANGE_EVENT, syncAllVideos);
   document.addEventListener('bricks/ajax/end', syncAllVideos);
+  document.addEventListener('bemke:popup-ready', scheduleDeferredVideos);
   document.addEventListener('bemke:popup-close', () => {
     if (activateAfterPopupClose) {
       activateDeferredVideos();

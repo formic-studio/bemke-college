@@ -2,6 +2,8 @@
 
 Motyw ładuje Web Connect raz na każdej publicznej stronie. W Bricks używamy elementu **Shortcode** z `[bemke_college_getresponse_form form_id="..."]`; shortcode wypisuje natywny `<getresponse-form>`. Nie dodawaj drugiej kopii Web Connect w Bricks ani przez plugin.
 
+Lighthouse wskazuje fonty Lato i DM Sans pobierane z `fonts.bunny.net`. Inicjatorem żądania jest GetResponse Web Connect (`gr-popups.js`), więc ustawienia fontów trzeba przejrzeć w edytorze projektu formularza i popupu GetResponse: nagłówki, tekst, pola i przyciski. Motyw nie pobiera tych krojów. Po zapisaniu zmian sprawdź w Network, czy pliki Lato i DM Sans przestały się pobierać.
+
 | Miejsce | ID GetResponse | Zawartość elementu Shortcode |
 | --- | --- | --- |
 | Newsletter EN | `b2ac1302-032a-4e81-9c0f-46e8f9b223b1` | `[bemke_college_getresponse_form]` |

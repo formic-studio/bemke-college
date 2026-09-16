@@ -97,8 +97,9 @@ function bemke_college_prepare_programme_images( string $html, $element ): strin
 
 /**
  * Keep the hero video off the initial network path, especially on phones.
- * A lightweight existing campus photo provides a visual while the video waits
- * for the browser to become idle (desktop) or for interaction (mobile).
+ * A lightweight campus photo provides a visual while the video waits for the
+ * browser to become idle (desktop) or for interaction (mobile). Serve standard
+ * H.264 MP4 files because the original VP9 Profile 3 file fails on Android.
  *
  * @param string $html Rendered Bricks element HTML.
  * @param object $element Bricks element instance.
@@ -116,25 +117,30 @@ function bemke_college_defer_hero_video( string $html, $element ): string {
         return $html;
     }
 
-    $uploads = wp_get_upload_dir();
-    $poster  = trailingslashit( $uploads['baseurl'] ) . '2026/09/fotkalanding-768x341.webp';
+    $media_uri = trailingslashit( get_stylesheet_directory_uri() ) . 'src/media/';
+    $poster    = $media_uri . 'college-hero-poster.webp';
+    $desktop   = $media_uri . 'college-hero-desktop.mp4';
+    $mobile    = $media_uri . 'college-hero-mobile.mp4';
 
     $updated = preg_replace_callback(
         '/<video\b[^>]*>/i',
-        static function ( array $matches ) use ( $poster ): string {
+        static function ( array $matches ) use ( $poster, $desktop, $mobile ): string {
             $tag = $matches[0];
 
-            if ( ! preg_match( '/\sdata-src\s*=\s*(["\'])([^"\']+)\1/i', $tag ) ) {
+            if (
+                false === strpos( $tag, 'BC_LANDING_VIDEO_UPDATE.webm' ) ||
+                ! preg_match( '/\sdata-src\s*=\s*(["\'])([^"\']+)\1/i', $tag )
+            ) {
                 return $tag;
             }
 
             $tag = preg_replace(
                 array(
-                    '/\sdata-src\s*=/i',
+                    '/\sdata-src\s*=\s*(["\'])[^"\']+\1/i',
                     '/\s+autoplay(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+))?/i',
                     '/\s+onclick\s*=\s*(?:"[^"]*"|\'[^\']*\')/i',
                 ),
-                array( ' data-bemke-src=', '', '' ),
+                array( ' data-bemke-src="' . esc_url( $desktop ) . '"', '', '' ),
                 $tag
             );
 
@@ -145,8 +151,9 @@ function bemke_college_defer_hero_video( string $html, $element ): string {
             $tag = str_replace( 'bricks-lazy-hidden', '', $tag );
 
             return substr( $tag, 0, -1 ) . sprintf(
-                ' preload="none" poster="%s" data-bemke-autoplay="true">',
-                esc_url( $poster )
+                ' preload="none" poster="%1$s" data-bemke-mobile-src="%2$s" data-bemke-autoplay="true">',
+                esc_url( $poster ),
+                esc_url( $mobile )
             );
         },
         $html,
