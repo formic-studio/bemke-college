@@ -376,15 +376,20 @@ html[data-contrast]:not([data-contrast="default"])
 
   #brx-header .bemke-mobile-accessibility {
     align-self: stretch !important;
-    background: var(--color-cream, #fffdfb);
+    background: var(--color-blue-dark);
     box-sizing: border-box;
-    color: var(--color-brown, #131312);
+    color: var(--color-cream);
     display: block;
     flex: 0 0 auto;
     margin: auto 0 0 !important;
     max-width: none !important;
     padding: 2.4rem var(--bemke-mobile-menu-gutter) 3.2rem;
     width: 100% !important;
+  }
+
+  html[data-contrast]:not([data-contrast="default"])
+    #brx-header .bemke-mobile-accessibility {
+    color: var(--a11y-text);
   }
 
   #brx-header .bemke-mobile-accessibility__heading {
@@ -401,10 +406,10 @@ html[data-contrast]:not([data-contrast="default"])
 
   #brx-header .bemke-mobile-accessibility__toggle {
     align-items: center;
-    background: var(--color-yellow, #edb664);
+    background: var(--color-blue-light);
     border: 0;
     border-radius: 50%;
-    color: inherit;
+    color: var(--color-baby-blue);
     cursor: pointer;
     display: inline-flex;
     float: right;
@@ -445,6 +450,7 @@ html[data-contrast]:not([data-contrast="default"])
   #brx-header .bemke-mobile-accessibility #brxe-dtelpy {
     align-items: stretch !important;
     background: transparent !important;
+    color: inherit !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 0 !important;
@@ -454,6 +460,21 @@ html[data-contrast]:not([data-contrast="default"])
     padding: 0 !important;
     position: static !important;
     width: 100% !important;
+  }
+
+  html:not([data-contrast]) #brx-header .bemke-mobile-accessibility :is(
+    .brxe-text-basic,
+    .brxe-text-link,
+    [data-a11y-scale],
+    a:not([data-contrast])
+  ),
+  html[data-contrast="default"] #brx-header .bemke-mobile-accessibility :is(
+    .brxe-text-basic,
+    .brxe-text-link,
+    [data-a11y-scale],
+    a:not([data-contrast])
+  ) {
+    color: var(--color-cream) !important;
   }
 
   #brx-header .bemke-mobile-accessibility #brxe-dtelpy > svg,
