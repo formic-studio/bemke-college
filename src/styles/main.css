@@ -409,7 +409,7 @@ html[data-contrast]:not([data-contrast="default"])
     background: var(--color-blue-light);
     border: 0;
     border-radius: 50%;
-    color: var(--color-baby-blue);
+    color: var(--color-brown);
     cursor: pointer;
     display: inline-flex;
     float: right;
@@ -489,7 +489,7 @@ html[data-contrast]:not([data-contrast="default"])
     #brxe-edmvjf
   ) {
     align-items: center !important;
-    border-bottom: 1px solid var(--a11y-border, #edb664);
+    border-bottom: 1px solid var(--color-brown);
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: wrap !important;
