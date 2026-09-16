@@ -381,7 +381,7 @@ html[data-contrast]:not([data-contrast="default"])
     box-sizing: border-box;
     color: var(--color-cream);
     display: block;
-    flex: 0 0 auto;
+    flex: 1 0 auto;
     /* The flex gap also sits above this section; together they total 3.6rem. */
     margin: calc(3.6rem - var(--bemke-mobile-menu-gap)) 0 0 !important;
     max-width: none !important;
