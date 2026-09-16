@@ -52,6 +52,14 @@ body {
   display: none;
 }
 
+.bemke-mobile-accessibility {
+  display: none;
+}
+
+.bemke-mobile-accessibility__label {
+  display: none;
+}
+
 :where(a.footer-link[href], a.footer_link[href], #brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]) {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
@@ -203,6 +211,11 @@ html[data-contrast]:not([data-contrast="default"])
 }
 
 @media (max-width: 767px) {
+  html.bemke-mobile-menu-open,
+  html.bemke-mobile-menu-open body {
+    overflow: hidden;
+  }
+
   html:has(body.bemke-popup-public),
   body.bemke-popup-public {
     overflow-x: clip;
@@ -227,7 +240,9 @@ html[data-contrast]:not([data-contrast="default"])
     z-index: 1000;
   }
 
-  #brx-header #brxe-lmzjvw {
+  #brx-header #brxe-lmzjvw,
+  #brx-header .bemke-mobile-menu-header {
+    position: relative;
     z-index: 10002;
   }
 
@@ -250,6 +265,11 @@ html[data-contrast]:not([data-contrast="default"])
     position: relative;
     width: 4.4rem;
     z-index: 10003;
+  }
+
+  .bemke-mobile-menu-toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
   }
 
   .bemke-mobile-menu-toggle__line {
@@ -287,16 +307,21 @@ html[data-contrast]:not([data-contrast="default"])
   }
 
   #brx-header .nav-menu.brxe-block {
+    --bemke-mobile-menu-gutter: var(--padding-global, 4rem);
     align-items: flex-end !important;
     background-color: var(--color-blue-light);
     display: flex;
     flex-direction: column !important;
     height: 100vh;
+    height: 100dvh;
     inset: 0;
     justify-content: flex-start !important;
     min-height: 100dvh;
     opacity: 0;
-    padding: clamp(12rem, 18vh, 18rem) var(--padding-global, 4rem) 4rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: clamp(12rem, 18vh, 18rem) var(--bemke-mobile-menu-gutter) 0;
     pointer-events: none;
     position: fixed;
     row-gap: clamp(2rem, 4.2vh, 3.6rem);
@@ -329,6 +354,145 @@ html[data-contrast]:not([data-contrast="default"])
     text-align: right;
     text-transform: uppercase;
   }
+
+  #brx-header .bemke-mobile-accessibility {
+    align-self: stretch;
+    background: var(--color-cream, #fffdfb);
+    box-sizing: border-box;
+    color: var(--color-brown, #131312);
+    display: block;
+    flex: 0 0 auto;
+    margin: auto calc(-1 * var(--bemke-mobile-menu-gutter)) 0;
+    padding: 2.4rem var(--bemke-mobile-menu-gutter) 3.2rem;
+    width: calc(100% + 2 * var(--bemke-mobile-menu-gutter));
+  }
+
+  #brx-header .bemke-mobile-accessibility__heading {
+    color: inherit;
+    display: inline-block;
+    font-family: "Season Mix", serif;
+    font-size: var(--fs-h4, 2rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  #brx-header .bemke-mobile-accessibility__toggle {
+    align-items: center;
+    background: var(--color-yellow, #edb664);
+    border: 0;
+    border-radius: 50%;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    float: right;
+    height: 3.2rem;
+    justify-content: center;
+    padding: 0;
+    width: 3.2rem;
+  }
+
+  #brx-header .bemke-mobile-accessibility__toggle::before {
+    border-bottom: 0.2rem solid currentColor;
+    border-right: 0.2rem solid currentColor;
+    content: "";
+    height: 0.8rem;
+    transform: translateY(-0.2rem) rotate(45deg);
+    transition: transform 240ms ease;
+    width: 0.8rem;
+  }
+
+  #brx-header .bemke-mobile-accessibility__toggle[aria-expanded="true"]::before {
+    transform: translateY(0.2rem) rotate(225deg);
+  }
+
+  #brx-header .bemke-mobile-accessibility__toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  #brx-header .bemke-mobile-accessibility__panel {
+    clear: both;
+    padding-top: 1.6rem;
+  }
+
+  #brx-header .bemke-mobile-accessibility__panel[hidden] {
+    display: none !important;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-dtelpy {
+    align-items: stretch !important;
+    background: transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    height: auto !important;
+    justify-content: flex-start !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+    width: 100% !important;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-dtelpy > svg,
+  #brx-header .bemke-mobile-accessibility #brxe-ioczzo > svg {
+    display: none !important;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-dtelpy > :is(
+    #brxe-ojgsiy,
+    #brxe-ioczzo,
+    #brxe-wxmjhs,
+    #brxe-edmvjf
+  ) {
+    align-items: center !important;
+    border-bottom: 1px solid var(--a11y-border, #edb664);
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 1.2rem !important;
+    height: auto !important;
+    justify-content: flex-start !important;
+    max-width: none !important;
+    min-height: 7rem;
+    padding: 1.2rem 0 !important;
+    width: 100% !important;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-dtelpy > #brxe-ojgsiy {
+    order: 1;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-dtelpy > #brxe-ioczzo {
+    order: 2;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-dtelpy > #brxe-wxmjhs {
+    order: 3;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-dtelpy > #brxe-edmvjf {
+    border-bottom: 0;
+    justify-content: space-between !important;
+    order: 4;
+  }
+
+  #brx-header .bemke-mobile-accessibility__label {
+    color: inherit;
+    display: block;
+    flex: 1 0 auto;
+    font-size: var(--fs-button-small, 1.4rem);
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #brx-header .bemke-mobile-accessibility #brxe-oskuoy {
+    font-size: var(--fs-button-small, 1.4rem);
+    text-transform: uppercase;
+  }
+
 }
 
 /* The shared .svg-wrapper grows to fill each card, pushing short descriptions

@@ -3,26 +3,26 @@ const FONT_SCALE_STORAGE_KEY = 'bemke_a11y_font_scale';
 const BOOTED_KEY = '__bemkeWcagToolbarBooted';
 
 const CONTRAST_OPTIONS = new Map([
-  ['default', 'Domyślny kontrast'],
-  ['white-black', 'Biały tekst na czarnym tle'],
-  ['black-yellow', 'Czarny tekst na żółtym tle'],
-  ['yellow-black', 'Żółty tekst na czarnym tle'],
+  ['default', { pl: 'Domyślny kontrast', en: 'Default contrast' }],
+  ['white-black', { pl: 'Biały tekst na czarnym tle', en: 'White text on black background' }],
+  ['black-yellow', { pl: 'Czarny tekst na żółtym tle', en: 'Black text on yellow background' }],
+  ['yellow-black', { pl: 'Żółty tekst na czarnym tle', en: 'Yellow text on black background' }],
 ]);
 
 const FONT_SCALE_OPTIONS = [
   {
     key: 'normal',
-    label: 'Normalny rozmiar tekstu',
+    label: { pl: 'Normalny rozmiar tekstu', en: 'Normal text size' },
     scale: 1,
   },
   {
     key: 'large',
-    label: 'Duży rozmiar tekstu',
+    label: { pl: 'Duży rozmiar tekstu', en: 'Large text size' },
     scale: 1.125,
   },
   {
     key: 'x-large',
-    label: 'Bardzo duży rozmiar tekstu',
+    label: { pl: 'Bardzo duży rozmiar tekstu', en: 'Extra large text size' },
     scale: 1.25,
   },
 ];
@@ -30,6 +30,9 @@ const FONT_SCALE_OPTIONS = [
 let activeContrast = 'default';
 let activeFontScale = 1;
 let refreshFrame = 0;
+
+const getLanguage = () => document.documentElement.lang.toLowerCase().startsWith('pl') ? 'pl' : 'en';
+const matchesLabel = (labels, label) => Object.values(labels).includes(label);
 
 const uniqueElements = (elements) => Array.from(new Set(elements));
 
@@ -100,7 +103,7 @@ const getFontScaleControlEntries = () => {
       const ariaLabel = element.getAttribute('aria-label');
       const elementScale = element.getAttribute('data-a11y-scale');
 
-      if (ariaLabel === option.label || Number(elementScale) === option.scale) {
+      if (matchesLabel(option.label, ariaLabel) || Number(elementScale) === option.scale) {
         controls.push({ element, option });
       }
     });
@@ -154,7 +157,7 @@ const setupContrastControls = () => {
     }
 
     control.setAttribute('role', 'button');
-    control.setAttribute('aria-label', CONTRAST_OPTIONS.get(contrast) ?? 'Tryb kontrastu');
+    control.setAttribute('aria-label', CONTRAST_OPTIONS.get(contrast)?.[getLanguage()] ?? 'Contrast mode');
     control.setAttribute('data-a11y-contrast-fixed', 'true');
 
     if (!control.hasAttribute('tabindex')) {
@@ -170,7 +173,7 @@ const setupFontScaleControls = () => {
     }
 
     element.setAttribute('role', 'button');
-    element.setAttribute('aria-label', option.label);
+    element.setAttribute('aria-label', option.label[getLanguage()]);
     element.setAttribute('data-a11y-scale', String(option.scale));
 
     if (!element.hasAttribute('tabindex')) {
@@ -190,7 +193,7 @@ const cleanupRootStateElement = () => {
     root.removeAttribute('tabindex');
   }
 
-  if (CONTRAST_OPTIONS.has(root.getAttribute('aria-label'))) {
+  if (Array.from(CONTRAST_OPTIONS.values()).some((labels) => matchesLabel(labels, root.getAttribute('aria-label')))) {
     root.removeAttribute('aria-label');
   }
 
@@ -247,7 +250,7 @@ const getClosestFontScaleControl = (target) => {
   const scale = control.getAttribute('data-a11y-scale');
   const label = control.getAttribute('aria-label');
   const hasScale = scale !== null && FONT_SCALE_OPTIONS.some((option) => option.scale === Number(scale));
-  const hasLabel = FONT_SCALE_OPTIONS.some((option) => option.label === label);
+  const hasLabel = FONT_SCALE_OPTIONS.some((option) => matchesLabel(option.label, label));
 
   return hasScale || hasLabel ? control : null;
 };
@@ -260,7 +263,7 @@ const getScaleFromControl = (control) => {
   }
 
   const label = control.getAttribute('aria-label');
-  const option = FONT_SCALE_OPTIONS.find((entry) => entry.label === label);
+  const option = FONT_SCALE_OPTIONS.find((entry) => matchesLabel(entry.label, label));
 
   return option?.scale ?? null;
 };
