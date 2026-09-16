@@ -128,14 +128,18 @@ const createMobileContent = (menu, media) => {
   const sync = () => {
     if (media.matches) {
       if (!content.parentNode) {
-        content.append(...menu.childNodes);
+        while (menu.firstChild) {
+          content.appendChild(menu.firstChild);
+        }
         menu.appendChild(content);
       }
       return;
     }
 
     if (content.parentNode) {
-      content.before(...content.childNodes);
+      while (content.firstChild) {
+        menu.insertBefore(content.firstChild, content);
+      }
       content.remove();
     }
   };

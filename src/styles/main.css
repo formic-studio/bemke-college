@@ -311,16 +311,16 @@ html[data-contrast]:not([data-contrast="default"])
     background-color: var(--color-blue-light);
     box-sizing: border-box;
     display: block !important;
-    height: auto !important;
+    height: 100vh !important;
+    height: 100dvh !important;
     inset: 0;
-    min-height: 0 !important;
+    min-height: 100dvh !important;
     opacity: 0;
     overflow: hidden;
     overscroll-behavior: contain;
     padding: 0 !important;
     pointer-events: none;
     position: fixed;
-    top: var(--bemke-mobile-menu-top, 7rem);
     clip-path: inset(0 0 0 100%);
     transition:
       opacity 320ms ease,
@@ -354,9 +354,10 @@ html[data-contrast]:not([data-contrast="default"])
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding-top: 3.2rem;
+    padding-top: calc(var(--bemke-mobile-menu-top, 7rem) + 3.2rem);
     scrollbar-width: thin;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
   }
 
   #brx-header .bemke-mobile-menu__content > svg {
