@@ -550,14 +550,26 @@ html[data-contrast]:not([data-contrast="default"])
 
 /* Keep the programme image and its AI label in one positioning context. */
 .card-img-block > .bemke-programme-image {
+  aspect-ratio: 1 / 1.21;
+  border-radius: 8px;
   min-width: 0;
+  overflow: hidden;
   position: relative;
 }
 
 .card-img-block > .bemke-programme-image > .academic-img,
 .card-img-block > .bemke-programme-image > .academic-img > img {
   display: block;
+  height: 100%;
+  object-fit: cover;
   width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  #brxe-iyzttf > .academic-card {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
 
 .bemke-programme-image > .badge-ai {

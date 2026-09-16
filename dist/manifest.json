@@ -8,7 +8,7 @@
     "name": "gsap"
   },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.C3_lcus7.js",
+    "file": "assets/bricks-slider.BPmbzy-n.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
@@ -18,7 +18,7 @@
     ]
   },
   "src/main.js": {
-    "file": "assets/main.C3M2o-I3.js",
+    "file": "assets/main.D1nphIdj.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -32,7 +32,7 @@
       "src/popup-modal.js"
     ],
     "css": [
-      "assets/main.DOcpGLmA.css"
+      "assets/main.nIc6Sszj.css"
     ]
   },
   "src/mobile-scroll.js": {
@@ -54,7 +54,7 @@
     "isDynamicEntry": true
   },
   "src/scroll-expand-images.js": {
-    "file": "assets/scroll-expand-images.DoHT_gTs.js",
+    "file": "assets/scroll-expand-images.BpaBOW-K.js",
     "name": "scroll-expand-images",
     "src": "src/scroll-expand-images.js",
     "isDynamicEntry": true,
@@ -65,7 +65,7 @@
     ]
   },
   "src/scroll-highlight.js": {
-    "file": "assets/scroll-highlight.FkAiGxuv.js",
+    "file": "assets/scroll-highlight.BU7X1BkA.js",
     "name": "scroll-highlight",
     "src": "src/scroll-highlight.js",
     "isDynamicEntry": true,
@@ -76,7 +76,7 @@
     ]
   },
   "src/scroll-reveal.js": {
-    "file": "assets/scroll-reveal.BequtJDw.js",
+    "file": "assets/scroll-reveal.D_zt6sCC.js",
     "name": "scroll-reveal",
     "src": "src/scroll-reveal.js",
     "isDynamicEntry": true,
