@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'init', 'bemke_college_disable_frontend_emoji_assets' );
 add_filter( 'wp_get_attachment_image_attributes', 'bemke_college_tune_slider_image_loading', 20, 3 );
 add_filter( 'bricks/frontend/render_element', 'bemke_college_prepare_programme_images', 20, 2 );
+add_filter( 'bricks/frontend/render_element', 'bemke_college_defer_hero_video', 20, 2 );
 
 /**
  * Remove WordPress emoji assets from the public frontend.
@@ -92,4 +93,65 @@ function bemke_college_prepare_programme_images( string $html, $element ): strin
 
     return '<div class="badge-ai-wrapper bemke-programme-image">' . $updated .
         '<span class="badge-ai bemke-programme-image__badge">modified with AI</span></div>';
+}
+
+/**
+ * Keep the hero video off the initial network path, especially on phones.
+ * A lightweight existing campus photo provides a visual while the video waits
+ * for the browser to become idle (desktop) or for interaction (mobile).
+ *
+ * @param string $html Rendered Bricks element HTML.
+ * @param object $element Bricks element instance.
+ * @return string
+ */
+function bemke_college_defer_hero_video( string $html, $element ): string {
+    if (
+        function_exists( 'bricks_is_builder_main' ) &&
+        ( bricks_is_builder_main() || bricks_is_builder_iframe() || bricks_is_builder_call() )
+    ) {
+        return $html;
+    }
+
+    if ( ! isset( $element->id ) || 'txhvaa' !== $element->id ) {
+        return $html;
+    }
+
+    $uploads = wp_get_upload_dir();
+    $poster  = trailingslashit( $uploads['baseurl'] ) . '2026/09/fotkalanding-768x341.webp';
+
+    $updated = preg_replace_callback(
+        '/<video\b[^>]*>/i',
+        static function ( array $matches ) use ( $poster ): string {
+            $tag = $matches[0];
+
+            if ( ! preg_match( '/\sdata-src\s*=\s*(["\'])([^"\']+)\1/i', $tag ) ) {
+                return $tag;
+            }
+
+            $tag = preg_replace(
+                array(
+                    '/\sdata-src\s*=/i',
+                    '/\s+autoplay(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+))?/i',
+                    '/\s+onclick\s*=\s*(?:"[^"]*"|\'[^\']*\')/i',
+                ),
+                array( ' data-bemke-src=', '', '' ),
+                $tag
+            );
+
+            if ( null === $tag ) {
+                return $matches[0];
+            }
+
+            $tag = str_replace( 'bricks-lazy-hidden', '', $tag );
+
+            return substr( $tag, 0, -1 ) . sprintf(
+                ' preload="none" poster="%s" data-bemke-autoplay="true">',
+                esc_url( $poster )
+            );
+        },
+        $html,
+        1
+    );
+
+    return null === $updated ? $html : $updated;
 }

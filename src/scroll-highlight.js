@@ -9,7 +9,7 @@ import {
 const HIGHLIGHT_SELECTOR = '.scroll-highlight';
 const READY_ATTRIBUTE = 'data-bemke-scroll-highlight-ready';
 const WORD_CLASS = 'bemke-scroll-highlight-word';
-const START_OPACITY = 0.4;
+const START_OPACITY = 0.8;
 const SCROLL_SCRUB = 0.8;
 
 const killAnimation = (state) => {
@@ -33,7 +33,7 @@ const createAnimation = (state) => {
 
   state.element.removeAttribute(READY_ATTRIBUTE);
   state.split = SplitText.create(state.element, {
-    aria: 'auto',
+    aria: 'none',
     type: 'words',
     wordsClass: WORD_CLASS,
   });

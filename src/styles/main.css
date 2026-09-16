@@ -641,7 +641,7 @@ html[data-contrast]:not([data-contrast="default"])
 
 html.bemke-college-js
   .scroll-highlight:not([data-bemke-scroll-highlight-ready="1"]) {
-  opacity: 0.4;
+  opacity: 0.8;
 }
 
 .bemke-scroll-highlight-word {

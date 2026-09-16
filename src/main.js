@@ -15,6 +15,30 @@ const mobileScrollSelector = '.mobile-scroll > .card';
 const reverseCardSelector =
   '.reverse-card > .reverse-card__inner > .reverse-card__front';
 
+const initWhenNearViewport = (selector, init) => {
+  const targets = document.querySelectorAll(selector);
+
+  if (!targets.length) {
+    return;
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    init();
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) {
+      return;
+    }
+
+    observer.disconnect();
+    init();
+  }, { rootMargin: '600px 0px' });
+
+  targets.forEach((target) => observer.observe(target));
+};
+
 const initSliderFeature = () => {
   const sliderSelector = '.slider:not(.slider-thinktank) > .slider-wrapper > .slide';
 
@@ -22,8 +46,10 @@ const initSliderFeature = () => {
     return;
   }
 
-  import('./bricks-slider.js').then(({ initBricksSliders }) => {
-    initBricksSliders();
+  initWhenNearViewport('.slider:not(.slider-thinktank)', () => {
+    import('./bricks-slider.js').then(({ initBricksSliders }) => {
+      initBricksSliders();
+    });
   });
 };
 
@@ -44,8 +70,10 @@ const initScrollExpandFeature = () => {
     frame.append(image);
   });
 
-  import('./scroll-expand-images.js').then(({ initScrollExpandImages }) => {
-    initScrollExpandImages();
+  initWhenNearViewport('.bemke-scroll-expand-frame', () => {
+    import('./scroll-expand-images.js').then(({ initScrollExpandImages }) => {
+      initScrollExpandImages();
+    });
   });
 };
 
@@ -54,8 +82,10 @@ const initScrollHighlightFeature = () => {
     return;
   }
 
-  import('./scroll-highlight.js').then(({ initScrollHighlights }) => {
-    initScrollHighlights();
+  initWhenNearViewport(scrollHighlightSelector, () => {
+    import('./scroll-highlight.js').then(({ initScrollHighlights }) => {
+      initScrollHighlights();
+    });
   });
 };
 
@@ -64,8 +94,10 @@ const initScrollRevealFeature = () => {
     return;
   }
 
-  import('./scroll-reveal.js').then(({ initScrollReveals }) => {
-    initScrollReveals();
+  initWhenNearViewport(scrollRevealSelector, () => {
+    import('./scroll-reveal.js').then(({ initScrollReveals }) => {
+      initScrollReveals();
+    });
   });
 };
 

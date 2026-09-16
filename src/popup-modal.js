@@ -180,6 +180,7 @@ export function initPopupModal() {
     popupBlock.inert = true;
     unlockBackground();
     document.body.classList.remove('bemke-popup-open');
+    document.dispatchEvent(new CustomEvent('bemke:popup-close'));
 
     if (loadingTimer !== null) {
       window.clearInterval(loadingTimer);
