@@ -243,7 +243,10 @@ button.tab {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--theme-red, rgba(116, 22, 24, 1));
+  background-color: var(
+    --bemke-history-active-tab-background,
+    rgba(235, 215, 215, 1)
+  );
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);

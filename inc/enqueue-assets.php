@@ -46,7 +46,6 @@ function bemke_college_enqueue_assets(): void {
 
     $entry    = $manifest[ BEMKE_COLLEGE_VITE_ENTRY ];
     $dist_uri = trailingslashit( get_stylesheet_directory_uri() ) . 'dist/';
-    $dist_dir = trailingslashit( get_stylesheet_directory() ) . 'dist/';
 
     if ( ! empty( $entry['css'] ) && is_array( $entry['css'] ) ) {
         foreach ( $entry['css'] as $index => $css_file ) {
@@ -54,7 +53,7 @@ function bemke_college_enqueue_assets(): void {
                 'bemke-college-main-' . $index,
                 $dist_uri . $css_file,
                 array(),
-                bemke_college_asset_version( $dist_dir . $css_file )
+                null
             );
         }
     }
@@ -67,7 +66,7 @@ function bemke_college_enqueue_assets(): void {
         'bemke-college-main',
         $dist_uri . $entry['file'],
         array(),
-        bemke_college_asset_version( $dist_dir . $entry['file'] ),
+        null,
         true
     );
 }
@@ -109,17 +108,6 @@ function bemke_college_vite_manifest(): array {
     $manifest = is_array( $decoded ) ? $decoded : array();
 
     return $manifest;
-}
-
-/**
- * Return a stable version based on file modification time.
- */
-function bemke_college_asset_version( string $path ): string {
-    if ( file_exists( $path ) ) {
-        return (string) filemtime( $path );
-    }
-
-    return wp_get_theme()->get( 'Version' );
 }
 
 /**

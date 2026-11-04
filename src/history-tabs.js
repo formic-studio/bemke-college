@@ -14,6 +14,7 @@ const SLIDE_WRAPPER_SELECTOR = '.history-slide-wrapper';
 const IMAGE_WRAPPER_SELECTOR = '.history-img-wrapper';
 
 const READY_ATTR = 'data-bemke-history-tabs-ready';
+const INITIALIZING_ATTR = 'data-bemke-history-tabs-initializing';
 const BOOT_FLAG = '__bemkeHistoryTabsBooted';
 const ACTIVE_TAB_CLASS = 'tab-active';
 const ACTIVE_ITEM_CLASS = 'is-active';
@@ -26,6 +27,7 @@ const SCROLLBAR_CLASS = 'history-tabs-scrollbar';
 const SCROLLBAR_TRACK_CLASS = 'history-tabs-scrollbar__track';
 const SCROLLBAR_THUMB_CLASS = 'history-tabs-scrollbar__thumb';
 const SCROLLBAR_DRAGGING_CLASS = 'is-dragging';
+const ACTIVE_TAB_BACKGROUND_PROPERTY = '--bemke-history-active-tab-background';
 
 const ANIMATION_MS = 980;
 const TABLIST_DRAG_THRESHOLD = 6;
@@ -52,7 +54,17 @@ function initHistoryTabRoots(scope = document) {
       return;
     }
 
-    createHistoryTabs(root, tabsBlock);
+    if (root.getAttribute(INITIALIZING_ATTR) === '1') {
+      return;
+    }
+
+    root.setAttribute(INITIALIZING_ATTR, '1');
+
+    try {
+      createHistoryTabs(root, tabsBlock);
+    } finally {
+      root.removeAttribute(INITIALIZING_ATTR);
+    }
   });
 }
 
@@ -201,6 +213,7 @@ function createHistoryTabs(root, tabsBlock) {
   function sync(nextNumber, direction, instant, previousNumber = nextNumber) {
     window.clearTimeout(transitionTimerId);
     syncTabs(tabs, nextNumber);
+    syncActiveTabBackground(root, tabsByNumber.get(nextNumber)?.[0]);
     revealActiveTab(
       tabsBlock,
       tabsByNumber.get(nextNumber)?.[0],
@@ -218,6 +231,22 @@ function createHistoryTabs(root, tabsBlock) {
       arrangeActiveItems(imageTrack, images, nextNumber, true);
     }, ANIMATION_MS + 80);
   }
+}
+
+function syncActiveTabBackground(root, activeTab) {
+  if (!activeTab) {
+    root.style.removeProperty(ACTIVE_TAB_BACKGROUND_PROPERTY);
+    return;
+  }
+
+  const backgroundColor = window.getComputedStyle(activeTab).backgroundColor;
+
+  if (!backgroundColor || backgroundColor === 'rgba(0, 0, 0, 0)') {
+    root.style.removeProperty(ACTIVE_TAB_BACKGROUND_PROPERTY);
+    return;
+  }
+
+  root.style.setProperty(ACTIVE_TAB_BACKGROUND_PROPERTY, backgroundColor);
 }
 
 function prepareTabButton(tab) {
@@ -415,7 +444,7 @@ function setupHistoryScrollbar(tablist, hasHorizontalOverflow) {
   if (!navigation) {
     navigation = document.createElement('div');
     navigation.className = NAVIGATION_CLASS;
-    currentParent.insertBefore(navigation, tablist);
+    tablist.before(navigation);
     navigation.appendChild(tablist);
   }
 
@@ -651,7 +680,7 @@ function setupTrack(wrapper, items, modifier) {
 
   const track = document.createElement('div');
   track.className = `${TRACK_CLASS} ${TRACK_CLASS}--${modifier}`;
-  wrapper.insertBefore(track, items[0]);
+  wrapper.prepend(track);
   items.forEach((item) => track.appendChild(item));
 
   return track;
