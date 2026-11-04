@@ -27,6 +27,23 @@ const INCOMING_SLIDE_DELAY = 0.008;
 const ANIMATION_EASE = "power1.inOut";
 const SNAP_EASE = "power3.out";
 
+const GHOST_RUNTIME_STYLE_PROPERTIES = new Set([
+  "animation",
+  "cursor",
+  "interactivity",
+  "opacity",
+  "pointer-events",
+  "rotate",
+  "scale",
+  "transform",
+  "transition",
+  "translate",
+  "will-change",
+  "z-index",
+]);
+
+const GHOST_RUNTIME_STYLE_PREFIXES = ["animation-", "transition-"];
+
 let sliderId = 0;
 const imagePreloads = new Set();
 const pendingImagePreloads = new WeakSet();
@@ -568,6 +585,7 @@ function updateSlideDepth(slides, activeIndex, shouldAnimate) {
 function createGhostSlide(sourceSlide) {
   const ghost = sourceSlide.cloneNode(true);
 
+  copyGhostPresentation(sourceSlide, ghost);
   ghost.classList.add(GHOST_CLASS);
   ghost.setAttribute(ACTIVE_ATTR, "0");
   ghost.setAttribute("aria-hidden", "true");
@@ -594,6 +612,38 @@ function createGhostSlide(sourceSlide) {
   prepareSlideImages(ghost);
 
   return ghost;
+}
+
+function copyGhostPresentation(sourceRoot, ghostRoot) {
+  const sourceNodes = [sourceRoot, ...sourceRoot.querySelectorAll("*")];
+  const ghostNodes = [ghostRoot, ...ghostRoot.querySelectorAll("*")];
+
+  sourceNodes.forEach((sourceNode, index) => {
+    const ghostNode = ghostNodes[index];
+
+    if (!(sourceNode instanceof Element) || !(ghostNode instanceof Element)) {
+      return;
+    }
+
+    const computedStyle = window.getComputedStyle(sourceNode);
+
+    for (const property of computedStyle) {
+      if (
+        GHOST_RUNTIME_STYLE_PROPERTIES.has(property) ||
+        GHOST_RUNTIME_STYLE_PREFIXES.some((prefix) =>
+          property.startsWith(prefix),
+        )
+      ) {
+        continue;
+      }
+
+      ghostNode.style.setProperty(
+        property,
+        computedStyle.getPropertyValue(property),
+        computedStyle.getPropertyPriority(property),
+      );
+    }
+  });
 }
 
 function removeGhostSlides(track) {
