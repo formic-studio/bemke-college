@@ -1,0 +1,296 @@
+button.tab {
+  appearance: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-img-wrapper,
+[data-bemke-history-tabs-ready="1"] .history-slide-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-img-wrapper {
+  min-height: var(--history-img-height, auto);
+}
+
+[data-bemke-history-tabs-ready="1"] .history-slide-wrapper {
+  min-height: var(--history-slide-height, auto);
+}
+
+[data-bemke-history-tabs-ready="1"] .history-tabs-track {
+  align-items: stretch;
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0;
+  max-width: 100%;
+  min-width: 0;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.98s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+  will-change: transform;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-tabs-track.is-immediate {
+  transition: none !important;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-img,
+[data-bemke-history-tabs-ready="1"] .history-slide {
+  box-sizing: border-box;
+  flex: 0 0 100%;
+  max-width: 100%;
+  min-width: 0;
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-img[hidden],
+[data-bemke-history-tabs-ready="1"] .history-slide[hidden] {
+  display: none !important;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-img {
+  display: block;
+  height: auto;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+[data-bemke-history-tabs-ready="1"] .tabs-block[role="tablist"] {
+  --history-tabs-right-bleed: calc(
+    var(--padding-vertical, 4rem) +
+      max(0px, calc(50vw - 960px))
+  );
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  align-self: stretch;
+  margin-inline-end: calc(0px - var(--history-tabs-right-bleed, 0px));
+  max-width: none !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+  width: auto !important;
+}
+
+[data-bemke-history-tabs-ready="1"]
+  .tabs-block[role="tablist"]::-webkit-scrollbar {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-tabs-navigation {
+  --history-tabs-right-bleed: calc(
+    var(--padding-vertical, 4rem) +
+      max(0px, calc(50vw - 960px))
+  );
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  row-gap: 1.2rem;
+  width: 100%;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar {
+  align-items: center;
+  align-self: stretch;
+  box-sizing: border-box;
+  cursor: grab;
+  display: flex;
+  margin-inline-end: calc(0px - var(--history-tabs-right-bleed, 0px));
+  min-height: 2rem;
+  outline: none;
+  padding-block: 0.8rem;
+  touch-action: none;
+  width: auto;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar[hidden] {
+  display: none !important;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar__track {
+  background-color: var(--wine, var(--theme-wine, rgba(80, 24, 25, 1)));
+  border-radius: 999px;
+  height: 0.4rem;
+  position: relative;
+  width: 100%;
+}
+
+[data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar__thumb {
+  background-color: var(--red, var(--theme-red, rgba(116, 22, 24, 1)));
+  border-radius: 999px;
+  box-sizing: border-box;
+  height: 0.8rem;
+  left: 0;
+  min-width: 4.8rem;
+  position: absolute;
+  top: -0.2rem;
+  transition:
+    background-color 0.2s ease,
+    filter 0.2s ease;
+  will-change: transform;
+}
+
+[data-bemke-history-tabs-ready="1"]
+  .history-tabs-scrollbar:is(:hover, :focus-visible, .is-dragging)
+  .history-tabs-scrollbar__thumb {
+  filter: brightness(1.18);
+}
+
+[data-bemke-history-tabs-ready="1"]
+  .history-tabs-scrollbar.is-dragging {
+  cursor: grabbing;
+}
+
+[data-bemke-history-tabs-ready="1"]
+  .tabs-block[role="tablist"]
+  > .tab[role="tab"] {
+  flex-shrink: 0 !important;
+  white-space: nowrap;
+}
+
+/* Below the full desktop layout, keep the tabs inside the second grid column.
+   Their existing overflow then becomes a local horizontal scroller instead of
+   increasing the grid's min-content width and being clipped by the viewport. */
+@media (max-width: 1660px) {
+  [data-bemke-history-tabs-ready="1"] > *,
+  [data-bemke-history-tabs-ready="1"] .history-tabs-content {
+    min-width: 0 !important;
+  }
+
+  [data-bemke-history-tabs-ready="1"] .tabs-block[role="tablist"] {
+    contain: inline-size;
+  }
+}
+
+@media (max-width: 991px) {
+  .section_history {
+    overflow-x: clip;
+  }
+
+  .section_history .brx-grid,
+  .section_history .brx-grid > * {
+    min-width: 0 !important;
+  }
+
+  .section_history .brx-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    padding-bottom: 0 !important;
+  }
+
+  .section_history .history-tabs-content {
+    row-gap: 9.6rem !important;
+  }
+
+  [data-bemke-history-tabs-ready="1"]
+    .tabs-block[role="tablist"]
+    > .tab[role="tab"] {
+    padding: 8px 24px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  [data-bemke-history-tabs-ready="1"] .history-tabs-navigation,
+  [data-bemke-history-tabs-ready="1"] .tabs-block[role="tablist"] {
+    --history-tabs-right-bleed: var(--padding-vertical-mobile, 3.2rem);
+  }
+
+  [data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar {
+    display: none !important;
+  }
+}
+
+[data-bemke-history-tabs-ready="1"]
+  .tabs-block[role="tablist"].is-dragging,
+[data-bemke-history-tabs-ready="1"]
+  .tabs-block[role="tablist"].is-dragging
+  * {
+  cursor: grabbing !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+[data-bemke-history-tabs-ready="1"] .tab[role="tab"] {
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+[data-bemke-history-tabs-ready="1"] .tab[role="tab"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-bemke-history-tabs-ready="1"]
+  .tab[role="tab"][aria-selected="false"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--theme-red, rgba(116, 22, 24, 1));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+[data-bemke-history-tabs-ready="1"]
+  .tab[role="tab"][aria-selected="false"]:is(:hover, :focus-visible)::before {
+  transform: scaleX(1);
+}
+
+[data-bemke-history-tabs-ready="1"] .tab[role="tab"]:focus {
+  outline: none;
+}
+
+[data-bemke-history-tabs-ready="1"] .tab[role="tab"]:focus-visible {
+  outline: 2px solid
+    var(--a11y-control-text, var(--theme-darkcream, rgba(255, 243, 224, 1)));
+  outline-offset: -2px;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"]
+  .history-tabs-scrollbar__track {
+  background-color: var(--a11y-control-border) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"]
+  .history-tabs-scrollbar__thumb {
+  background-color: var(--a11y-control-text) !important;
+  filter: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-bemke-history-tabs-ready="1"]
+    .tabs-block[role="tablist"][data-bemke-history-tabs-overflow="1"] {
+    cursor: grab;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-bemke-history-tabs-ready="1"] .history-tabs-track,
+  [data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar__thumb,
+  [data-bemke-history-tabs-ready="1"]
+    .tab[role="tab"][aria-selected="false"]::before {
+    transition: none !important;
+  }
+}
+

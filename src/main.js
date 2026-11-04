@@ -12,6 +12,7 @@ const scrollExpandImageSelector = '#brxe-zoveny .grid-2x1 > img';
 const scrollHighlightSelector = '.scroll-highlight';
 const scrollRevealSelector = '[data-scroll-reveal]';
 const numberCounterSelector = '.number-counter';
+const historyTabsSelector = '.tabs-block';
 const mobileScrollSelector = '.mobile-scroll > .card';
 const reverseCardSelector =
   '.reverse-card > .reverse-card__inner > .reverse-card__front';
@@ -114,6 +115,18 @@ const initNumberCounterFeature = () => {
   });
 };
 
+const initHistoryTabsFeature = () => {
+  if (!document.querySelector(historyTabsSelector)) {
+    return;
+  }
+
+  initWhenNearViewport(historyTabsSelector, () => {
+    import('./history-tabs.js').then(({ initHistoryTabs }) => {
+      initHistoryTabs();
+    });
+  });
+};
+
 const initReverseCardFeature = () => {
   if (!document.querySelector(reverseCardSelector)) {
     return;
@@ -155,6 +168,7 @@ const initBemkeCollege = () => {
   initScrollHighlightFeature();
   initScrollRevealFeature();
   initNumberCounterFeature();
+  initHistoryTabsFeature();
   initReverseCardFeature();
   initMobileScrollFeature();
   initPopupFeature();
