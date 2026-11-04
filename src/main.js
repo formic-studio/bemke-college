@@ -11,6 +11,7 @@ import { initLanguageSwitcher } from './language-switcher.js';
 const scrollExpandImageSelector = '#brxe-zoveny .grid-2x1 > img';
 const scrollHighlightSelector = '.scroll-highlight';
 const scrollRevealSelector = '[data-scroll-reveal]';
+const numberCounterSelector = '.number-counter';
 const mobileScrollSelector = '.mobile-scroll > .card';
 const reverseCardSelector =
   '.reverse-card > .reverse-card__inner > .reverse-card__front';
@@ -101,6 +102,18 @@ const initScrollRevealFeature = () => {
   });
 };
 
+const initNumberCounterFeature = () => {
+  if (!document.querySelector(numberCounterSelector)) {
+    return;
+  }
+
+  initWhenNearViewport(numberCounterSelector, () => {
+    import('./number-counter.js').then(({ initNumberCounters }) => {
+      initNumberCounters();
+    });
+  });
+};
+
 const initReverseCardFeature = () => {
   if (!document.querySelector(reverseCardSelector)) {
     return;
@@ -141,6 +154,7 @@ const initBemkeCollege = () => {
   initScrollExpandFeature();
   initScrollHighlightFeature();
   initScrollRevealFeature();
+  initNumberCounterFeature();
   initReverseCardFeature();
   initMobileScrollFeature();
   initPopupFeature();
