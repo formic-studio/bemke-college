@@ -789,9 +789,6 @@ html[data-bemke-reduced-motion="true"]
     clamp(280px, 61.7vw, 1024px),
     calc(100vw - 32px)
   );
-  flex: 0 0 var(--bemke-home-slide-width);
-  width: var(--bemke-home-slide-width) !important;
-  max-width: var(--bemke-home-slide-width);
   height: auto !important;
   box-sizing: border-box;
   transform: scale(0.96);
@@ -801,6 +798,14 @@ html[data-bemke-reduced-motion="true"]
   -webkit-touch-callout: none;
   transition: opacity 0.42s ease;
   will-change: transform, opacity;
+}
+
+/* Slides without an image use the width and max-width configured in Bricks. */
+.slider:not(.slider-thinktank)[data-bemke-slider-ready="1"]
+  .slide:not(.no-img) {
+  flex: 0 0 var(--bemke-home-slide-width);
+  width: var(--bemke-home-slide-width) !important;
+  max-width: var(--bemke-home-slide-width);
 }
 
 /* Bricks can emit `.slide.brxe-block { pointer-events: none; }`. The active
