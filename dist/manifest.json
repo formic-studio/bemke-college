@@ -8,7 +8,7 @@
     "name": "gsap"
   },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.BtKDKUTw.js",
+    "file": "assets/bricks-slider.DfOff0v3.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
@@ -18,7 +18,7 @@
     ]
   },
   "src/history-tabs.js": {
-    "file": "assets/history-tabs.BB-xUVdB.js",
+    "file": "assets/history-tabs.BbuFI2oy.js",
     "name": "history-tabs",
     "src": "src/history-tabs.js",
     "isDynamicEntry": true,
@@ -29,8 +29,19 @@
       "assets/history-tabs.Du0AYY_r.css"
     ]
   },
+  "src/image-up-reveal.js": {
+    "file": "assets/image-up-reveal.wXVxDue5.js",
+    "name": "image-up-reveal",
+    "src": "src/image-up-reveal.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_gsap.D_956-p2.js",
+      "_ScrollTrigger.DB-27tMc.js"
+    ]
+  },
   "src/main.js": {
-    "file": "assets/main.DEHUgB5v.js",
+    "file": "assets/main.-nowp64Z.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -39,6 +50,7 @@
       "src/scroll-expand-images.js",
       "src/scroll-highlight.js",
       "src/scroll-reveal.js",
+      "src/image-up-reveal.js",
       "src/number-counter.js",
       "src/history-tabs.js",
       "src/reverse-cards.js",
@@ -56,7 +68,7 @@
     "isDynamicEntry": true
   },
   "src/number-counter.js": {
-    "file": "assets/number-counter.DrCMfA6a.js",
+    "file": "assets/number-counter.CXlM1BN5.js",
     "name": "number-counter",
     "src": "src/number-counter.js",
     "isDynamicEntry": true,
@@ -79,7 +91,7 @@
     "isDynamicEntry": true
   },
   "src/scroll-expand-images.js": {
-    "file": "assets/scroll-expand-images.DRAyfduG.js",
+    "file": "assets/scroll-expand-images.Ci-FwME9.js",
     "name": "scroll-expand-images",
     "src": "src/scroll-expand-images.js",
     "isDynamicEntry": true,
@@ -90,7 +102,7 @@
     ]
   },
   "src/scroll-highlight.js": {
-    "file": "assets/scroll-highlight.DNCkYBVI.js",
+    "file": "assets/scroll-highlight.CC2GG5lt.js",
     "name": "scroll-highlight",
     "src": "src/scroll-highlight.js",
     "isDynamicEntry": true,
@@ -101,7 +113,7 @@
     ]
   },
   "src/scroll-reveal.js": {
-    "file": "assets/scroll-reveal.Cws71gqy.js",
+    "file": "assets/scroll-reveal.Dk6CVA2i.js",
     "name": "scroll-reveal",
     "src": "src/scroll-reveal.js",
     "isDynamicEntry": true,
