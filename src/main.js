@@ -15,6 +15,7 @@ const scrollRevealSelector = '[data-scroll-reveal]';
 const imageUpSelector = '[img-up]';
 const numberCounterSelector = '.number-counter';
 const historyTabsSelector = '.tabs-block';
+const campusMapSelector = '.map-block > .map-desktop, .map-block > .map-mobile';
 const mobileScrollSelector = '.mobile-scroll > .card';
 const reverseCardSelector =
   '.reverse-card > .reverse-card__inner > .reverse-card__front';
@@ -141,6 +142,18 @@ const initHistoryTabsFeature = () => {
   });
 };
 
+const initCampusMapFeature = () => {
+  if (!document.querySelector(campusMapSelector)) {
+    return;
+  }
+
+  initWhenNearViewport('.map-block', () => {
+    import('./campus-map.js').then(({ initCampusMap }) => {
+      initCampusMap();
+    });
+  });
+};
+
 const initReverseCardFeature = () => {
   if (!document.querySelector(reverseCardSelector)) {
     return;
@@ -184,6 +197,7 @@ const initBemkeCollege = () => {
   initImageUpRevealFeature();
   initNumberCounterFeature();
   initHistoryTabsFeature();
+  initCampusMapFeature();
   initReverseCardFeature();
   initMobileScrollFeature();
   initPopupFeature();
