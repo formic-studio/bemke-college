@@ -642,10 +642,13 @@ html[data-contrast]:not([data-contrast="default"])
   }
 }
 
-/* Scroll-expand images in the Boarding section. The direct-child selector
-   establishes the initial size before JavaScript adds the source-project class. */
+/* Scroll-expand images in copied two-column content rows. The structural
+   selector keeps the feature independent from Bricks-generated element IDs. */
 .img-scroll-expand,
-#brxe-zoveny .grid-2x1 > img {
+html.bemke-college-js
+  .grid-2x1
+  > .brxe-block
+  + img.brxe-image.img-border {
   max-width: 100%;
   width: 300px;
 }

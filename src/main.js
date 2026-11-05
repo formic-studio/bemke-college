@@ -8,7 +8,8 @@ import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
 import { initLanguageSwitcher } from './language-switcher.js';
 
-const scrollExpandImageSelector = '#brxe-zoveny .grid-2x1 > img';
+const scrollExpandImageSelector =
+  '.grid-2x1 > .brxe-block + img.brxe-image.img-border';
 const scrollHighlightSelector = '.scroll-highlight';
 const scrollRevealSelector = '[data-scroll-reveal]';
 const imageUpSelector = '[img-up]';
