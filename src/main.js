@@ -19,6 +19,8 @@ const campusMapSelector = '.map-block > .map-desktop, .map-block > .map-mobile';
 const mobileScrollSelector = '.mobile-scroll > .card';
 const reverseCardSelector =
   '.reverse-card > .reverse-card__inner > .reverse-card__front';
+const processTimelineSelector =
+  '.process-block > .proces-line + .proces-item';
 
 const initWhenNearViewport = (selector, init) => {
   const targets = document.querySelectorAll(selector);
@@ -184,6 +186,18 @@ const initPopupFeature = () => {
   });
 };
 
+const initProcessTimelineFeature = () => {
+  if (!document.querySelector(processTimelineSelector)) {
+    return;
+  }
+
+  initWhenNearViewport('.process-block', () => {
+    import('./process-timeline.js').then(({ initProcessTimelines }) => {
+      initProcessTimelines();
+    });
+  });
+};
+
 const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
@@ -201,6 +215,7 @@ const initBemkeCollege = () => {
   initReverseCardFeature();
   initMobileScrollFeature();
   initPopupFeature();
+  initProcessTimelineFeature();
   initMobileMenu();
   initOnePageLinks();
   initWcagToolbar();

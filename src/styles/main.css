@@ -2,6 +2,7 @@
 @import './wcag-toolbar.css';
 @import './popup-modal.css';
 @import './campus-map.css';
+@import './process-timeline.css';
 
 :root {
   --bemke-color-text: #151515;
