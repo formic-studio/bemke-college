@@ -12,6 +12,25 @@ const READY_ATTRIBUTE = 'data-bemke-process-ready';
 const COMPLETE_ATTRIBUTE = 'data-bemke-process-complete';
 const MOBILE_QUERY = '(max-width: 991px)';
 
+const setCustomProperty = (element, property, value) => {
+  if (element.style.getPropertyValue(property) === value) {
+    return;
+  }
+
+  element.style.setProperty(property, value);
+};
+
+const createDots = (line, count) =>
+  Array.from({ length: count }, () => {
+    const dot = document.createElement('span');
+
+    dot.className = 'proces-line__dot';
+    dot.setAttribute('aria-hidden', 'true');
+    line.append(dot);
+
+    return dot;
+  });
+
 const clearAnimationStyles = (state) => {
   gsap.set([state.line, ...state.items], {
     clearProps: 'clipPath,opacity,transform,visibility,willChange',
@@ -35,7 +54,69 @@ const syncMobileAxis = (state) => {
   const lastItem = state.items[state.items.length - 1];
   const height = Math.max(0, lastItem.offsetTop - firstItem.offsetTop);
 
-  state.block.style.setProperty('--process-mobile-axis-height', `${height}px`);
+  setCustomProperty(
+    state.block,
+    '--process-mobile-axis-height',
+    `${height}px`,
+  );
+};
+
+const syncDesktopLayout = (state) => {
+  if (state.mobileQuery.matches) {
+    return;
+  }
+
+  const step = Math.min(
+    173.333,
+    Math.max(140, window.innerWidth * 0.086667),
+  );
+  const axisHeight = step * Math.max(1, state.items.length - 1);
+
+  setCustomProperty(
+    state.block,
+    '--process-axis-height',
+    `${axisHeight}px`,
+  );
+
+  state.items.forEach((item, index) => {
+    const position =
+      state.items.length === 4 && index === 3 ? 2.5 : index;
+
+    setCustomProperty(item, '--process-item-top', `${position * step}px`);
+  });
+
+  state.dots.forEach((dot, index) => {
+    const progress =
+      state.dots.length === 1 ? 0 : index / (state.dots.length - 1);
+
+    dot.style.top = `${5 + progress * axisHeight}px`;
+  });
+
+  const minimumTail = Math.min(
+    64,
+    Math.max(52, window.innerWidth * 0.0325),
+  );
+  const contentBottom = Math.max(
+    ...state.items.map((item) => {
+      const top = Number.parseFloat(
+        item.style.getPropertyValue('--process-item-top'),
+      );
+
+      return top + item.offsetHeight;
+    }),
+  );
+  const blockHeight = Math.max(axisHeight + minimumTail, contentBottom);
+
+  setCustomProperty(
+    state.block,
+    '--process-block-height',
+    `${Math.ceil(blockHeight)}px`,
+  );
+};
+
+const syncLayout = (state) => {
+  syncDesktopLayout(state);
+  syncMobileAxis(state);
 };
 
 const showWithoutMotion = (state) => {
@@ -127,27 +208,30 @@ const prepareBlock = (block) => {
     item.dataset.processSide = index % 2 === 0 ? 'right' : 'left';
   });
 
+  const dots = createDots(line, items.length);
+
   block.setAttribute(READY_ATTRIBUTE, '1');
 
   const state = {
     animation: null,
     block,
+    dots,
     items,
     line,
     mobileQuery: window.matchMedia(MOBILE_QUERY),
     resizeObserver: null,
   };
 
-  syncMobileAxis(state);
+  syncLayout(state);
 
   if ('ResizeObserver' in window) {
     state.resizeObserver = new ResizeObserver(() => {
-      syncMobileAxis(state);
+      syncLayout(state);
       ScrollTrigger.refresh();
     });
     state.resizeObserver.observe(block);
   } else {
-    window.addEventListener('resize', () => syncMobileAxis(state), {
+    window.addEventListener('resize', () => syncLayout(state), {
       passive: true,
     });
   }
@@ -172,7 +256,7 @@ export const initProcessTimelines = (scope = document) => {
 
   const syncAnimations = () => {
     states.forEach((state) => {
-      syncMobileAxis(state);
+      syncLayout(state);
 
       if (isReducedMotion()) {
         showWithoutMotion(state);
