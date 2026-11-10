@@ -25,7 +25,7 @@ function bemke_college_getresponse_print_web_connect(): void {
     <link rel="preconnect" href="https://an.gr-wcon.com" crossorigin="use-credentials">
     <link rel="preconnect" href="https://ga2.getresponse.com" crossorigin="use-credentials">
     <!-- GetResponse Analytics -->
-    <script type="text/javascript">
+    <script type="text/javascript" data-cookieconsent="ignore">
         (function(m, o, n, t, e, r, _) {
             m['__GetResponseAnalyticsObject'] = e;
             m[e] = m[e] || function() {
