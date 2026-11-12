@@ -8,6 +8,7 @@ import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
 import { initLanguageSwitcher } from './language-switcher.js';
 import { initHistoryTabs } from './history-tabs.js';
+import { initResponsiveTables } from './responsive-tables.js';
 
 const scrollExpandImageSelector =
   '.grid-2x1 > .brxe-block + img.brxe-image.img-border';
@@ -208,6 +209,7 @@ const initBemkeCollege = () => {
   initImageUpRevealFeature();
   initNumberCounterFeature();
   initHistoryTabsFeature();
+  initResponsiveTables();
   initCampusMapFeature();
   initReverseCardFeature();
   initMobileScrollFeature();

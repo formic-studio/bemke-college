@@ -1,0 +1,89 @@
+.bemke-table-scroll {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+}
+
+.bemke-table-scroll > .table-grid {
+  margin-block: 0 !important;
+}
+
+.bemke-table-scroll__hint {
+  display: none;
+}
+
+.bemke-table-scroll__instructions {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@media screen and (max-width: 1199px) {
+  .bemke-table-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    padding-block-end: 0.8rem;
+    scrollbar-color: var(--color-blue-dark, #284055) transparent;
+    scrollbar-width: thin;
+  }
+
+  .bemke-table-scroll > .table-grid {
+    max-width: none !important;
+    min-width: var(--bemke-table-min-width, 90rem) !important;
+    width: 100% !important;
+  }
+
+  .bemke-table-scroll[data-bemke-table-scroll-active]
+    > .bemke-table-scroll__hint {
+    display: block;
+    font-family: inherit;
+    font-size: var(--fs-caption-small, 1.4rem);
+    line-height: 1.3;
+    margin-block: 0 1.2rem;
+    width: max-content;
+  }
+
+  .bemke-table-scroll[data-bemke-table-scroll-active]:focus-visible {
+    border-radius: 8px;
+    outline: 3px solid var(--color-blue-dark, #284055);
+    outline-offset: 3px;
+  }
+
+  .bemke-table-scroll::-webkit-scrollbar {
+    height: 0.8rem;
+  }
+
+  .bemke-table-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .bemke-table-scroll::-webkit-scrollbar-thumb {
+    background: var(--color-blue-dark, #284055);
+    border-radius: 999px;
+  }
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-table-scroll {
+  scrollbar-color: var(--a11y-control-text) var(--a11y-control-bg);
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-table-scroll::-webkit-scrollbar-track {
+  background: var(--a11y-control-bg);
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-table-scroll::-webkit-scrollbar-thumb {
+  background: var(--a11y-control-text);
+}
