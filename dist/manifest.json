@@ -7,12 +7,8 @@
     "file": "assets/gsap.D_956-p2.js",
     "name": "gsap"
   },
-  "_site-language.Bv-rLNsm.js": {
-    "file": "assets/site-language.Bv-rLNsm.js",
-    "name": "site-language"
-  },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.CXMn49JC.js",
+    "file": "assets/bricks-slider.BFHNtzye.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
@@ -22,29 +18,16 @@
     ]
   },
   "src/campus-map.js": {
-    "file": "assets/campus-map.RX9RAyqO.js",
+    "file": "assets/campus-map.Bi_N7X9i.js",
     "name": "campus-map",
     "src": "src/campus-map.js",
     "isDynamicEntry": true,
     "imports": [
-      "_site-language.Bv-rLNsm.js"
-    ]
-  },
-  "src/history-tabs.js": {
-    "file": "assets/history-tabs.D6U1C-qO.js",
-    "name": "history-tabs",
-    "src": "src/history-tabs.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "src/main.js",
-      "_site-language.Bv-rLNsm.js"
-    ],
-    "css": [
-      "assets/history-tabs.Du0AYY_r.css"
+      "src/main.js"
     ]
   },
   "src/image-up-reveal.js": {
-    "file": "assets/image-up-reveal.B_9YKEu6.js",
+    "file": "assets/image-up-reveal.BmYabuwT.js",
     "name": "image-up-reveal",
     "src": "src/image-up-reveal.js",
     "isDynamicEntry": true,
@@ -55,7 +38,7 @@
     ]
   },
   "src/main.js": {
-    "file": "assets/main.vt1I1u-w.js",
+    "file": "assets/main.gRYYnMFK.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -66,7 +49,6 @@
       "src/scroll-reveal.js",
       "src/image-up-reveal.js",
       "src/number-counter.js",
-      "src/history-tabs.js",
       "src/campus-map.js",
       "src/reverse-cards.js",
       "src/mobile-scroll.js",
@@ -74,7 +56,7 @@
       "src/process-timeline.js"
     ],
     "css": [
-      "assets/main.BndJfikx.css"
+      "assets/main.B_AorHaa.css"
     ]
   },
   "src/mobile-scroll.js": {
@@ -84,7 +66,7 @@
     "isDynamicEntry": true
   },
   "src/number-counter.js": {
-    "file": "assets/number-counter.BQ9JhpTV.js",
+    "file": "assets/number-counter.C7pfDn2e.js",
     "name": "number-counter",
     "src": "src/number-counter.js",
     "isDynamicEntry": true,
@@ -101,7 +83,7 @@
     "isDynamicEntry": true
   },
   "src/process-timeline.js": {
-    "file": "assets/process-timeline.roYqRhV5.js",
+    "file": "assets/process-timeline.Cl1Z0TVr.js",
     "name": "process-timeline",
     "src": "src/process-timeline.js",
     "isDynamicEntry": true,
@@ -118,7 +100,7 @@
     "isDynamicEntry": true
   },
   "src/scroll-expand-images.js": {
-    "file": "assets/scroll-expand-images.BH4ERsD_.js",
+    "file": "assets/scroll-expand-images.fC8yNW0c.js",
     "name": "scroll-expand-images",
     "src": "src/scroll-expand-images.js",
     "isDynamicEntry": true,
@@ -129,7 +111,7 @@
     ]
   },
   "src/scroll-highlight.js": {
-    "file": "assets/scroll-highlight.DgVt6Zeo.js",
+    "file": "assets/scroll-highlight.18wL4VVZ.js",
     "name": "scroll-highlight",
     "src": "src/scroll-highlight.js",
     "isDynamicEntry": true,
@@ -140,7 +122,7 @@
     ]
   },
   "src/scroll-reveal.js": {
-    "file": "assets/scroll-reveal.DmMfyZZD.js",
+    "file": "assets/scroll-reveal.a1Eq7K5G.js",
     "name": "scroll-reveal",
     "src": "src/scroll-reveal.js",
     "isDynamicEntry": true,

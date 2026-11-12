@@ -7,6 +7,7 @@ import { initMobileMenu } from './mobile-menu.js';
 import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
 import { initLanguageSwitcher } from './language-switcher.js';
+import { initHistoryTabs } from './history-tabs.js';
 
 const scrollExpandImageSelector =
   '.grid-2x1 > .brxe-block + img.brxe-image.img-border';
@@ -137,11 +138,7 @@ const initHistoryTabsFeature = () => {
     return;
   }
 
-  initWhenNearViewport(historyTabsSelector, () => {
-    import('./history-tabs.js').then(({ initHistoryTabs }) => {
-      initHistoryTabs();
-    });
-  });
+  initHistoryTabs();
 };
 
 const initCampusMapFeature = () => {

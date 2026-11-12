@@ -1,1 +1,0 @@
-function e(){return document.documentElement.lang.toLowerCase().startsWith(`en`)}function t(t,n){return e()?n:t}export{t};
