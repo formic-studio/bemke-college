@@ -38,9 +38,19 @@
   }
 
   .bemke-table-scroll > .table-grid {
+    align-items: stretch !important;
+    gap: 1px !important;
+    grid-auto-rows: auto !important;
+    grid-template-rows: none !important;
     max-width: none !important;
     min-width: var(--bemke-table-min-width, 90rem) !important;
     width: 100% !important;
+  }
+
+  .bemke-table-scroll > .table-grid > .table-block {
+    align-self: stretch !important;
+    height: 100%;
+    min-height: 100%;
   }
 
   .bemke-table-scroll[data-bemke-table-scroll-active]
