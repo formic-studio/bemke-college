@@ -89,6 +89,25 @@
   }
 }
 
+@media screen and (max-width: 767px) {
+  .bemke-responsive-table {
+    --bemke-table-mobile-gutter: var(--space-24, 2.4rem);
+
+    margin-inline-start: calc(50% - 50vw);
+    max-width: none;
+    width: 100vw;
+  }
+
+  .bemke-responsive-table > .bemke-table-scroll__hint {
+    margin-inline-start: var(--bemke-table-mobile-gutter);
+  }
+
+  .bemke-responsive-table > .bemke-table-scroll {
+    padding-inline-start: var(--bemke-table-mobile-gutter);
+    scroll-padding-inline-start: var(--bemke-table-mobile-gutter);
+  }
+}
+
 html[data-contrast]:not([data-contrast="default"])
   .bemke-table-scroll {
   scrollbar-color: var(--a11y-control-text) var(--a11y-control-bg);
