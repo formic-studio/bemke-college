@@ -46,19 +46,37 @@ const killAnimation = (state) => {
 
 const syncMobileAxis = (state) => {
   if (!state.mobileQuery.matches || state.items.length < 2) {
+    state.block.style.removeProperty('--process-mobile-axis-top');
     state.block.style.removeProperty('--process-mobile-axis-height');
     return;
   }
 
-  const firstItem = state.items[0];
-  const lastItem = state.items[state.items.length - 1];
-  const height = Math.max(0, lastItem.offsetTop - firstItem.offsetTop);
+  const axisOffset =
+    Number.parseFloat(
+      window
+        .getComputedStyle(state.block)
+        .getPropertyValue('--process-mobile-axis-offset'),
+    ) || 7;
+  const dotPositions = state.items.map((item) => item.offsetTop + axisOffset);
+  const firstDotPosition = dotPositions[0];
+  const lastDotPosition = dotPositions[dotPositions.length - 1];
+  const height = Math.max(0, lastDotPosition - firstDotPosition);
+
+  setCustomProperty(
+    state.block,
+    '--process-mobile-axis-top',
+    `${firstDotPosition}px`,
+  );
 
   setCustomProperty(
     state.block,
     '--process-mobile-axis-height',
     `${height}px`,
   );
+
+  state.dots.forEach((dot, index) => {
+    dot.style.top = `${5 + dotPositions[index] - firstDotPosition}px`;
+  });
 };
 
 const syncDesktopLayout = (state) => {
@@ -230,6 +248,7 @@ const prepareBlock = (block) => {
       ScrollTrigger.refresh();
     });
     state.resizeObserver.observe(block);
+    state.items.forEach((item) => state.resizeObserver.observe(item));
   } else {
     window.addEventListener('resize', () => syncLayout(state), {
       passive: true,

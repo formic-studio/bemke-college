@@ -189,18 +189,18 @@ html[data-contrast]:not([data-contrast="default"]) .process-block {
   }
 
   .process-block > .proces-line {
-    top: var(--process-mobile-axis-offset) !important;
+    top: calc(var(--process-mobile-axis-top, var(--process-mobile-axis-offset)) - 5px) !important;
     right: auto !important;
     bottom: auto !important;
     left: 0 !important;
     width: 10px !important;
-    height: var(--process-mobile-axis-height, calc(100% - 14px)) !important;
+    height: calc(var(--process-mobile-axis-height, calc(100% - 14px)) + 10px) !important;
     background-image: linear-gradient(
       var(--process-axis-color),
       var(--process-axis-color)
     );
-    background-position: center top;
-    background-size: 1px 100%;
+    background-position: center 5px;
+    background-size: 1px var(--process-mobile-axis-height, calc(100% - 14px));
     transform: translateX(-50%) !important;
   }
 
@@ -227,7 +227,7 @@ html[data-contrast]:not([data-contrast="default"]) .process-block {
     transform: translate(-50%, -50%);
   }
 
-  .process-block .proces-line__dot {
+  .process-block[data-bemke-process-ready="1"] > .proces-item::before {
     display: none;
   }
 }
