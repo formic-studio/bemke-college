@@ -48,6 +48,10 @@ const syncMobileAxis = (state) => {
   if (!state.mobileQuery.matches || state.items.length < 2) {
     state.block.style.removeProperty('--process-mobile-axis-top');
     state.block.style.removeProperty('--process-mobile-axis-height');
+    state.line.style.removeProperty('top');
+    state.line.style.removeProperty('height');
+    state.line.style.removeProperty('background-position');
+    state.line.style.removeProperty('background-size');
     return;
   }
 
@@ -61,6 +65,8 @@ const syncMobileAxis = (state) => {
   const firstDotPosition = dotPositions[0];
   const lastDotPosition = dotPositions[dotPositions.length - 1];
   const height = Math.max(0, lastDotPosition - firstDotPosition);
+  const lineTop = firstDotPosition - 5;
+  const lineHeight = height + 10;
 
   setCustomProperty(
     state.block,
@@ -73,6 +79,11 @@ const syncMobileAxis = (state) => {
     '--process-mobile-axis-height',
     `${height}px`,
   );
+
+  state.line.style.setProperty('top', `${lineTop}px`, 'important');
+  state.line.style.setProperty('height', `${lineHeight}px`, 'important');
+  state.line.style.setProperty('background-position', 'center 5px');
+  state.line.style.setProperty('background-size', `1px ${height}px`);
 
   state.dots.forEach((dot, index) => {
     dot.style.top = `${5 + dotPositions[index] - firstDotPosition}px`;
@@ -290,9 +301,19 @@ export const initProcessTimelines = (scope = document) => {
   syncAnimations();
   document.addEventListener(MOTION_CHANGE_EVENT, syncAnimations);
 
+  document.fonts?.ready.then(() => {
+    states.forEach(syncLayout);
+    ScrollTrigger.refresh();
+  });
+
   if (document.readyState !== 'complete') {
-    window.addEventListener('load', () => ScrollTrigger.refresh(), {
-      once: true,
-    });
+    window.addEventListener(
+      'load',
+      () => {
+        states.forEach(syncLayout);
+        ScrollTrigger.refresh();
+      },
+      { once: true },
+    );
   }
 };
