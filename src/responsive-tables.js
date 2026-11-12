@@ -4,6 +4,7 @@ import { siteText } from './site-language.js';
 const TABLE_SELECTOR = '.table-grid';
 const READY_ATTR = 'data-bemke-responsive-table-ready';
 const ACTIVE_ATTR = 'data-bemke-table-scroll-active';
+const WRAPPER_CLASS = 'bemke-responsive-table';
 const SCROLLER_CLASS = 'bemke-table-scroll';
 const INSTRUCTIONS_CLASS = 'bemke-table-scroll__instructions';
 const MOBILE_QUERY = '(max-width: 1199px)';
@@ -34,6 +35,7 @@ function initResponsiveTable(table) {
     MIN_TABLE_WIDTH_PX,
     columnCount * MIN_COLUMN_WIDTH_PX,
   );
+  const wrapper = document.createElement('div');
   const scroller = document.createElement('div');
   const hint = document.createElement('span');
   const instructions = document.createElement('span');
@@ -42,9 +44,11 @@ function initResponsiveTable(table) {
 
   tableId += 1;
 
+  wrapper.className = WRAPPER_CLASS;
+  wrapper.style.marginBlockStart = computedStyle.marginBlockStart;
+  wrapper.style.marginBlockEnd = computedStyle.marginBlockEnd;
+
   scroller.className = SCROLLER_CLASS;
-  scroller.style.marginBlockStart = computedStyle.marginBlockStart;
-  scroller.style.marginBlockEnd = computedStyle.marginBlockEnd;
 
   hint.className = 'bemke-table-scroll__hint';
   hint.setAttribute('aria-hidden', 'true');
@@ -60,8 +64,9 @@ function initResponsiveTable(table) {
     'Horizontally scrollable table. Use the Left and Right Arrow keys to view the remaining columns.',
   );
 
-  table.before(scroller);
-  scroller.append(hint, table, instructions);
+  table.before(wrapper);
+  wrapper.append(hint, scroller);
+  scroller.append(table, instructions);
 
   table.style.setProperty('--bemke-table-min-width', `${tableMinWidth}px`);
   table.setAttribute(READY_ATTR, '1');
@@ -70,6 +75,7 @@ function initResponsiveTable(table) {
     const isScrollable =
       mediaQuery.matches && scroller.scrollWidth > scroller.clientWidth + 1;
 
+    wrapper.toggleAttribute(ACTIVE_ATTR, isScrollable);
     scroller.toggleAttribute(ACTIVE_ATTR, isScrollable);
 
     if (!isScrollable) {

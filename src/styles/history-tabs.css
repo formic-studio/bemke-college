@@ -209,6 +209,13 @@ button.tab {
     --history-tabs-right-bleed: var(--padding-vertical-mobile, 3.2rem);
   }
 
+  [data-bemke-history-tabs-ready="1"] .tabs-block[role="tablist"] {
+    box-sizing: border-box;
+    margin-inline-start: calc(0px - var(--history-tabs-right-bleed));
+    padding-inline-start: var(--history-tabs-right-bleed);
+    scroll-padding-inline-start: var(--history-tabs-right-bleed);
+  }
+
   [data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar {
     display: none !important;
   }

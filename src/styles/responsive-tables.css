@@ -1,3 +1,4 @@
+.bemke-responsive-table,
 .bemke-table-scroll {
   box-sizing: border-box;
   max-width: 100%;
@@ -53,7 +54,7 @@
     min-height: 100%;
   }
 
-  .bemke-table-scroll[data-bemke-table-scroll-active]
+  .bemke-responsive-table[data-bemke-table-scroll-active]
     > .bemke-table-scroll__hint {
     display: block;
     font-family: inherit;
