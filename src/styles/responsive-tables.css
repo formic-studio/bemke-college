@@ -103,8 +103,18 @@
   }
 
   .bemke-responsive-table > .bemke-table-scroll {
+    padding-block-end: 0;
+    padding-inline-end: var(--bemke-table-mobile-gutter);
     padding-inline-start: var(--bemke-table-mobile-gutter);
+    scroll-padding-inline-end: var(--bemke-table-mobile-gutter);
     scroll-padding-inline-start: var(--bemke-table-mobile-gutter);
+    scrollbar-width: none;
+  }
+
+  .bemke-responsive-table > .bemke-table-scroll::-webkit-scrollbar {
+    display: none;
+    height: 0;
+    width: 0;
   }
 }
 
