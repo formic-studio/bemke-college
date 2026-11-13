@@ -44,6 +44,37 @@
 }
 
 @media (min-width: 992px) {
+  #brx-header .bemke-college-wcag-toolbar {
+    box-sizing: border-box;
+    column-gap: 6.4rem !important;
+    height: 4.8rem !important;
+    justify-content: flex-end !important;
+    min-height: 4.8rem;
+    padding-block: 0 !important;
+  }
+
+  #brx-header
+    .bemke-college-wcag-toolbar
+    > .bemke-mobile-wcag__control--motion,
+  #brx-header
+    .bemke-college-wcag-toolbar
+    > .bemke-mobile-wcag__control--motion
+    + svg {
+    display: none !important;
+  }
+
+  #brx-header .bemke-college-navigation-row {
+    box-sizing: border-box;
+    height: 6.4rem;
+    min-height: 6.4rem;
+  }
+
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu {
+    font-size: 1.5rem;
+    letter-spacing: 0.03rem;
+    line-height: 1.3;
+  }
+
   #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-nav-menu-wrapper {
     display: block !important;
     position: static !important;
@@ -68,7 +99,7 @@
     box-sizing: border-box;
     display: flex;
     flex: 1 1 0;
-    height: 4.8rem;
+    height: 3.2rem;
     justify-content: center;
     margin: 0 !important;
     min-width: 0;
@@ -89,7 +120,7 @@
     align-items: center;
     color: inherit;
     display: inline-flex;
-    gap: 0.7rem;
+    gap: 1.2rem;
     height: 100%;
     justify-content: center;
     white-space: nowrap;
@@ -119,11 +150,11 @@
     color: currentColor;
     cursor: pointer;
     display: inline-flex;
-    height: 1.8rem;
+    height: 1.2rem;
     justify-content: center;
     margin: 0;
     padding: 0;
-    width: 1.8rem;
+    width: 1.2rem;
   }
 
   #brx-header .nav-menu.brxe-block
@@ -135,10 +166,10 @@
     background: var(--college-nav-arrow-bg);
     border-radius: 50%;
     box-sizing: border-box;
-    height: 1.6rem;
-    padding: 0.3rem;
+    height: 1.2rem !important;
+    padding: 0.25rem;
     transition: transform 240ms ease;
-    width: 1.6rem;
+    width: 1.2rem !important;
   }
 
   #brx-header .nav-menu.brxe-block
@@ -348,7 +379,22 @@
   #brx-header .bemke-college-navigation-row {
     column-gap: 2rem !important;
     min-height: 6.8rem;
+    padding-inline: 2rem !important;
     z-index: 10002;
+  }
+
+  html.bemke-mobile-menu-open
+    #brx-header
+    .bemke-college-navigation-row {
+    min-height: 8rem;
+  }
+
+  html.bemke-mobile-menu-open
+    #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu
+    > .bricks-mobile-menu-toggle {
+    transform: translateY(0.6rem);
   }
 
   #brx-header .bemke-college-navigation-row > :first-child svg {
@@ -392,7 +438,7 @@
     display: flex !important;
     height: 4.4rem;
     justify-content: center;
-    margin: -1rem;
+    margin: 0 -1rem 0 0;
     min-width: 4.4rem;
     outline: none;
     padding: 0;
@@ -491,7 +537,7 @@
     list-style: none;
     margin: 0;
     overflow: visible;
-    padding: 1.6rem var(--space-24, 2.4rem) 2.4rem !important;
+    padding: 1.6rem 2rem 6.4rem !important;
     width: 100%;
   }
 
@@ -516,10 +562,11 @@
     color: var(--college-nav-text);
     flex: 1 1 auto;
     font-family: "Season Mix", serif;
-    font-size: 2.1rem;
+    font-size: 2rem;
     font-style: italic;
     font-weight: 400;
-    line-height: 1.15 !important;
+    letter-spacing: 0.04rem;
+    line-height: 1.07 !important;
     padding: 1.8rem 0 !important;
     text-transform: uppercase;
   }
@@ -556,10 +603,10 @@
     background: var(--college-nav-arrow-bg);
     border-radius: 50%;
     box-sizing: border-box;
-    height: 2.2rem;
-    padding: 0.45rem;
+    height: 1.8rem;
+    padding: 0.35rem;
     transition: transform 240ms ease;
-    width: 2.2rem;
+    width: 1.8rem;
   }
 
   #brx-header .bricks-mobile-menu li.open > .brx-submenu-toggle > button svg {
@@ -604,11 +651,12 @@
     color: var(--college-nav-text);
     display: block;
     font-family: "Season Sans", sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 1.25 !important;
-    padding: 1.8rem 0 !important;
+    letter-spacing: 0.032rem;
+    line-height: 1.4 !important;
+    padding: 2.4rem 0 !important;
     text-transform: uppercase;
   }
 
@@ -623,7 +671,7 @@
     color: var(--college-nav-text);
     display: block;
     flex: 1 0 auto;
-    padding: 0 var(--space-24, 2.4rem) 2.4rem;
+    padding: 2.4rem 2rem 3.6rem;
     width: 100%;
   }
 
@@ -631,16 +679,17 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    min-height: 6.8rem;
+    min-height: 0;
   }
 
   #brx-header .bemke-mobile-accessibility__heading {
     color: inherit;
     font-family: "Season Mix", serif;
-    font-size: 2.1rem;
+    font-size: 2rem;
     font-style: italic;
     font-weight: 400;
-    line-height: 1.15;
+    letter-spacing: 0.04rem;
+    line-height: 1.07;
     margin: 0;
     text-transform: uppercase;
   }
@@ -653,10 +702,10 @@
     color: var(--college-nav-text);
     cursor: pointer;
     display: inline-flex;
-    height: 2.2rem;
+    height: 1.8rem;
     justify-content: center;
     padding: 0;
-    width: 2.2rem;
+    width: 1.8rem;
   }
 
   #brx-header .bemke-mobile-accessibility__toggle::before {
@@ -676,6 +725,10 @@
 
   #brx-header .bemke-mobile-accessibility__panel[hidden] {
     display: none !important;
+  }
+
+  #brx-header .bemke-mobile-accessibility__panel {
+    padding-top: 3.6rem;
   }
 
   #brx-header .bemke-college-wcag-toolbar {
@@ -701,42 +754,90 @@
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     gap: 1.2rem !important;
-    justify-content: flex-start !important;
-    min-height: 7rem;
-    padding: 1.2rem 0 !important;
+    justify-content: space-between !important;
+    min-height: 0;
+    padding: 0 !important;
     width: 100% !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--font-size {
+    column-gap: 3.6rem !important;
     order: 1;
+    padding-bottom: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--contrast {
+    column-gap: 1.8rem !important;
     order: 2;
+    padding-block: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--language {
+    border-bottom: 0;
+    column-gap: 1.2rem !important;
     order: 3;
+    padding-top: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--motion {
-    border-bottom: 0;
-    justify-content: space-between !important;
+    display: none !important;
     order: 4;
   }
 
   #brx-header .bemke-mobile-wcag__label {
-    color: inherit;
+    color: var(--college-nav-text) !important;
     display: block;
-    flex: 1 1 auto;
-    font-size: var(--fs-button-small, 1.4rem);
-    line-height: 1.2;
+    flex: 0 0 auto;
+    font-size: 1.6rem;
+    letter-spacing: 0.032rem;
+    line-height: 1.4;
+    margin-right: auto;
     text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--language
+    > .brxe-text-basic:last-of-type {
+    order: 1;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--language
+    > .lang-switcher {
+    order: 2;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--language
+    > .brxe-text-basic:first-of-type {
+    order: 3;
   }
 
   #brx-header .bemke-mobile-wcag__control--motion .brxe-text-basic {
     font-size: var(--fs-button-small, 1.4rem);
     text-transform: uppercase;
+  }
+
+  html:not([data-contrast])
+    #brx-header
+    .bemke-mobile-accessibility
+    :is(
+      .brxe-text-basic,
+      .brxe-text-link,
+      [data-a11y-scale],
+      a:not([data-contrast])
+    ),
+  html[data-contrast="default"]
+    #brx-header
+    .bemke-mobile-accessibility
+    :is(
+      .brxe-text-basic,
+      .brxe-text-link,
+      [data-a11y-scale],
+      a:not([data-contrast])
+    ) {
+    color: var(--college-nav-text) !important;
   }
 }
 

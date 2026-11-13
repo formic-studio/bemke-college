@@ -17,7 +17,7 @@ const LABELS = {
     contrast: 'Contrast',
     expand: 'Expand accessibility controls',
     language: 'Language',
-    textSize: 'Text size',
+    textSize: 'Font size',
   },
 };
 
