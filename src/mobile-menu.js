@@ -1,110 +1,150 @@
-const MOBILE_MENU_QUERY = '(max-width: 767px)';
-const MOBILE_MENU_SELECTOR = '.nav-menu.brxe-block';
-const MOBILE_MENU_TOGGLE_SELECTOR = '.bemke-mobile-menu-toggle';
-const MOBILE_MENU_TOGGLE_READY_ATTRIBUTE = 'data-bemke-mobile-menu-ready';
-const ACCESSIBILITY_SELECTOR = '#brxe-dtelpy';
-const MENU_LABELS = {
+const HEADER_SELECTOR = '#brx-header';
+const MENU_ELEMENT_SELECTOR = '.nav-menu.brxe-block > .brxe-nav-menu';
+const MOBILE_QUERY = '(max-width: 991px)';
+
+const LABELS = {
   pl: {
-    open: 'Otwórz menu',
-    close: 'Zamknij menu',
     accessibility: 'Dostępność',
-    textSize: 'Wielkość treści',
+    collapse: 'Zwiń dostępność',
     contrast: 'Kontrast',
+    expand: 'Rozwiń dostępność',
     language: 'Język',
-    expandAccessibility: 'Rozwiń dostępność',
-    collapseAccessibility: 'Zwiń dostępność',
+    textSize: 'Wielkość treści',
   },
   en: {
-    open: 'Open menu',
-    close: 'Close menu',
     accessibility: 'Accessibility',
-    textSize: 'Text size',
+    collapse: 'Collapse accessibility controls',
     contrast: 'Contrast',
+    expand: 'Expand accessibility controls',
     language: 'Language',
-    expandAccessibility: 'Expand accessibility',
-    collapseAccessibility: 'Collapse accessibility',
+    textSize: 'Text size',
   },
 };
-const FOCUSABLE_SELECTOR = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
-  '[tabindex]:not([tabindex="-1"])',
-].join(',');
 
-let menuState;
-
-const getMenuLabels = () =>
-  MENU_LABELS[document.documentElement.lang.toLowerCase().startsWith('pl') ? 'pl' : 'en'];
-
-const labelToolbarControls = (toolbar, labels) => {
-  const groups = [
-    ['#brxe-ojgsiy', labels.textSize],
-    ['#brxe-ioczzo', labels.contrast],
-    ['#brxe-wxmjhs', labels.language],
+const getLabels = () =>
+  LABELS[
+    document.documentElement.lang.toLowerCase().startsWith('pl') ? 'pl' : 'en'
   ];
 
-  groups.forEach(([selector, labelText]) => {
-    const group = toolbar.querySelector(selector);
+const findToolbar = (header) =>
+  Array.from(header.querySelectorAll('.padding-global, .brxe-block')).find(
+    (element) =>
+      !element.closest('.bricks-mobile-menu-wrapper') &&
+      element.querySelector('.animation-switcher') &&
+      element.querySelector('[data-contrast]') &&
+      element.querySelector('.lang-switcher:not(.animation-switcher)'),
+  ) ?? null;
 
-    if (!group) {
-      return;
-    }
+const findToolbarGroup = (toolbar, selector) =>
+  Array.from(toolbar.children).find((child) => child.querySelector(selector)) ??
+  null;
 
-    const label = document.createElement('span');
-    label.className = 'bemke-mobile-accessibility__label';
-    label.id = `bemke-mobile-accessibility-label-${group.id}`;
-    label.textContent = labelText;
-    group.prepend(label);
-    group.setAttribute('role', 'group');
-    group.setAttribute('aria-labelledby', label.id);
-  });
-};
-
-const createAccessibilityPanel = (header, menu, media) => {
-  const toolbar = header.querySelector(ACCESSIBILITY_SELECTOR);
-
-  if (!toolbar || menu.contains(toolbar) || !toolbar.parentNode) {
-    return null;
+const labelToolbarGroup = (group, className, label) => {
+  if (!group) {
+    return;
   }
 
-  const labels = getMenuLabels();
-  const originalPosition = document.createComment('Bemke accessibility toolbar');
-  const section = document.createElement('section');
-  const heading = document.createElement('h2');
-  const button = document.createElement('button');
-  const panel = document.createElement('div');
-  const panelId = 'bemke-mobile-accessibility-panel';
+  group.classList.add('bemke-mobile-wcag__control', className);
 
-  labelToolbarControls(toolbar, labels);
+  if (group.querySelector(':scope > .bemke-mobile-wcag__label')) {
+    return;
+  }
+
+  const labelElement = document.createElement('span');
+  labelElement.className = 'bemke-mobile-wcag__label';
+  labelElement.textContent = label;
+  group.prepend(labelElement);
+};
+
+const prepareToolbar = (toolbar, labels) => {
+  toolbar.classList.add('bemke-college-wcag-toolbar');
+
+  labelToolbarGroup(
+    findToolbarGroup(toolbar, '[data-a11y-scale]'),
+    'bemke-mobile-wcag__control--font-size',
+    labels.textSize,
+  );
+  labelToolbarGroup(
+    findToolbarGroup(toolbar, '[data-contrast]'),
+    'bemke-mobile-wcag__control--contrast',
+    labels.contrast,
+  );
+  labelToolbarGroup(
+    findToolbarGroup(toolbar, '.lang-switcher:not(.animation-switcher)'),
+    'bemke-mobile-wcag__control--language',
+    labels.language,
+  );
+
+  const motionGroup = findToolbarGroup(toolbar, '.animation-switcher');
+
+  if (motionGroup) {
+    motionGroup.classList.add(
+      'bemke-mobile-wcag__control',
+      'bemke-mobile-wcag__control--motion',
+    );
+
+  }
+};
+
+const createMobileContent = (wrapper, menu) => {
+  const existing = wrapper.querySelector(':scope > .bemke-mobile-menu__content');
+
+  if (existing) {
+    return existing;
+  }
+
+  const content = document.createElement('div');
+  content.className = 'bemke-mobile-menu__content';
+  wrapper.insertBefore(content, menu);
+  content.appendChild(menu);
+  return content;
+};
+
+const createAccessibilityPanel = (toolbar, content, media) => {
+  const labels = getLabels();
+  const originalPosition = document.createComment(
+    'Bemke College accessibility toolbar',
+  );
+  const section = document.createElement('section');
+  const headingRow = document.createElement('div');
+  const heading = document.createElement('h2');
+  const toggle = document.createElement('button');
+  const panel = document.createElement('div');
+  const panelId = 'bemke-college-mobile-accessibility-panel';
+
+  prepareToolbar(toolbar, labels);
   toolbar.before(originalPosition);
+
   section.className = 'bemke-mobile-accessibility';
-  section.setAttribute('aria-labelledby', 'bemke-mobile-accessibility-heading');
+  section.setAttribute(
+    'aria-labelledby',
+    'bemke-college-mobile-accessibility-heading',
+  );
+  headingRow.className = 'bemke-mobile-accessibility__heading-row';
   heading.className = 'bemke-mobile-accessibility__heading';
-  heading.id = 'bemke-mobile-accessibility-heading';
+  heading.id = 'bemke-college-mobile-accessibility-heading';
   heading.textContent = labels.accessibility;
-  button.className = 'bemke-mobile-accessibility__toggle';
-  button.type = 'button';
-  button.setAttribute('aria-controls', panelId);
+  toggle.className = 'bemke-mobile-accessibility__toggle';
+  toggle.type = 'button';
+  toggle.setAttribute('aria-controls', panelId);
   panel.className = 'bemke-mobile-accessibility__panel';
   panel.id = panelId;
-  section.append(heading, button, panel);
-  menu.appendChild(section);
+  headingRow.append(heading, toggle);
+  section.append(headingRow, panel);
+  content.appendChild(section);
 
-  const setExpanded = (expanded) => {
-    button.setAttribute('aria-expanded', String(expanded));
-    button.setAttribute(
+  const setExpanded = (isExpanded) => {
+    toggle.setAttribute('aria-expanded', String(isExpanded));
+    toggle.setAttribute(
       'aria-label',
-      expanded ? labels.collapseAccessibility : labels.expandAccessibility,
+      isExpanded ? labels.collapse : labels.expand,
     );
-    panel.hidden = !expanded;
+    panel.hidden = !isExpanded;
   };
 
   setExpanded(true);
-  button.addEventListener('click', () => {
-    setExpanded(button.getAttribute('aria-expanded') !== 'true');
+  toggle.addEventListener('click', () => {
+    setExpanded(toggle.getAttribute('aria-expanded') !== 'true');
   });
 
   const sync = () => {
@@ -117,227 +157,105 @@ const createAccessibilityPanel = (header, menu, media) => {
 
   media.addEventListener('change', sync);
   sync();
-
-  return section;
 };
 
-const createMobileContent = (menu, media) => {
-  const content = document.createElement('div');
-  content.className = 'bemke-mobile-menu__content';
+const prepareSubmenus = (menu) => {
+  menu.querySelectorAll(':scope > li > .sub-menu').forEach((submenu, index) => {
+    const item = submenu.parentElement;
+    const button = item?.querySelector(':scope > .brx-submenu-toggle > button');
 
-  const sync = () => {
-    if (media.matches) {
-      if (!content.parentNode) {
-        while (menu.firstChild) {
-          content.appendChild(menu.firstChild);
-        }
-        menu.appendChild(content);
-      }
+    submenu.id ||= `bemke-college-mobile-submenu-${index + 1}`;
+    submenu.setAttribute(
+      'aria-hidden',
+      item?.classList.contains('open') ? 'false' : 'true',
+    );
+    button?.setAttribute('aria-controls', submenu.id);
+
+    if (!item) {
       return;
     }
 
-    if (content.parentNode) {
-      while (content.firstChild) {
-        menu.insertBefore(content.firstChild, content);
-      }
-      content.remove();
-    }
-  };
-
-  media.addEventListener('change', sync);
-  sync();
-
-  return content;
+    new MutationObserver(() => {
+      const isOpen = item.classList.contains('open');
+      submenu.setAttribute('aria-hidden', String(!isOpen));
+      menu.classList.toggle(
+        'bemke-mobile-menu--has-open-submenu',
+        Boolean(menu.querySelector(':scope > li.open')),
+      );
+    }).observe(item, { attributes: true, attributeFilter: ['class'] });
+  });
 };
 
-const createToggle = (menu) => {
-  const button = document.createElement('button');
-  button.id = 'bemke-mobile-menu-toggle';
-  button.className = 'bemke-mobile-menu-toggle';
-  button.type = 'button';
-  button.setAttribute('aria-controls', menu.id);
-  button.setAttribute('aria-expanded', 'false');
-  button.setAttribute('aria-label', getMenuLabels().open);
-  button.innerHTML = [
-    '<span class="bemke-mobile-menu-toggle__line"></span>',
-    '<span class="bemke-mobile-menu-toggle__line"></span>',
-    '<span class="bemke-mobile-menu-toggle__line"></span>',
-  ].join('');
-
-  return button;
-};
-
-const getSingleToggle = (headerInner) => {
-  const toggles = Array.from(
-    headerInner.querySelectorAll(MOBILE_MENU_TOGGLE_SELECTOR),
-  );
-  const toggle = toggles.shift() ?? null;
-
-  toggles.forEach((duplicate) => duplicate.remove());
-
-  return toggle;
-};
-
-const getFocusableItems = (menu, toggle) => [toggle, ...Array.from(menu.querySelectorAll(FOCUSABLE_SELECTOR))]
-  .filter((item) =>
-    !item.hasAttribute('disabled') &&
-    item.getAttribute('aria-hidden') !== 'true' &&
-    !item.closest('[hidden], [inert]') &&
-    item.getClientRects().length > 0,
-  );
-
-const setMenuAccessibility = (state) => {
-  if (!state.media.matches) {
-    state.menu.removeAttribute('aria-hidden');
-    state.menu.inert = false;
+const initHeaderMobileMenu = (header) => {
+  if (header.getAttribute('data-college-mobile-menu-ready') === '1') {
     return;
   }
 
-  state.menu.setAttribute('aria-hidden', state.isOpen ? 'false' : 'true');
-  state.menu.inert = !state.isOpen;
-};
-
-const setMenuState = (state, isOpen, shouldRestoreFocus = true) => {
-  if (isOpen && state.media.matches) {
-    state.updateMenuTop();
-    state.content.scrollTop = 0;
-  }
-
-  state.isOpen = isOpen;
-  document.documentElement.classList.toggle('bemke-mobile-menu-open', isOpen);
-  state.toggle.setAttribute('aria-expanded', String(isOpen));
-  state.toggle.setAttribute('aria-label', isOpen ? state.labels.close : state.labels.open);
-  setMenuAccessibility(state);
-
-  if (!state.media.matches) {
-    return;
-  }
-
-  if (isOpen) {
-    window.requestAnimationFrame(() => {
-      state.menu.querySelector('a[href]')?.focus({ preventScroll: true });
-    });
-  } else if (shouldRestoreFocus) {
-    state.toggle.focus({ preventScroll: true });
-  }
-};
-
-const handleTabTrap = (event, state) => {
-  if (event.key !== 'Tab' || !state.isOpen || !state.media.matches) {
-    return;
-  }
-
-  const items = getFocusableItems(state.menu, state.toggle);
-  const first = items[0];
-  const last = items[items.length - 1];
-
-  if (!first || !last) {
-    return;
-  }
-
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault();
-    last.focus();
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault();
-    first.focus();
-  }
-};
-
-const syncBreakpointState = (state) => {
-  if (!state.media.matches && state.isOpen) {
-    setMenuState(state, false, false);
-  }
-
-  setMenuAccessibility(state);
-};
-
-export const initMobileMenu = () => {
-  const header = document.querySelector('#brx-header');
-  const menu = header?.querySelector(MOBILE_MENU_SELECTOR);
-  const headerInner = header?.querySelector('#brxe-lmzjvw') ?? menu?.parentElement;
-
-  if (!menu || !headerInner || menuState) {
-    return;
-  }
-
-  if (!menu.id) {
-    menu.id = 'bemke-mobile-menu';
-  }
-
-  const existingToggle = getSingleToggle(headerInner);
+  const menuElement = header.querySelector(MENU_ELEMENT_SELECTOR);
+  const wrapper = menuElement?.querySelector(':scope > .bricks-mobile-menu-wrapper');
+  const menu = wrapper?.querySelector(':scope > .bricks-mobile-menu');
+  const toggle = menuElement?.querySelector(':scope > .bricks-mobile-menu-toggle');
+  const toolbar = findToolbar(header);
+  const navigationRow = menuElement?.closest('.padding-global') ?? menuElement?.parentElement;
 
   if (
-    existingToggle?.getAttribute(MOBILE_MENU_TOGGLE_READY_ATTRIBUTE) === '1'
+    !menuElement ||
+    !wrapper ||
+    !menu ||
+    !toggle ||
+    !toolbar ||
+    !navigationRow
   ) {
     return;
   }
 
-  const media = window.matchMedia(MOBILE_MENU_QUERY);
-  const toggle = existingToggle ?? createToggle(menu);
-  const labels = getMenuLabels();
-  const updateMenuTop = () => {
-    if (media.matches) {
-      menu.style.setProperty('--bemke-mobile-menu-top', `${Math.max(0, headerInner.getBoundingClientRect().bottom)}px`);
-    } else {
-      menu.style.removeProperty('--bemke-mobile-menu-top');
+  const media = window.matchMedia(MOBILE_QUERY);
+  const content = createMobileContent(wrapper, menu);
+
+  header.setAttribute('data-college-mobile-menu-ready', '1');
+  header.setAttribute('data-college-mobile-navigation', '1');
+  navigationRow.classList.add('bemke-college-navigation-row');
+  prepareSubmenus(menu);
+  createAccessibilityPanel(toolbar, content, media);
+
+  const updateHeaderHeight = () => {
+    const height = navigationRow.getBoundingClientRect().height;
+
+    if (height > 0) {
+      header.style.setProperty(
+        '--bemke-mobile-header-height',
+        `${Math.round(height)}px`,
+      );
     }
   };
 
-  if (!existingToggle) {
-    headerInner.appendChild(toggle);
-  }
-
-  headerInner.classList.add('bemke-mobile-menu-header');
-  toggle.setAttribute('aria-controls', menu.id);
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.setAttribute('aria-label', labels.open);
-  toggle.setAttribute(MOBILE_MENU_TOGGLE_READY_ATTRIBUTE, '1');
-
-  createAccessibilityPanel(header, menu, media);
-  const content = createMobileContent(menu, media);
-  updateMenuTop();
-
-  menuState = {
-    content,
-    isOpen: false,
-    labels,
-    media,
-    menu,
-    toggle,
-    updateMenuTop,
+  const syncOpenState = () => {
+    const isOpen = menuElement.classList.contains('show-mobile-menu');
+    document.documentElement.classList.toggle(
+      'bemke-mobile-menu-open',
+      media.matches && isOpen,
+    );
   };
 
-  setMenuAccessibility(menuState);
-
-  toggle.addEventListener('click', () => {
-    setMenuState(menuState, !menuState.isOpen);
-  });
-
-  menu.addEventListener('click', (event) => {
-    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
-
-    if (link && menuState.media.matches && !link.closest('.bemke-mobile-accessibility')) {
-      setMenuState(menuState, false, false);
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menuState.isOpen) {
-      event.preventDefault();
-      setMenuState(menuState, false);
-      return;
-    }
-
-    handleTabTrap(event, menuState);
+  new MutationObserver(syncOpenState).observe(menuElement, {
+    attributes: true,
+    attributeFilter: ['class'],
   });
 
   media.addEventListener('change', () => {
-    updateMenuTop();
-    syncBreakpointState(menuState);
+    updateHeaderHeight();
+    syncOpenState();
   });
-  window.addEventListener('resize', updateMenuTop);
+  window.addEventListener('resize', updateHeaderHeight);
+
   if ('ResizeObserver' in window) {
-    new ResizeObserver(updateMenuTop).observe(headerInner);
+    new ResizeObserver(updateHeaderHeight).observe(navigationRow);
   }
+
+  updateHeaderHeight();
+  syncOpenState();
+};
+
+export const initMobileMenu = () => {
+  document.querySelectorAll(HEADER_SELECTOR).forEach(initHeaderMobileMenu);
 };

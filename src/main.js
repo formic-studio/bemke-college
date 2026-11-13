@@ -4,6 +4,7 @@ import { initMotionPreference } from './motion-preference.js';
 import { initAccessibilityMotionSwitch } from './accessibility-motion-switch.js';
 import { initDecorativeVideoMotion } from './decorative-video-motion.js';
 import { initMobileMenu } from './mobile-menu.js';
+import { initMegaMenu } from './mega-menu.js';
 import { initOnePageLinks } from './one-page-links.js';
 import { initWcagToolbar } from './wcag-toolbar.js';
 import { initLanguageSwitcher } from './language-switcher.js';
@@ -215,10 +216,11 @@ const initBemkeCollege = () => {
   initMobileScrollFeature();
   initPopupFeature();
   initProcessTimelineFeature();
-  initMobileMenu();
-  initOnePageLinks();
   initWcagToolbar();
   initLanguageSwitcher();
+  initMegaMenu();
+  initMobileMenu();
+  initOnePageLinks();
 };
 
 if (document.readyState === 'loading') {

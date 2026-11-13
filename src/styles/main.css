@@ -3,6 +3,7 @@
 @import './popup-modal.css';
 @import './campus-map.css';
 @import './process-timeline.css';
+@import './navigation.css';
 
 :root {
   --bemke-color-text: #151515;
@@ -228,7 +229,9 @@ html[data-contrast]:not([data-contrast="default"])
   -webkit-text-fill-color: currentColor !important;
 }
 
-@media (max-width: 767px) {
+/* Legacy mobile navigation for the former hand-built Bricks link block.
+   The native Nav Menu implementation lives in navigation.css. */
+@media (max-width: 0px) {
   html.bemke-mobile-menu-open,
   html.bemke-mobile-menu-open body {
     overflow: hidden;

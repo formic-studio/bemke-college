@@ -1,0 +1,715 @@
+#brx-header {
+  --college-nav-bg: var(--color-blue-light, #d1e2fb);
+  --college-nav-surface: var(--color-blue-light-2, #f5f9fd);
+  --college-nav-text: var(--color-brown, #131312);
+  --college-nav-muted: var(--color-claret-light, #8d6671);
+  --college-nav-accent: var(--color-vine, #501819);
+  --college-nav-border: color-mix(
+    in srgb,
+    var(--color-blue-dark, #284055) 22%,
+    transparent
+  );
+}
+
+#brx-header .bemke-college-navigation-row {
+  align-items: center !important;
+  column-gap: clamp(3.2rem, 5vw, 9.6rem) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+  position: relative;
+  width: 100%;
+}
+
+#brx-header .bemke-college-navigation-row > :first-child {
+  flex: 0 0 auto;
+}
+
+#brx-header .nav-menu.brxe-block {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+#brx-header .nav-menu.brxe-block > .brxe-nav-menu {
+  color: var(--college-nav-text);
+  font-family: "Season Sans", sans-serif;
+  font-size: var(--fs-link, 1.4rem);
+  font-weight: 400;
+  position: relative;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-nav-menu-wrapper {
+    display: block !important;
+    position: static !important;
+    width: 100%;
+  }
+
+  #brx-header .nav-menu.brxe-block .bricks-nav-menu {
+    align-items: center;
+    display: flex;
+    gap: 0 !important;
+    justify-content: stretch;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: static !important;
+    width: 100%;
+  }
+
+  #brx-header .nav-menu.brxe-block .bricks-nav-menu > li {
+    align-items: center;
+    border-left: 1px solid var(--college-nav-border);
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 0;
+    height: 4.8rem;
+    justify-content: center;
+    margin: 0 !important;
+    min-width: 0;
+    padding-inline: clamp(1.2rem, 1.5vw, 2.8rem);
+    position: static !important;
+  }
+
+  #brx-header .nav-menu.brxe-block .bricks-nav-menu > li:last-child {
+    border-right: 1px solid var(--college-nav-border);
+  }
+
+  #brx-header .nav-menu.brxe-block .bricks-nav-menu > li::before {
+    content: none !important;
+  }
+
+  #brx-header .nav-menu.brxe-block .bricks-nav-menu > li > a,
+  #brx-header .nav-menu.brxe-block .bricks-nav-menu > li > .brx-submenu-toggle {
+    align-items: center;
+    color: inherit;
+    display: inline-flex;
+    gap: 0.7rem;
+    height: 100%;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li
+    > .brx-submenu-toggle
+    > a {
+    align-items: center;
+    color: inherit;
+    display: inline-flex;
+    height: 100%;
+    white-space: nowrap;
+  }
+
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li
+    > .brx-submenu-toggle
+    > button {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: currentColor;
+    cursor: pointer;
+    display: inline-flex;
+    height: 1.8rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 1.8rem;
+  }
+
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li
+    > .brx-submenu-toggle
+    > button
+    svg {
+    background: color-mix(in srgb, var(--college-nav-bg) 70%, #ffffff);
+    border-radius: 50%;
+    box-sizing: border-box;
+    height: 1.6rem;
+    padding: 0.3rem;
+    transition: transform 240ms ease;
+    width: 1.6rem;
+  }
+
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li.is-college-menu-item-active
+    > .brx-submenu-toggle
+    > button
+    svg {
+    transform: rotate(180deg);
+  }
+
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li
+    > .brx-submenu-toggle
+    > a,
+  #brx-header .nav-menu.brxe-block .bricks-nav-menu > li > a {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 0.08em;
+    text-decoration: none;
+    transition:
+      background-size 340ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 240ms ease;
+  }
+
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li
+    > .brx-submenu-toggle
+    > a:is(:hover, :focus-visible, [aria-current="page"]),
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li
+    > a:is(:hover, :focus-visible, [aria-current="page"]),
+  #brx-header .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li.is-college-menu-item-active
+    > .brx-submenu-toggle
+    > a {
+    background-size: 100% 0.08em;
+  }
+
+  #brx-header .college-mega-submenu {
+    background: var(--college-nav-bg) !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+    left: var(--college-submenu-left, 0) !important;
+    list-style: none;
+    margin: 0;
+    max-width: var(--college-submenu-max-width, 100vw);
+    min-width: min(var(--college-submenu-width, 24rem), 100vw);
+    opacity: 0 !important;
+    padding: 2.4rem 1.8rem !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    text-align: left;
+    top: 100% !important;
+    transform: translateY(-0.4rem) !important;
+    transition:
+      opacity 280ms ease,
+      transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 340ms;
+    visibility: hidden !important;
+    width: var(--college-submenu-width, 24rem) !important;
+    z-index: 100;
+  }
+
+  #brx-header .college-mega-submenu.is-college-submenu-open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    transition-delay: 0s;
+    visibility: visible !important;
+  }
+
+  #brx-header .college-mega-submenu li {
+    display: block;
+    height: auto !important;
+    margin: 0;
+    min-height: 0 !important;
+    padding: 0;
+    text-align: left;
+  }
+
+  #brx-header .college-mega-submenu > li + li,
+  #brx-header .college-mega-submenu ul.sub-menu > li + li {
+    border-top: 1px solid var(--college-nav-border);
+    margin-top: 1.4rem;
+    padding-top: 1.4rem;
+  }
+
+  #brx-header .college-mega-submenu a {
+    align-self: stretch;
+    background: none !important;
+    color: var(--college-nav-text) !important;
+    display: flex;
+    justify-content: flex-start;
+    line-height: 1.25;
+    min-height: 0 !important;
+    padding: 0 !important;
+    text-align: left;
+    text-decoration: none !important;
+    transition: color 240ms ease;
+    white-space: normal;
+    width: 100%;
+  }
+
+  #brx-header .college-mega-submenu a:is(:hover, :focus-visible) {
+    color: var(--college-nav-accent) !important;
+  }
+
+  #brx-header .college-mega-submenu .brx-submenu-toggle {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #brx-header .college-mega-submenu .brx-submenu-toggle > button {
+    display: none !important;
+  }
+
+  #brx-header .college-mega-submenu ul.sub-menu {
+    background: transparent !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.4rem 0 0;
+    opacity: 1 !important;
+    padding: 0 0 0 1.4rem !important;
+    position: static !important;
+    transform: none !important;
+    visibility: visible !important;
+    width: 100% !important;
+  }
+
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-mobile-menu-toggle,
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-mobile-menu-wrapper,
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-mobile-menu-overlay {
+    display: none !important;
+  }
+}
+
+.bemke-mobile-accessibility,
+.bemke-mobile-wcag__label {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  html.bemke-mobile-menu-open,
+  html.bemke-mobile-menu-open body {
+    overflow: hidden;
+  }
+
+  #brx-header {
+    z-index: 1000;
+  }
+
+  #brx-header .bemke-college-navigation-row {
+    column-gap: 2rem !important;
+    min-height: 6.8rem;
+    z-index: 10002;
+  }
+
+  #brx-header .bemke-college-navigation-row > :first-child svg {
+    height: auto;
+    max-width: 9.7rem;
+  }
+
+  #brx-header .nav-menu.brxe-block {
+    background: transparent !important;
+    clip-path: none !important;
+    display: block !important;
+    flex: 0 0 auto;
+    height: auto !important;
+    inset: auto !important;
+    min-height: 0 !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    pointer-events: auto !important;
+    position: static !important;
+    transition: none !important;
+    visibility: visible !important;
+    width: auto !important;
+    z-index: auto !important;
+  }
+
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu {
+    width: auto;
+  }
+
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-nav-menu-wrapper {
+    display: none !important;
+  }
+
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-mobile-menu-toggle {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--college-nav-accent);
+    display: flex !important;
+    height: 4.4rem;
+    justify-content: center;
+    margin: -1rem;
+    min-width: 4.4rem;
+    outline: none;
+    padding: 0;
+    position: relative;
+    width: 4.4rem;
+    z-index: 10003;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu
+    > .bricks-mobile-menu-toggle
+    > span {
+    background-color: currentColor;
+    height: 0.2rem;
+    margin-left: -1rem;
+    min-width: 2rem;
+    width: 2rem;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu
+    > .bricks-mobile-menu-toggle:focus-visible {
+    border-radius: 0.4rem;
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-mobile-menu-wrapper {
+    background: transparent;
+    bottom: auto;
+    box-sizing: border-box;
+    display: flex !important;
+    height: calc(100dvh - var(--bemke-mobile-header-height, 6.8rem));
+    left: 0;
+    max-height: calc(100dvh - var(--bemke-mobile-header-height, 6.8rem));
+    max-width: none;
+    opacity: 1;
+    overflow: hidden;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: calc(
+      var(--wp-admin--admin-bar--height, 0px) +
+        var(--bemke-mobile-header-height, 6.8rem)
+    );
+    transform: none !important;
+    visibility: hidden;
+    width: 100%;
+    z-index: 10001;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu.show-mobile-menu
+    > .bricks-mobile-menu-wrapper {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu
+    > .bricks-mobile-menu-wrapper::before,
+  #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-mobile-menu-overlay {
+    display: none !important;
+  }
+
+  #brx-header .bemke-mobile-menu__content {
+    background: var(--college-nav-bg);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateY(-100%);
+    transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu.show-mobile-menu
+    .bemke-mobile-menu__content {
+    transform: translateY(0);
+  }
+
+  #brx-header .bricks-mobile-menu {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    list-style: none;
+    margin: 0;
+    overflow: visible;
+    padding: 1.6rem var(--space-24, 2.4rem) 2.4rem !important;
+    width: 100%;
+  }
+
+  #brx-header .bricks-mobile-menu > li {
+    border-bottom: 1px solid var(--college-nav-border);
+    margin: 0;
+    padding: 0;
+  }
+
+  #brx-header .bricks-mobile-menu > li > a,
+  #brx-header .bricks-mobile-menu > li > .brx-submenu-toggle {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    min-height: 6.8rem;
+    width: 100%;
+  }
+
+  #brx-header .bricks-mobile-menu > li > a,
+  #brx-header .bricks-mobile-menu > li > .brx-submenu-toggle > a {
+    color: var(--college-nav-text);
+    flex: 1 1 auto;
+    font-family: "Season Mix", serif;
+    font-size: 2.1rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.15 !important;
+    padding: 1.8rem 0 !important;
+    text-transform: uppercase;
+  }
+
+  #brx-header
+    .bricks-mobile-menu.bemke-mobile-menu--has-open-submenu
+    > li:not(.open)
+    > a,
+  #brx-header
+    .bricks-mobile-menu.bemke-mobile-menu--has-open-submenu
+    > li:not(.open)
+    > .brx-submenu-toggle
+    > a {
+    color: var(--college-nav-muted);
+  }
+
+  #brx-header .bricks-mobile-menu .brx-submenu-toggle > button {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--college-nav-text);
+    cursor: pointer;
+    display: inline-flex;
+    flex: 0 0 4.4rem;
+    height: 4.4rem;
+    justify-content: center;
+    margin: 0 -1.1rem 0 0;
+    padding: 0;
+    width: 4.4rem;
+  }
+
+  #brx-header .bricks-mobile-menu .brx-submenu-toggle > button svg {
+    background: color-mix(in srgb, var(--college-nav-bg) 70%, #ffffff);
+    border-radius: 50%;
+    box-sizing: border-box;
+    height: 2.2rem;
+    padding: 0.45rem;
+    transition: transform 240ms ease;
+    width: 2.2rem;
+  }
+
+  #brx-header .bricks-mobile-menu li.open > .brx-submenu-toggle > button svg {
+    transform: rotate(180deg);
+  }
+
+  #brx-header .bricks-mobile-menu-wrapper .sub-menu {
+    background: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
+    margin: 0 !important;
+    max-height: 0;
+    opacity: 0 !important;
+    overflow: hidden;
+    padding: 0 !important;
+    position: static !important;
+    transform: none !important;
+    transition:
+      max-height 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 240ms ease;
+    visibility: visible !important;
+    width: 100% !important;
+  }
+
+  #brx-header .bricks-mobile-menu-wrapper li.open > .sub-menu {
+    max-height: 70rem;
+    opacity: 1 !important;
+    padding-bottom: 1.6rem !important;
+  }
+
+  #brx-header .bricks-mobile-menu > li > .sub-menu > li {
+    border-bottom: 1px solid var(--college-nav-border);
+    margin: 0;
+    padding: 0;
+  }
+
+  #brx-header .bricks-mobile-menu > li > .sub-menu > li:last-child {
+    border-bottom: 0;
+  }
+
+  #brx-header .bricks-mobile-menu > li > .sub-menu a {
+    color: var(--college-nav-text);
+    display: block;
+    font-family: "Season Sans", sans-serif;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25 !important;
+    padding: 1.8rem 0 !important;
+    text-transform: uppercase;
+  }
+
+  #brx-header .bricks-mobile-menu a:focus-visible,
+  #brx-header .bricks-mobile-menu button:focus-visible {
+    outline: 2px solid var(--college-nav-accent);
+    outline-offset: 3px;
+  }
+
+  #brx-header .bemke-mobile-accessibility {
+    background: var(--college-nav-surface);
+    color: var(--college-nav-text);
+    display: block;
+    flex: 1 0 auto;
+    padding: 0 var(--space-24, 2.4rem) 2.4rem;
+    width: 100%;
+  }
+
+  #brx-header .bemke-mobile-accessibility__heading-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    min-height: 6.8rem;
+  }
+
+  #brx-header .bemke-mobile-accessibility__heading {
+    color: inherit;
+    font-family: "Season Mix", serif;
+    font-size: 2.1rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  #brx-header .bemke-mobile-accessibility__toggle {
+    align-items: center;
+    background: color-mix(in srgb, var(--college-nav-bg) 70%, #ffffff);
+    border: 0;
+    border-radius: 50%;
+    color: var(--college-nav-text);
+    cursor: pointer;
+    display: inline-flex;
+    height: 2.2rem;
+    justify-content: center;
+    padding: 0;
+    width: 2.2rem;
+  }
+
+  #brx-header .bemke-mobile-accessibility__toggle::before {
+    border-bottom: 0.15rem solid currentColor;
+    border-right: 0.15rem solid currentColor;
+    content: "";
+    height: 0.65rem;
+    transform: translateY(-0.15rem) rotate(45deg);
+    transition: transform 240ms ease;
+    width: 0.65rem;
+  }
+
+  #brx-header
+    .bemke-mobile-accessibility__toggle[aria-expanded="true"]::before {
+    transform: translateY(0.15rem) rotate(225deg);
+  }
+
+  #brx-header .bemke-mobile-accessibility__panel[hidden] {
+    display: none !important;
+  }
+
+  #brx-header .bemke-college-wcag-toolbar {
+    align-items: stretch !important;
+    background: transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    position: static !important;
+    width: 100% !important;
+  }
+
+  #brx-header .bemke-college-wcag-toolbar > svg {
+    display: none !important;
+  }
+
+  #brx-header .bemke-mobile-wcag__control {
+    align-items: center !important;
+    border-bottom: 1px solid var(--college-nav-border);
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 1.2rem !important;
+    justify-content: flex-start !important;
+    min-height: 7rem;
+    padding: 1.2rem 0 !important;
+    width: 100% !important;
+  }
+
+  #brx-header .bemke-mobile-wcag__control--font-size {
+    order: 1;
+  }
+
+  #brx-header .bemke-mobile-wcag__control--contrast {
+    order: 2;
+  }
+
+  #brx-header .bemke-mobile-wcag__control--language {
+    order: 3;
+  }
+
+  #brx-header .bemke-mobile-wcag__control--motion {
+    border-bottom: 0;
+    justify-content: space-between !important;
+    order: 4;
+  }
+
+  #brx-header .bemke-mobile-wcag__label {
+    color: inherit;
+    display: block;
+    flex: 1 1 auto;
+    font-size: var(--fs-button-small, 1.4rem);
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #brx-header .bemke-mobile-wcag__control--motion .brxe-text-basic {
+    font-size: var(--fs-button-small, 1.4rem);
+    text-transform: uppercase;
+  }
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  #brx-header
+  :is(.college-mega-submenu, .bemke-mobile-menu__content, .bemke-mobile-accessibility) {
+  background: var(--a11y-bg) !important;
+  color: var(--a11y-text) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #brx-header .college-mega-submenu,
+  #brx-header .bemke-mobile-menu__content,
+  #brx-header .bricks-mobile-menu-wrapper .sub-menu,
+  #brx-header .brx-submenu-toggle svg,
+  #brx-header .bemke-mobile-accessibility__toggle::before {
+    transition: none !important;
+  }
+}
