@@ -46,6 +46,15 @@ const labelToolbarGroup = (group, className, label) => {
 
   group.classList.add('bemke-mobile-wcag__control', className);
 
+  let options = group.querySelector(':scope > .bemke-mobile-wcag__options');
+
+  if (!options) {
+    options = document.createElement('div');
+    options.className = 'bemke-mobile-wcag__options';
+    options.append(...Array.from(group.children));
+    group.appendChild(options);
+  }
+
   if (group.querySelector(':scope > .bemke-mobile-wcag__label')) {
     return;
   }
@@ -235,6 +244,12 @@ const initHeaderMobileMenu = (header) => {
       'bemke-mobile-menu-open',
       media.matches && isOpen,
     );
+
+    if (media.matches && isOpen) {
+      window.requestAnimationFrame(() => {
+        content.scrollTop = 0;
+      });
+    }
   };
 
   new MutationObserver(syncOpenState).observe(menuElement, {

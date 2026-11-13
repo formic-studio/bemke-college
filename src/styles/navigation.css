@@ -366,6 +366,10 @@
   display: none;
 }
 
+.bemke-mobile-wcag__options {
+  display: contents;
+}
+
 @media (max-width: 991px) {
   html.bemke-mobile-menu-open,
   html.bemke-mobile-menu-open body {
@@ -387,14 +391,6 @@
     #brx-header
     .bemke-college-navigation-row {
     min-height: 8rem;
-  }
-
-  html.bemke-mobile-menu-open
-    #brx-header
-    .nav-menu.brxe-block
-    > .brxe-nav-menu
-    > .bricks-mobile-menu-toggle {
-    transform: translateY(0.6rem);
   }
 
   #brx-header .bemke-college-navigation-row > :first-child svg {
@@ -422,6 +418,7 @@
   }
 
   #brx-header .nav-menu.brxe-block > .brxe-nav-menu {
+    position: static !important;
     width: auto;
   }
 
@@ -438,11 +435,14 @@
     display: flex !important;
     height: 4.4rem;
     justify-content: center;
-    margin: 0 -1rem 0 0;
+    margin: 0;
     min-width: 4.4rem;
     outline: none;
     padding: 0;
-    position: relative;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%) !important;
     width: 4.4rem;
     z-index: 10003;
   }
@@ -456,7 +456,60 @@
     height: 0.2rem;
     margin-left: -1rem;
     min-width: 2rem;
+    top: 50% !important;
+    transition:
+      opacity 220ms ease,
+      transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
     width: 2rem;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu
+    > .bricks-mobile-menu-toggle
+    > span:nth-child(1) {
+    transform: translateY(-0.8rem) !important;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu
+    > .bricks-mobile-menu-toggle
+    > span:nth-child(2) {
+    transform: translateY(-0.1rem) !important;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu
+    > .bricks-mobile-menu-toggle
+    > span:nth-child(3) {
+    transform: translateY(0.6rem) !important;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu.show-mobile-menu
+    > .bricks-mobile-menu-toggle
+    > span:nth-child(1) {
+    transform: translateY(-50%) rotate(45deg) !important;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu.show-mobile-menu
+    > .bricks-mobile-menu-toggle
+    > span:nth-child(2) {
+    opacity: 0 !important;
+    transform: translateY(-50%) scaleX(0) !important;
+  }
+
+  #brx-header
+    .nav-menu.brxe-block
+    > .brxe-nav-menu.show-mobile-menu
+    > .bricks-mobile-menu-toggle
+    > span:nth-child(3) {
+    transform: translateY(-50%) rotate(-45deg) !important;
   }
 
   #brx-header
@@ -750,31 +803,26 @@
   #brx-header .bemke-mobile-wcag__control {
     align-items: center !important;
     border-bottom: 1px solid var(--college-nav-border);
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 1.2rem !important;
-    justify-content: space-between !important;
+    column-gap: 1.2rem !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto;
     min-height: 0;
     padding: 0 !important;
     width: 100% !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--font-size {
-    column-gap: 3.6rem !important;
     order: 1;
     padding-bottom: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--contrast {
-    column-gap: 1.8rem !important;
     order: 2;
     padding-block: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--language {
     border-bottom: 0;
-    column-gap: 1.2rem !important;
     order: 3;
     padding-top: 2.4rem !important;
   }
@@ -787,31 +835,113 @@
   #brx-header .bemke-mobile-wcag__label {
     color: var(--college-nav-text) !important;
     display: block;
-    flex: 0 0 auto;
     font-size: 1.6rem;
     letter-spacing: 0.032rem;
     line-height: 1.4;
-    margin-right: auto;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
   #brx-header
     .bemke-mobile-wcag__control--language
+    > .bemke-mobile-wcag__options
     > .brxe-text-basic:last-of-type {
     order: 1;
   }
 
   #brx-header
     .bemke-mobile-wcag__control--language
+    > .bemke-mobile-wcag__options
     > .lang-switcher {
     order: 2;
   }
 
   #brx-header
     .bemke-mobile-wcag__control--language
+    > .bemke-mobile-wcag__options
     > .brxe-text-basic:first-of-type {
     order: 3;
+  }
+
+  #brx-header .bemke-mobile-wcag__options {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--font-size
+    > .bemke-mobile-wcag__options {
+    gap: 3.6rem;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--contrast
+    > .bemke-mobile-wcag__options {
+    gap: 1.8rem;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--contrast
+    > .bemke-mobile-wcag__options
+    > [data-contrast] {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 2.4rem;
+    height: 2.4rem;
+    justify-content: center;
+    padding: 0 !important;
+    width: 2.4rem;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--contrast
+    > .bemke-mobile-wcag__options
+    > svg {
+    flex: 0 0 auto;
+    margin: 0 !important;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--language
+    > .bemke-mobile-wcag__options {
+    gap: 1.2rem;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--language
+    > .bemke-mobile-wcag__options
+    > .lang-switcher {
+    align-items: center !important;
+    background: var(--college-nav-arrow-bg) !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-sizing: border-box;
+    display: flex !important;
+    flex: 0 0 4.2rem;
+    height: 2.4rem !important;
+    min-height: 2.4rem !important;
+    min-width: 4.2rem !important;
+    overflow: hidden;
+    padding: 0 !important;
+    width: 4.2rem !important;
+  }
+
+  #brx-header
+    .bemke-mobile-wcag__control--language
+    > .bemke-mobile-wcag__options
+    > .lang-switcher
+    > .switch-block {
+    background: #536677 !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    flex: 0 0 2.4rem;
+    height: 2.4rem !important;
+    min-height: 2.4rem !important;
+    min-width: 2.4rem !important;
+    width: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--motion .brxe-text-basic {
