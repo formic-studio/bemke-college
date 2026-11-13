@@ -15,6 +15,12 @@
   width: 100%;
 }
 
+.bemke-table-scroll > .table-grid > .table-block {
+  align-self: stretch !important;
+  height: 100%;
+  min-height: 100%;
+}
+
 .bemke-table-scroll__hint {
   display: none;
 }
@@ -51,12 +57,6 @@
     max-width: none !important;
     min-width: var(--bemke-table-min-width, 90rem) !important;
     width: 100% !important;
-  }
-
-  .bemke-table-scroll > .table-grid > .table-block {
-    align-self: stretch !important;
-    height: 100%;
-    min-height: 100%;
   }
 
   .bemke-responsive-table[data-bemke-table-scroll-active]
