@@ -403,7 +403,6 @@ export function initCampusMap() {
 
   const hideTooltip = () => {
     tooltip.removeAttribute('data-visible');
-    touchArea?.classList.remove('is-active');
     touchArea = null;
   };
 
@@ -467,7 +466,6 @@ export function initCampusMap() {
 
       hideTooltip();
       touchArea = area;
-      area.classList.add('is-active');
       showTooltip(area, label);
       touchArea = area;
     });
@@ -484,7 +482,6 @@ export function initCampusMap() {
 
       hideTooltip();
       touchArea = area;
-      area.classList.add('is-active');
       showTooltip(area, label);
       touchArea = area;
     });

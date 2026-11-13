@@ -172,19 +172,10 @@
 }
 
 .campus-map__area:is(:focus, :focus-visible) {
-  filter: drop-shadow(0 0 8px var(--cream, var(--theme-cream, #fff9f4)));
-  outline: 4px solid var(--brown, var(--theme-brown, #1b0508)) !important;
-  outline-offset: 5px;
-  stroke: var(--cream, var(--theme-cream, #fff9f4)) !important;
-  stroke-width: 12px !important;
-}
-
-.campus-map__area:focus {
-  filter: drop-shadow(0 0 8px var(--cream, var(--theme-cream, #fff9f4)));
-  outline: 5px solid var(--brown, var(--theme-brown, #1b0508)) !important;
-  outline-offset: 5px;
-  stroke: var(--cream, var(--theme-cream, #fff9f4)) !important;
-  stroke-width: 12px !important;
+  filter: none;
+  outline: none !important;
+  stroke: transparent !important;
+  stroke-width: 0 !important;
 }
 
 .campus-map__control:focus {
