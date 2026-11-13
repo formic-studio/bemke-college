@@ -30,6 +30,7 @@ function initResponsiveTable(table) {
   }
 
   const computedStyle = window.getComputedStyle(table);
+  const parentStyle = window.getComputedStyle(parent);
   const columnCount = countGridTracks(computedStyle.gridTemplateColumns);
   const tableMinWidth = Math.max(
     MIN_TABLE_WIDTH_PX,
@@ -47,6 +48,18 @@ function initResponsiveTable(table) {
   wrapper.className = WRAPPER_CLASS;
   wrapper.style.marginBlockStart = computedStyle.marginBlockStart;
   wrapper.style.marginBlockEnd = computedStyle.marginBlockEnd;
+
+  if (parentStyle.display.includes('grid')) {
+    wrapper.style.gridColumn = computedStyle.gridColumn;
+    wrapper.style.gridRow = computedStyle.gridRow;
+    wrapper.style.alignSelf = computedStyle.alignSelf;
+    wrapper.style.justifySelf = computedStyle.justifySelf;
+
+    table.style.gridColumn = 'auto';
+    table.style.gridRow = 'auto';
+    table.style.alignSelf = 'stretch';
+    table.style.justifySelf = 'stretch';
+  }
 
   scroller.className = SCROLLER_CLASS;
 
