@@ -1,5 +1,6 @@
 #brx-header {
-  --college-nav-bg: var(--color-blue-light, #d1e2fb);
+  --college-nav-bg: #eaf3fd;
+  --college-nav-arrow-bg: #cde3fd;
   --college-nav-surface: var(--color-blue-light-2, #f5f9fd);
   --college-nav-text: var(--color-brown, #131312);
   --college-nav-muted: var(--color-claret-light, #8d6671);
@@ -131,7 +132,7 @@
     > .brx-submenu-toggle
     > button
     svg {
-    background: color-mix(in srgb, var(--college-nav-bg) 70%, #ffffff);
+    background: var(--college-nav-arrow-bg);
     border-radius: 50%;
     box-sizing: border-box;
     height: 1.6rem;
@@ -510,7 +511,7 @@
   }
 
   #brx-header .bricks-mobile-menu .brx-submenu-toggle > button svg {
-    background: color-mix(in srgb, var(--college-nav-bg) 70%, #ffffff);
+    background: var(--college-nav-arrow-bg);
     border-radius: 50%;
     box-sizing: border-box;
     height: 2.2rem;
@@ -604,7 +605,7 @@
 
   #brx-header .bemke-mobile-accessibility__toggle {
     align-items: center;
-    background: color-mix(in srgb, var(--college-nav-bg) 70%, #ffffff);
+    background: var(--college-nav-arrow-bg);
     border: 0;
     border-radius: 50%;
     color: var(--college-nav-text);
