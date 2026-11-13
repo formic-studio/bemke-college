@@ -34,9 +34,18 @@ body {
    visually secondary. The alternating Bricks structure is label / separator. */
 .page-info > :not(:last-child) {
   opacity: 0.4;
+  transition: opacity 240ms ease;
+}
+
+.page-info > :nth-child(odd):not(:last-child) {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 0.08em;
+  text-decoration: none;
   transition:
     opacity 240ms ease,
-    text-decoration-color 240ms ease;
+    background-size 340ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .page-info > :last-child {
@@ -47,14 +56,12 @@ body {
 .page-info
   > :nth-child(odd):not(:last-child):has(a:is(:hover, :focus-visible)) {
   opacity: 1;
-  text-decoration-line: underline;
-  text-decoration-thickness: max(1px, 0.08em);
-  text-underline-offset: 0.18em;
+  background-size: 100% 0.08em;
 }
 
 .page-info > :nth-child(odd):not(:last-child) a {
   color: inherit;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 
 .bemke-college-getresponse-native-form {
@@ -1135,6 +1142,7 @@ html[data-bemke-reduced-motion="true"]
 
 @media (prefers-reduced-motion: reduce) {
   :where(a.footer-link[href], a.footer_link[href], #brx-footer a[href]:not(:has(img, svg)), footer a[href]:not(:has(img, svg))):not(.brxe-button):not(.btn):not([data-contrast]),
+  .page-info > :not(:last-child),
   #brx-footer #brxe-phijrf > .brxe-text-basic,
   footer #brxe-phijrf > .brxe-text-basic,
   .social-link svg :not([fill="none"]) {
