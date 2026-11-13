@@ -30,6 +30,33 @@ body {
   color: var(--bemke-color-text);
 }
 
+/* Global breadcrumbs: labels and separators before the current page are
+   visually secondary. The alternating Bricks structure is label / separator. */
+.page-info > :not(:last-child) {
+  opacity: 0.4;
+  transition:
+    opacity 240ms ease,
+    text-decoration-color 240ms ease;
+}
+
+.page-info > :last-child {
+  opacity: 1;
+}
+
+.page-info > :nth-child(odd):not(:last-child):is(:hover, :focus-visible),
+.page-info
+  > :nth-child(odd):not(:last-child):has(a:is(:hover, :focus-visible)) {
+  opacity: 1;
+  text-decoration-line: underline;
+  text-decoration-thickness: max(1px, 0.08em);
+  text-underline-offset: 0.18em;
+}
+
+.page-info > :nth-child(odd):not(:last-child) a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .bemke-college-getresponse-native-form {
   box-sizing: border-box;
   min-height: 12rem;
