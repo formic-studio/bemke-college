@@ -183,6 +183,32 @@
     background-size: 100% 0.08em;
   }
 
+  #brx-header.is-college-mega-menu-open
+    .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li.college-mega-item:not(.is-college-menu-item-active)
+    > a,
+  #brx-header.is-college-mega-menu-open
+    .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li.college-mega-item:not(.is-college-menu-item-active)
+    > .brx-submenu-toggle {
+    color: var(--college-nav-muted);
+  }
+
+  #brx-header.is-college-mega-menu-open
+    .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li.is-college-menu-item-active
+    > a,
+  #brx-header.is-college-mega-menu-open
+    .nav-menu.brxe-block
+    .bricks-nav-menu
+    > li.is-college-menu-item-active
+    > .brx-submenu-toggle {
+    color: var(--college-nav-text);
+  }
+
   #brx-header .college-mega-submenu {
     background: var(--college-nav-bg) !important;
     box-shadow: none !important;
@@ -251,7 +277,23 @@
     width: 100%;
   }
 
-  #brx-header .college-mega-submenu a:is(:hover, :focus-visible) {
+  #brx-header .college-mega-submenu a:is(
+    :hover,
+    :focus-visible,
+    [aria-current="page"]
+  ) {
+    color: var(--college-nav-accent) !important;
+  }
+
+  #brx-header
+    .college-mega-submenu:has(a:is(:hover, :focus-visible))
+    a {
+    color: var(--college-nav-muted) !important;
+  }
+
+  #brx-header
+    .college-mega-submenu:has(a:is(:hover, :focus-visible))
+    a:is(:hover, :focus-visible) {
     color: var(--college-nav-accent) !important;
   }
 
