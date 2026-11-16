@@ -1,7 +1,22 @@
 import { siteText as mapText } from './site-language.js';
+import mapDesktopUrl from './media/campus-map-desktop.webp';
+import mapMobileUrl from './media/campus-map-mobile.webp';
 
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 const MAP_IMAGE_SELECTOR = '.map-desktop, .map-mobile';
+
+function setMapImageSource(image) {
+  const source = image.classList.contains('map-mobile')
+    ? mapMobileUrl
+    : mapDesktopUrl;
+
+  image.src = source;
+  image.dataset.src = source;
+  image.removeAttribute('srcset');
+  image.removeAttribute('sizes');
+  image.removeAttribute('data-srcset');
+  image.removeAttribute('data-sizes');
+}
 
 const MAP_AREAS = [
   {
@@ -367,6 +382,8 @@ export function initCampusMap() {
   const images = Array.from(viewport.querySelectorAll(MAP_IMAGE_SELECTOR));
 
   if (!images.length) return;
+
+  images.forEach(setMapImageSource);
 
   viewport.classList.add('map-block');
 
