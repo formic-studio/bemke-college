@@ -112,8 +112,14 @@ const syncDesktopLayout = (state) => {
   state.items.forEach((item, index) => {
     const position =
       state.items.length === 4 && index === 3 ? 2.5 : index;
+    const itemOffset =
+      state.items.length === 4 && index === 3 ? 20 : 0;
 
-    setCustomProperty(item, '--process-item-top', `${position * step}px`);
+    setCustomProperty(
+      item,
+      '--process-item-top',
+      `${position * step + itemOffset}px`,
+    );
   });
 
   state.dots.forEach((dot, index) => {

@@ -3,6 +3,7 @@
   --process-axis-step: clamp(140px, 8.6667vw, 173.333px);
   --process-axis-half-step: clamp(70px, 4.33335vw, 86.6665px);
   --process-last-segment-extension: 30px;
+  --process-stage-four-offset: 20px;
   --process-axis-height: calc(
     var(--process-axis-step) + var(--process-axis-step) +
       var(--process-axis-step) + var(--process-last-segment-extension)
@@ -27,6 +28,7 @@
 
 .process-block:has(> .proces-item--5) {
   --process-last-segment-extension: 0px;
+  --process-stage-four-offset: 0px;
   --process-axis-height: calc(
     var(--process-axis-step) + var(--process-axis-step) +
       var(--process-axis-step) + var(--process-axis-step)
@@ -129,7 +131,7 @@
 .process-block > .proces-item--4 {
   top: calc(
     var(--process-axis-step) + var(--process-axis-step) +
-      var(--process-axis-half-step)
+      var(--process-axis-half-step) + var(--process-stage-four-offset)
   ) !important;
 }
 
