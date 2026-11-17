@@ -271,7 +271,10 @@
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu) {
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    ) {
     background: var(--college-nav-bg) !important;
     box-shadow: none !important;
     box-sizing: border-box;
@@ -320,7 +323,10 @@
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     li {
     display: block;
     height: auto !important;
@@ -331,11 +337,17 @@
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     > li
     + li,
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     ul.sub-menu
     > li
     + li {
@@ -345,7 +357,10 @@
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     a {
     align-self: stretch;
     background: none !important;
@@ -363,29 +378,37 @@
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     a:is(:hover, :focus-visible, [aria-current="page"]) {
     color: var(--college-nav-accent) !important;
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu):has(
-      a:is(:hover, :focus-visible)
-    )
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    ):has(a:is(:hover, :focus-visible))
     a {
     color: var(--college-nav-muted) !important;
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu):has(
-      a:is(:hover, :focus-visible)
-    )
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    ):has(a:is(:hover, :focus-visible))
     a:is(:hover, :focus-visible) {
     color: var(--college-nav-accent) !important;
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     .brx-submenu-toggle {
     align-items: stretch;
     display: flex;
@@ -394,14 +417,20 @@
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     .brx-submenu-toggle
     > button {
     display: none !important;
   }
 
   #brx-header
-    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
     ul.sub-menu {
     background: transparent !important;
     box-shadow: none !important;
