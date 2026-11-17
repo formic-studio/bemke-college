@@ -10,7 +10,6 @@ defined( 'ABSPATH' ) || exit;
 const BEMKE_COLLEGE_QA_POST_TYPE        = 'bemke_qa';
 const BEMKE_COLLEGE_QA_DATA_META        = '_bemke_college_qa_data';
 const BEMKE_COLLEGE_QA_PAGE_SET_META    = '_bemke_college_qa_set_id';
-const BEMKE_COLLEGE_QA_PAGE_AUTO_META   = '_bemke_college_qa_auto_append';
 const BEMKE_COLLEGE_QA_NONCE_ACTION     = 'bemke_college_save_qa';
 const BEMKE_COLLEGE_QA_NONCE_NAME       = 'bemke_college_qa_nonce';
 const BEMKE_COLLEGE_QA_PAGE_NONCE_ACTION = 'bemke_college_assign_qa';
@@ -29,7 +28,6 @@ add_filter( 'manage_' . BEMKE_COLLEGE_QA_POST_TYPE . '_posts_columns', 'bemke_co
 add_action( 'manage_' . BEMKE_COLLEGE_QA_POST_TYPE . '_posts_custom_column', 'bemke_college_render_qa_admin_column', 10, 2 );
 add_filter( 'manage_pages_columns', 'bemke_college_page_qa_admin_column' );
 add_action( 'manage_pages_custom_column', 'bemke_college_render_page_qa_admin_column', 10, 2 );
-add_filter( 'bricks/frontend/render_data', 'bemke_college_append_assigned_qa', 20, 3 );
 add_filter( 'pll_copy_post_metas', 'bemke_college_exclude_qa_assignment_from_polylang_sync', 10, 5 );
 
 /**
@@ -106,20 +104,6 @@ function bemke_college_register_qa_meta(): void {
 		)
 	);
 
-	register_post_meta(
-		'page',
-		BEMKE_COLLEGE_QA_PAGE_AUTO_META,
-		array(
-			'type'              => 'boolean',
-			'single'            => true,
-			'show_in_rest'      => true,
-			'sanitize_callback' => 'rest_sanitize_boolean',
-			'auth_callback'     => static function (): bool {
-				return current_user_can( 'edit_pages' );
-			},
-			'revisions_enabled' => true,
-		)
-	);
 }
 
 /**
@@ -134,7 +118,6 @@ function bemke_college_exclude_qa_assignment_from_polylang_sync( array $metas ):
 			$metas,
 			array(
 				BEMKE_COLLEGE_QA_PAGE_SET_META,
-				BEMKE_COLLEGE_QA_PAGE_AUTO_META,
 			)
 		)
 	);
@@ -456,9 +439,6 @@ function bemke_college_render_qa_admin_templates(): void {
  */
 function bemke_college_render_page_qa_meta_box( WP_Post $post ): void {
 	$selected_id = absint( get_post_meta( $post->ID, BEMKE_COLLEGE_QA_PAGE_SET_META, true ) );
-	$auto_append = metadata_exists( 'post', $post->ID, BEMKE_COLLEGE_QA_PAGE_AUTO_META )
-		? (bool) get_post_meta( $post->ID, BEMKE_COLLEGE_QA_PAGE_AUTO_META, true )
-		: true;
 	$sets        = get_posts(
 		array(
 			'post_type'      => BEMKE_COLLEGE_QA_POST_TYPE,
@@ -484,15 +464,8 @@ function bemke_college_render_page_qa_meta_box( WP_Post $post ): void {
 		<?php endforeach; ?>
 	</select>
 
-	<p>
-		<label>
-			<input type="checkbox" name="bemke_college_qa_auto_append" value="1" <?php checked( $auto_append ); ?>>
-			Automatycznie dodaj po treści strony
-		</label>
-	</p>
-
 	<p class="description">
-		Po wyłączeniu automatycznego dodawania umieść <code>[bemke_college_qa]</code> w wybranym miejscu Bricks.
+		Umieść <code>[bemke_college_qa]</code> w elemencie Shortcode w wybranym miejscu Bricks.
 	</p>
 
 	<?php if ( $selected_id && current_user_can( 'edit_post', $selected_id ) ) : ?>
@@ -535,8 +508,6 @@ function bemke_college_save_page_qa_assignment( int $post_id ): void {
 	} else {
 		delete_post_meta( $post_id, BEMKE_COLLEGE_QA_PAGE_SET_META );
 	}
-
-	update_post_meta( $post_id, BEMKE_COLLEGE_QA_PAGE_AUTO_META, isset( $_POST['bemke_college_qa_auto_append'] ) );
 }
 
 /**
@@ -686,44 +657,7 @@ function bemke_college_qa_shortcode( array $atts = array() ): string {
 
 	$output = bemke_college_render_qa_set( $set_id );
 
-	if ( $page_id && '' !== $output ) {
-		$GLOBALS['bemke_college_qa_shortcode_rendered'][ $page_id ] = true;
-	}
-
 	return $output;
-}
-
-/**
- * Append the assigned section after Bricks page content when enabled.
- */
-function bemke_college_append_assigned_qa( string $content, WP_Post $post, string $area ): string {
-	if ( 'content' !== $area || 'page' !== $post->post_type || is_admin() ) {
-		return $content;
-	}
-
-	if (
-		! empty( $GLOBALS['bemke_college_qa_shortcode_rendered'][ $post->ID ] ) ||
-		! empty( $GLOBALS['bemke_college_qa_auto_rendered'][ $post->ID ] )
-	) {
-		return $content;
-	}
-
-	$auto_append = metadata_exists( 'post', $post->ID, BEMKE_COLLEGE_QA_PAGE_AUTO_META )
-		? (bool) get_post_meta( $post->ID, BEMKE_COLLEGE_QA_PAGE_AUTO_META, true )
-		: true;
-
-	if ( ! $auto_append ) {
-		return $content;
-	}
-
-	$set_id = absint( get_post_meta( $post->ID, BEMKE_COLLEGE_QA_PAGE_SET_META, true ) );
-	$output = bemke_college_render_qa_set( $set_id );
-
-	if ( '' !== $output ) {
-		$GLOBALS['bemke_college_qa_auto_rendered'][ $post->ID ] = true;
-	}
-
-	return $content . $output;
 }
 
 /**
@@ -811,9 +745,7 @@ function bemke_college_render_qa_items( array $items, bool $open_first ): string
 					<span class="bemke-qa__bullet" aria-hidden="true"></span>
 					<span class="bemke-qa__number" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $index + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
 					<span class="bemke-qa__question"><?php echo esc_html( $question ); ?></span>
-					<span class="bemke-qa__icon" aria-hidden="true">
-						<svg viewBox="0 0 20 20" focusable="false"><path d="m4 12 6-6 6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-					</span>
+					<span class="bemke-qa__icon" aria-hidden="true"></span>
 				</summary>
 				<div class="bemke-qa__answer">
 					<div class="bemke-qa__answer-inner"><?php echo wp_kses_post( wpautop( $answer ) ); ?></div>

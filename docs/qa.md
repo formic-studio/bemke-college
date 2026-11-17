@@ -16,18 +16,17 @@ Moduł nie wymaga ACF ani innego pluginu pól. Zestawy i relacje ze stronami są
 
 1. Otwórz zwykłą edycję strony w WordPressie, nie edytor Bricks.
 2. W panelu `Q&A` wybierz zestaw.
-3. Pozostaw zaznaczone `Automatycznie dodaj po treści strony`, jeśli Q&A ma być ostatnią sekcją.
-4. Zaktualizuj stronę.
+3. Zaktualizuj stronę.
+4. W docelowym miejscu Bricks wstaw element `Shortcode` z wartością `[bemke_college_qa]`.
 
 Na liście `Q&A → Wszystkie zestawy` kolumna `Podpięte strony` pokazuje, gdzie dany zestaw jest używany. Lista `Strony` ma również kolumnę `Q&A` z nazwą przypisanego zestawu.
 
-## Dokładne położenie w Bricks
+## Osadzenie w Bricks
 
-Jeżeli sekcja ma się pojawić pomiędzy innymi blokami:
+Sekcja nie jest dodawana automatycznie do treści strony. Jej położenie zawsze kontroluje element `Shortcode` w Bricks:
 
-1. Przy przypisaniu do strony wyłącz `Automatycznie dodaj po treści strony`.
-2. Wstaw w docelowym miejscu Bricks element `Shortcode`.
-3. Wpisz `[bemke_college_qa]`.
+1. Wstaw w docelowym miejscu Bricks element `Shortcode`.
+2. Wpisz `[bemke_college_qa]`.
 
 Shortcode bez parametrów używa zestawu podpiętego do bieżącej strony. Można też jawnie wskazać zestaw przez `[bemke_college_qa id="123"]`, ale standardowo lepiej zachować relację w panelu strony.
 
