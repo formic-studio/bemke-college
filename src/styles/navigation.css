@@ -45,12 +45,13 @@
 
 @media (min-width: 992px) {
   #brx-header .bemke-college-wcag-toolbar {
+    align-items: center !important;
     box-sizing: border-box;
     column-gap: var(--space-48, 4.8rem) !important;
-    height: 4.8rem !important;
+    height: auto !important;
     justify-content: center !important;
-    min-height: 4.8rem;
-    padding-block: 0 !important;
+    min-height: 0;
+    padding-block: 1.2rem !important;
   }
 
   #brx-header

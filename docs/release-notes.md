@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Desktopowy pasek dostępności w nowym headerze ma ponownie taki sam układ pionowy jak na bemke.pl: kontrolki i separatory są wyśrodkowane, a pasek zachowuje po `1.2rem` odstępu od góry i dołu. Rozmiary oraz wygląd samych ikon pozostały bez zmian.
 - Przywrócono wyśrodkowanie desktopowej belki dostępności w nowym template headera. Reguła child theme nie wymusza już wyrównania `flex-end`; zachowuje centralne położenie kontrolek oraz projektowy odstęp `--space-48`.
 - Przywrócono kompaktowy mobilny header na obecnych landing pages EN i PL, które nadal korzystają z ręcznie zbudowanego rzędu linków zamiast natywnego elementu Bricks `Nav Menu`. Logo, pięć linków oraz separatory pozostają w jednym niełamanym rzędzie jak na desktopie, ale skalują się płynnie do szerokości telefonu. Reguły pełnoekranowego hamburgera nadal dotyczą wyłącznie podstron korzystających z natywnego `Nav Menu`.
 - Usunięto z mapy Campus Bemke pinezkę i interaktywny obszar „Preschool”. Etykieta budynku Collegium Marianum ma teraz nazwę „Collegium Marianum/Boarding” w obu wersjach językowych. Poprawione grafiki desktopowa i mobilna są ładowane bezpośrednio z child theme, dzięki czemu nie wymagają ręcznej podmiany obrazów w Bricks.
