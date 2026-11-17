@@ -16,12 +16,33 @@ const getLink = (item) =>
 const getButton = (item) =>
   getToggle(item)?.querySelector(':scope > button') ?? null;
 
+const navigateNestedLink = (event) => {
+  const link = event.currentTarget;
+
+  if (
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey ||
+    link.target === '_blank' ||
+    link.hasAttribute('download')
+  ) {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  window.location.assign(link.href);
+};
+
 const prepareNestedGroups = (submenu) => {
   submenu
     .querySelectorAll(':scope > li.menu-item-has-children')
     .forEach((item) => {
       const toggle = getToggle(item);
       const nestedSubmenu = getSubmenu(item);
+      const button = getButton(item);
 
       if (!toggle || !nestedSubmenu) {
         return;
@@ -29,14 +50,38 @@ const prepareNestedGroups = (submenu) => {
 
       item.classList.add('college-mega-group');
       item.setAttribute('data-toggle', 'click');
+
+      // This nested level is presented as a static group on desktop. Detach it
+      // from Bricks' submenu classes so its delayed positioning/closing logic
+      // cannot put an invisible layer back over the IGCSE and A Level links.
+      item.classList.remove('menu-item-has-children', 'active', 'open');
+      toggle.classList.remove('brx-submenu-toggle', 'icon-right', 'aria-current');
+      toggle.classList.add('college-mega-group__heading');
+      nestedSubmenu.classList.remove(
+        'sub-menu',
+        'brx-submenu-hidden',
+        'brx-submenu-positioned',
+        'brx-submenu-overflow-right',
+        'brx-sub-submenu-overflow-right',
+      );
+      nestedSubmenu.classList.add('college-mega-group__links');
       nestedSubmenu.removeAttribute('aria-hidden');
       nestedSubmenu.removeAttribute('inert');
+      nestedSubmenu.style.removeProperty('left');
+      nestedSubmenu.style.removeProperty('right');
+      nestedSubmenu.style.removeProperty('top');
+      nestedSubmenu.style.removeProperty('min-width');
+      nestedSubmenu.style.removeProperty('transform');
 
       // The desktop mega menu presents nested items as an always-visible group.
       // Removing its redundant toggle prevents Bricks' native hover handler from
       // racing the custom top-level menu state. The separate mobile menu keeps
       // its own button and native accordion behaviour.
-      getButton(item)?.remove();
+      button?.remove();
+
+      nestedSubmenu.querySelectorAll('a[href]').forEach((link) => {
+        link.addEventListener('click', navigateNestedLink, true);
+      });
     });
 };
 

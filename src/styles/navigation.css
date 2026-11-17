@@ -350,6 +350,14 @@
     )
     ul.sub-menu
     > li
+    + li,
+  #brx-header
+    :is(
+      .college-mega-submenu,
+      :where(.bricks-nav-menu > li > .sub-menu)
+    )
+    .college-mega-group__links
+    > li
     + li {
     border-top: 1px solid var(--college-nav-border);
     margin-top: 1.4rem;
@@ -409,7 +417,7 @@
       .college-mega-submenu,
       :where(.bricks-nav-menu > li > .sub-menu)
     )
-    .brx-submenu-toggle {
+    :is(.brx-submenu-toggle, .college-mega-group__heading) {
     align-items: stretch;
     display: flex;
     flex-direction: column;
@@ -421,7 +429,7 @@
       .college-mega-submenu,
       :where(.bricks-nav-menu > li > .sub-menu)
     )
-    .brx-submenu-toggle
+    :is(.brx-submenu-toggle, .college-mega-group__heading)
     > button {
     display: none !important;
   }
@@ -431,7 +439,7 @@
       .college-mega-submenu,
       :where(.bricks-nav-menu > li > .sub-menu)
     )
-    ul.sub-menu {
+    :is(ul.sub-menu, .college-mega-group__links) {
     background: transparent !important;
     box-shadow: none !important;
     display: flex !important;
@@ -444,6 +452,18 @@
     transform: none !important;
     visibility: visible !important;
     width: 100% !important;
+  }
+
+  #brx-header .college-mega-submenu .college-mega-group__links {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 2;
+  }
+
+  #brx-header .college-mega-submenu .college-mega-group__links a {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 3;
   }
 
   #brx-header .nav-menu.brxe-block > .brxe-nav-menu > .bricks-mobile-menu-toggle,
