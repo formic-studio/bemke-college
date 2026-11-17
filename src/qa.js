@@ -1,4 +1,64 @@
-const selectTab = (tabs, panels, selectedIndex, moveFocus = false) => {
+const MOTION_DURATION = 320;
+const MOTION_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const panelAnimations = new WeakMap();
+const itemAnimations = new WeakMap();
+
+const shouldReduceMotion = () =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+  document.documentElement.dataset.bemkeReducedMotion === 'true';
+
+const animatePanelChange = (panels, selectedIndex, startHeight) => {
+  const panel = panels[selectedIndex];
+  const container = panel.parentElement;
+
+  if (!container || shouldReduceMotion() || typeof panel.animate !== 'function') {
+    return;
+  }
+
+  const runningAnimations = panelAnimations.get(container) || [];
+  runningAnimations.forEach((animation) => animation.cancel());
+
+  const endHeight = panel.getBoundingClientRect().height;
+  const animations = [];
+
+  container.style.overflow = 'hidden';
+
+  if (Math.abs(startHeight - endHeight) > 1) {
+    animations.push(
+      container.animate(
+        [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+        { duration: MOTION_DURATION, easing: MOTION_EASING },
+      ),
+    );
+  }
+
+  animations.push(
+    panel.animate(
+      [
+        { opacity: 0, transform: 'translateY(0.8rem)' },
+        { opacity: 1, transform: 'translateY(0)' },
+      ],
+      { duration: MOTION_DURATION, easing: MOTION_EASING },
+    ),
+  );
+
+  panelAnimations.set(container, animations);
+
+  Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
+    if (panelAnimations.get(container) !== animations) {
+      return;
+    }
+
+    container.style.removeProperty('overflow');
+    panelAnimations.delete(container);
+  });
+};
+
+const selectTab = (tabs, panels, selectedIndex, moveFocus = false, animate = false) => {
+  const container = panels[0]?.parentElement;
+  const startHeight = container?.getBoundingClientRect().height || 0;
+  const previousIndex = tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+
   tabs.forEach((tab, index) => {
     const active = index === selectedIndex;
 
@@ -7,6 +67,10 @@ const selectTab = (tabs, panels, selectedIndex, moveFocus = false) => {
     tab.tabIndex = active ? 0 : -1;
     panels[index].hidden = !active;
   });
+
+  if (animate && previousIndex !== selectedIndex) {
+    animatePanelChange(panels, selectedIndex, startHeight);
+  }
 
   if (moveFocus) {
     tabs[selectedIndex].focus();
@@ -38,7 +102,7 @@ const initCategoryTabs = (section) => {
 
     tab.addEventListener('click', (event) => {
       event.preventDefault();
-      selectTab(tabs, panels, index);
+      selectTab(tabs, panels, index, false, true);
     });
 
     tab.addEventListener('keydown', (event) => {
@@ -59,7 +123,7 @@ const initCategoryTabs = (section) => {
       }
 
       event.preventDefault();
-      selectTab(tabs, panels, targetIndex, true);
+      selectTab(tabs, panels, targetIndex, true, true);
     });
   });
 
@@ -67,6 +131,102 @@ const initCategoryTabs = (section) => {
   selectTab(tabs, panels, hashIndex >= 0 ? hashIndex : 0);
 };
 
+const stopItemAnimation = (item) => {
+  const running = itemAnimations.get(item);
+
+  if (!running) {
+    return;
+  }
+
+  const currentHeight = item.getBoundingClientRect().height;
+
+  running.height.cancel();
+  running.answer?.cancel();
+  item.style.height = `${currentHeight}px`;
+  itemAnimations.delete(item);
+};
+
+const finishItemAnimation = (item, heightAnimation, open) => {
+  const running = itemAnimations.get(item);
+
+  if (!running || running.height !== heightAnimation) {
+    return;
+  }
+
+  item.open = open;
+  item.style.removeProperty('height');
+  item.classList.remove('is-animating', 'is-opening', 'is-closing');
+  itemAnimations.delete(item);
+};
+
+const animateItem = (item, open) => {
+  const summary = item.querySelector('.bemke-qa__summary');
+  const answer = item.querySelector('.bemke-qa__answer');
+
+  if (!summary || !answer) {
+    item.open = open;
+    return;
+  }
+
+  stopItemAnimation(item);
+
+  const startHeight = item.getBoundingClientRect().height;
+
+  item.classList.remove(open ? 'is-closing' : 'is-opening');
+  item.classList.add('is-animating', open ? 'is-opening' : 'is-closing');
+
+  if (open) {
+    item.open = true;
+  }
+
+  item.style.height = `${startHeight}px`;
+
+  const endHeight = open ? item.scrollHeight : summary.getBoundingClientRect().height;
+  const heightAnimation = item.animate(
+    [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+    { duration: MOTION_DURATION, easing: MOTION_EASING },
+  );
+  const answerAnimation = answer.animate(
+    open
+      ? [
+          { opacity: 0, transform: 'translateY(-0.6rem)' },
+          { opacity: 1, transform: 'translateY(0)' },
+        ]
+      : [
+          { opacity: 1, transform: 'translateY(0)' },
+          { opacity: 0, transform: 'translateY(-0.4rem)' },
+        ],
+    { duration: open ? 280 : 200, easing: MOTION_EASING },
+  );
+
+  itemAnimations.set(item, { height: heightAnimation, answer: answerAnimation });
+  heightAnimation.addEventListener('finish', () => finishItemAnimation(item, heightAnimation, open));
+};
+
+const initAccordionItems = (section) => {
+  section.querySelectorAll('.bemke-qa__item').forEach((item) => {
+    const summary = item.querySelector('.bemke-qa__summary');
+
+    if (!summary || item.dataset.qaAccordionReady === 'true') {
+      return;
+    }
+
+    item.dataset.qaAccordionReady = 'true';
+    summary.addEventListener('click', (event) => {
+      if (shouldReduceMotion() || typeof item.animate !== 'function') {
+        return;
+      }
+
+      event.preventDefault();
+      const open = !item.open || item.classList.contains('is-closing');
+      animateItem(item, open);
+    });
+  });
+};
+
 export const initQaSections = () => {
-  document.querySelectorAll('[data-bemke-qa]').forEach(initCategoryTabs);
+  document.querySelectorAll('[data-bemke-qa]').forEach((section) => {
+    initCategoryTabs(section);
+    initAccordionItems(section);
+  });
 };

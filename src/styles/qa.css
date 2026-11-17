@@ -93,6 +93,10 @@
   background-size: 100% 0.05rem;
 }
 
+.bemke-qa__item.is-animating {
+  overflow: hidden;
+}
+
 .bemke-qa__summary {
   display: grid;
   grid-template-columns: 0.759rem max-content minmax(0, 1fr) 3.2rem;
@@ -107,6 +111,10 @@
 
 .bemke-qa__item[open] .bemke-qa__summary {
   padding-bottom: 0;
+}
+
+.bemke-qa__item.is-closing .bemke-qa__summary {
+  padding-bottom: 2.8rem;
 }
 
 .bemke-qa__summary::-webkit-details-marker {
@@ -147,11 +155,23 @@
   margin-top: 1.22rem;
 }
 
+.bemke-qa__item.is-closing .bemke-qa__bullet {
+  margin-top: 1.22rem;
+}
+
 .bemke-qa__item:not([open]) .bemke-qa__number {
   margin-top: 0.7rem;
 }
 
+.bemke-qa__item.is-closing .bemke-qa__number {
+  margin-top: 0.7rem;
+}
+
 .bemke-qa__item:not([open]) .bemke-qa__question {
+  margin-top: 0.3rem;
+}
+
+.bemke-qa__item.is-closing .bemke-qa__question {
   margin-top: 0.3rem;
 }
 
@@ -165,6 +185,10 @@
 }
 
 .bemke-qa__item:not([open]) .bemke-qa__icon {
+  transform: rotate(90deg);
+}
+
+.bemke-qa__item.is-closing .bemke-qa__icon {
   transform: rotate(90deg);
 }
 
@@ -196,9 +220,13 @@
 }
 
 @media (max-width: 767px) {
+  .bemke-qa {
+    overflow: hidden;
+  }
+
   .bemke-qa__inner {
     width: 100%;
-    padding: 0 0 6.4rem;
+    padding: 6.4rem 0;
   }
 
   .bemke-qa__heading {
@@ -206,18 +234,62 @@
   }
 
   .bemke-qa__tabs {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: nowrap;
     gap: 1.2rem;
-    margin-bottom: 5.6rem;
+    width: max-content;
+    max-width: none;
+    margin: 0 0 5rem 50%;
+    transform: translateX(-50%);
   }
 
   .bemke-qa__tab {
-    width: 100%;
+    flex: 0 0 auto;
+    width: auto;
+    min-height: 3.7rem;
+    padding: 0.8rem 3rem;
+    border-radius: 0.8rem;
+    font-size: var(--fs-caption-small, 1.3rem);
+  }
+
+  .bemke-qa__summary {
+    grid-template-columns: minmax(0, 1fr);
+    padding-bottom: 2.4rem;
+  }
+
+  .bemke-qa__item.is-closing .bemke-qa__summary {
+    padding-bottom: 2.4rem;
+  }
+
+  .bemke-qa__bullet,
+  .bemke-qa__number,
+  .bemke-qa__icon {
+    display: none;
   }
 
   .bemke-qa__question {
-    font-size: clamp(1.9rem, 5.5vw, 2.6rem);
+    max-width: none;
+    margin: 0;
+    font-size: 1.6rem;
+    line-height: 1.3;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .bemke-qa__item:not([open]) .bemke-qa__question,
+  .bemke-qa__item.is-closing .bemke-qa__question {
+    margin-top: 0;
+  }
+
+  .bemke-qa__answer {
+    padding: 0.8rem 0 2.4rem;
+  }
+
+  .bemke-qa__answer-inner {
+    max-width: none;
+    font-size: var(--fs-body-xs, 1.3rem);
+    line-height: 1.2;
+    letter-spacing: 0;
   }
 }
 
