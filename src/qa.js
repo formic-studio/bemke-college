@@ -206,8 +206,9 @@ const animateItem = (item, open) => {
 const initAccordionItems = (section) => {
   section.querySelectorAll('.bemke-qa__item').forEach((item) => {
     const summary = item.querySelector('.bemke-qa__summary');
+    const answer = item.querySelector('.bemke-qa__answer');
 
-    if (!summary || item.dataset.qaAccordionReady === 'true') {
+    if (!summary || !answer || item.dataset.qaAccordionReady === 'true') {
       return;
     }
 
@@ -220,6 +221,24 @@ const initAccordionItems = (section) => {
       event.preventDefault();
       const open = !item.open || item.classList.contains('is-closing');
       animateItem(item, open);
+    });
+
+    answer.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const isInteractive = target?.closest(
+        'a, button, input, select, textarea, label, [role="button"], [contenteditable="true"]',
+      );
+
+      if (isInteractive || !item.open) {
+        return;
+      }
+
+      if (shouldReduceMotion() || typeof item.animate !== 'function') {
+        item.open = false;
+        return;
+      }
+
+      animateItem(item, false);
     });
   });
 };

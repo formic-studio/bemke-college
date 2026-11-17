@@ -196,6 +196,14 @@
   padding: 0.6rem 0 2.8rem 6.759rem;
 }
 
+.bemke-qa__item[open] .bemke-qa__answer {
+  cursor: pointer;
+}
+
+.bemke-qa__answer :is(input, select, textarea, [contenteditable="true"]) {
+  cursor: auto;
+}
+
 .bemke-qa__answer-inner {
   max-width: 94.244rem;
   font-family: "Season Mix", serif;
