@@ -971,6 +971,87 @@
   }
 }
 
+/* The current EN/PL landing pages still use the original hand-built link row,
+   not the native Bricks Nav Menu used by the rest of the site. Keep that LP
+   header compact and inline on phones instead of applying the mobile panel
+   layout intended for `.brxe-nav-menu`. */
+@media (max-width: 767px) {
+  body.home
+    #brx-header
+    .padding-global:has(> .nav-menu.brxe-block) {
+    align-items: center !important;
+    column-gap: clamp(0.8rem, 2.2vw, 1.6rem) !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    min-height: 5.6rem;
+    padding-block: 0.8rem !important;
+    padding-inline: clamp(1rem, 3vw, 2.4rem) !important;
+  }
+
+  body.home
+    #brx-header
+    .padding-global:has(> .nav-menu.brxe-block)
+    > :first-child {
+    flex: 0 0 auto;
+    width: clamp(5.4rem, 18vw, 9.7rem) !important;
+  }
+
+  body.home
+    #brx-header
+    .padding-global:has(> .nav-menu.brxe-block)
+    > :first-child
+    svg {
+    height: auto;
+    max-width: none;
+    width: 100%;
+  }
+
+  body.home #brx-header .nav-menu.brxe-block {
+    align-items: center !important;
+    align-self: auto !important;
+    background: transparent !important;
+    clip-path: none !important;
+    column-gap: clamp(0.35rem, 1vw, 0.8rem) !important;
+    display: flex !important;
+    flex: 1 1 0;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    height: auto !important;
+    inset: auto !important;
+    justify-content: space-between !important;
+    min-height: 0 !important;
+    min-width: 0;
+    opacity: 1 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    pointer-events: auto !important;
+    position: static !important;
+    row-gap: 0 !important;
+    transition: none !important;
+    visibility: visible !important;
+    width: auto !important;
+  }
+
+  body.home #brx-header .nav-menu.brxe-block > svg {
+    display: block !important;
+    flex: 0 0 1px;
+    height: clamp(1.4rem, 4vw, 2.4rem);
+    width: 1px;
+  }
+
+  body.home
+    #brx-header
+    .nav-menu.brxe-block
+    > .nav-mobile.brxe-text-link {
+    flex: 0 1 auto;
+    font-size: clamp(0.72rem, 2vw, 1.05rem) !important;
+    letter-spacing: 0.01em;
+    line-height: 1.3 !important;
+    min-width: 0;
+    white-space: nowrap;
+  }
+}
+
 html[data-contrast]:not([data-contrast="default"])
   #brx-header
   :is(.college-mega-submenu, .bemke-mobile-menu__content, .bemke-mobile-accessibility) {
