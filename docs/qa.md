@@ -9,7 +9,8 @@ Moduł nie wymaga ACF ani innego pluginu pól. Zestawy i relacje ze stronami są
 3. Ustaw widoczny nagłówek, wariant bez kategorii lub z kategoriami oraz zachowanie pierwszego pytania.
 4. Dodaj pytania. W wariancie kategoryzowanym najpierw dodaj kategorię, a następnie jej pytania.
 5. Zmień kolejność, przeciągając pytania lub kategorie za uchwyt.
-6. Opublikuj zestaw. Szkice można przypisać do strony, ale nie będą widoczne publicznie do czasu publikacji.
+6. Kliknij nazwę pytania lub strzałkę kategorii, aby zwinąć albo rozwinąć jej pola.
+7. Opublikuj zestaw. Szkice można przypisać do strony, ale nie będą widoczne publicznie do czasu publikacji.
 
 ## Przypisanie do strony
 

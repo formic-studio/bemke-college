@@ -140,6 +140,26 @@ const syncVariantPanels = (root) => {
   });
 };
 
+const toggleDisclosure = (button, panel, type) => {
+  if (!button || !panel) {
+    return;
+  }
+
+  const expanded = button.getAttribute('aria-expanded') === 'true';
+  const nextExpanded = !expanded;
+
+  button.setAttribute('aria-expanded', String(nextExpanded));
+  button.classList.toggle('is-collapsed', !nextExpanded);
+  panel.hidden = !nextExpanded;
+
+  if (type === 'category') {
+    button.setAttribute(
+      'aria-label',
+      nextExpanded ? 'Zwiń kategorię' : 'Rozwiń kategorię',
+    );
+  }
+};
+
 const initQaAdmin = () => {
   const root = document.querySelector('[data-bemke-qa-admin]');
 
@@ -191,6 +211,24 @@ const initQaAdmin = () => {
     const addCategoryButton = event.target.closest('[data-qa-add-category]');
     const removeItemButton = event.target.closest('[data-qa-remove-item]');
     const removeCategoryButton = event.target.closest('[data-qa-remove-category]');
+    const toggleItemButton = event.target.closest('[data-qa-toggle-item]');
+    const toggleCategoryButton = event.target.closest('[data-qa-toggle-category]');
+
+    if (toggleItemButton) {
+      const panel = document.getElementById(
+        toggleItemButton.getAttribute('aria-controls') || '',
+      );
+      toggleDisclosure(toggleItemButton, panel, 'item');
+      return;
+    }
+
+    if (toggleCategoryButton) {
+      const panel = document.getElementById(
+        toggleCategoryButton.getAttribute('aria-controls') || '',
+      );
+      toggleDisclosure(toggleCategoryButton, panel, 'category');
+      return;
+    }
 
     if (addItem) {
       addQuestion(root, addItem);

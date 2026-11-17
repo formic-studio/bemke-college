@@ -106,12 +106,12 @@
     ]
   },
   "src/qa-admin.js": {
-    "file": "assets/qaAdmin.BXKd2hn_.js",
+    "file": "assets/qaAdmin.CMsb7Ekq.js",
     "name": "qaAdmin",
     "src": "src/qa-admin.js",
     "isEntry": true,
     "css": [
-      "assets/qaAdmin.1I8016xK.css"
+      "assets/qaAdmin.B5yUJWNb.css"
     ]
   },
   "src/reverse-cards.js": {

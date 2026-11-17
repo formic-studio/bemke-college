@@ -321,16 +321,20 @@ function bemke_college_render_qa_admin_item( array $item, string $prefix, string
 	$answer    = isset( $item['answer'] ) ? (string) $item['answer'] : '';
 	$safe_key  = sanitize_key( $key . '-' . wp_generate_password( 5, false, false ) );
 	$editor_id = 'bemke-qa-answer-' . $safe_key;
+	$body_id   = 'bemke-qa-item-body-' . $safe_key;
 	?>
 	<article class="bemke-qa-admin__item" data-qa-item>
 		<div class="bemke-qa-admin__item-bar">
 			<button type="button" class="bemke-qa-admin__drag" data-qa-drag-handle aria-label="Zmień kolejność pytania">
 				<span class="dashicons dashicons-move" aria-hidden="true"></span>
 			</button>
-			<strong data-qa-item-label><?php echo esc_html( $question ?: 'Nowe pytanie' ); ?></strong>
+			<button type="button" class="bemke-qa-admin__disclosure bemke-qa-admin__disclosure--item" data-qa-toggle-item aria-expanded="true" aria-controls="<?php echo esc_attr( $body_id ); ?>">
+				<strong data-qa-item-label><?php echo esc_html( $question ?: 'Nowe pytanie' ); ?></strong>
+				<span class="dashicons dashicons-arrow-up-alt2" aria-hidden="true"></span>
+			</button>
 			<button type="button" class="button-link-delete" data-qa-remove-item>Usuń pytanie</button>
 		</div>
-		<div class="bemke-qa-admin__item-fields">
+		<div id="<?php echo esc_attr( $body_id ); ?>" class="bemke-qa-admin__item-fields" data-qa-item-body>
 			<label class="bemke-qa-admin__field">
 				<span>Pytanie</span>
 				<input type="text" name="<?php echo esc_attr( $prefix . '[' . $safe_key . '][question]' ); ?>" value="<?php echo esc_attr( $question ); ?>" data-qa-question>
@@ -367,11 +371,15 @@ function bemke_college_render_qa_admin_category( array $category, string $key ):
 	$safe_key  = sanitize_key( $key . '-' . wp_generate_password( 5, false, false ) );
 	$prefix    = 'bemke_college_qa_data[categories][' . $safe_key . ']';
 	$target_id = 'bemke-qa-category-items-' . $safe_key;
+	$body_id   = 'bemke-qa-category-body-' . $safe_key;
 	?>
 	<article class="bemke-qa-admin__category" data-qa-category>
 		<div class="bemke-qa-admin__category-bar">
 			<button type="button" class="bemke-qa-admin__drag" data-qa-category-drag aria-label="Zmień kolejność kategorii">
 				<span class="dashicons dashicons-move" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="bemke-qa-admin__disclosure bemke-qa-admin__disclosure--category" data-qa-toggle-category aria-expanded="true" aria-controls="<?php echo esc_attr( $body_id ); ?>" aria-label="Zwiń kategorię">
+				<span class="dashicons dashicons-arrow-up-alt2" aria-hidden="true"></span>
 			</button>
 			<label>
 				<span>Nazwa kategorii</span>
@@ -380,15 +388,17 @@ function bemke_college_render_qa_admin_category( array $category, string $key ):
 			<button type="button" class="button-link-delete" data-qa-remove-category>Usuń kategorię</button>
 		</div>
 
-		<div id="<?php echo esc_attr( $target_id ); ?>" class="bemke-qa-admin__items" data-qa-sortable-items>
-			<?php
-			foreach ( $items as $item_index => $item ) {
-				bemke_college_render_qa_admin_item( $item, $prefix . '[items]', $safe_key . '-item-' . $item_index );
-			}
-			?>
-		</div>
+		<div id="<?php echo esc_attr( $body_id ); ?>" class="bemke-qa-admin__category-body" data-qa-category-body>
+			<div id="<?php echo esc_attr( $target_id ); ?>" class="bemke-qa-admin__items" data-qa-sortable-items>
+				<?php
+				foreach ( $items as $item_index => $item ) {
+					bemke_college_render_qa_admin_item( $item, $prefix . '[items]', $safe_key . '-item-' . $item_index );
+				}
+				?>
+			</div>
 
-		<button type="button" class="button" data-qa-add-item data-target="<?php echo esc_attr( $target_id ); ?>" data-prefix="<?php echo esc_attr( $prefix . '[items]' ); ?>">Dodaj pytanie w tej kategorii</button>
+			<button type="button" class="button" data-qa-add-item data-target="<?php echo esc_attr( $target_id ); ?>" data-prefix="<?php echo esc_attr( $prefix . '[items]' ); ?>">Dodaj pytanie w tej kategorii</button>
+		</div>
 	</article>
 	<?php
 }
@@ -402,10 +412,13 @@ function bemke_college_render_qa_admin_templates(): void {
 		<article class="bemke-qa-admin__item" data-qa-item>
 			<div class="bemke-qa-admin__item-bar">
 				<button type="button" class="bemke-qa-admin__drag" data-qa-drag-handle aria-label="Zmień kolejność pytania"><span class="dashicons dashicons-move" aria-hidden="true"></span></button>
-				<strong data-qa-item-label>Nowe pytanie</strong>
+				<button type="button" class="bemke-qa-admin__disclosure bemke-qa-admin__disclosure--item" data-qa-toggle-item aria-expanded="true" aria-controls="bemke-qa-item-body-__EDITOR_KEY__">
+					<strong data-qa-item-label>Nowe pytanie</strong>
+					<span class="dashicons dashicons-arrow-up-alt2" aria-hidden="true"></span>
+				</button>
 				<button type="button" class="button-link-delete" data-qa-remove-item>Usuń pytanie</button>
 			</div>
-			<div class="bemke-qa-admin__item-fields">
+			<div id="bemke-qa-item-body-__EDITOR_KEY__" class="bemke-qa-admin__item-fields" data-qa-item-body>
 				<label class="bemke-qa-admin__field">
 					<span>Pytanie</span>
 					<input type="text" name="__PREFIX__[__ITEM_KEY__][question]" value="" data-qa-question>
@@ -422,14 +435,17 @@ function bemke_college_render_qa_admin_templates(): void {
 		<article class="bemke-qa-admin__category" data-qa-category>
 			<div class="bemke-qa-admin__category-bar">
 				<button type="button" class="bemke-qa-admin__drag" data-qa-category-drag aria-label="Zmień kolejność kategorii"><span class="dashicons dashicons-move" aria-hidden="true"></span></button>
+				<button type="button" class="bemke-qa-admin__disclosure bemke-qa-admin__disclosure--category" data-qa-toggle-category aria-expanded="true" aria-controls="bemke-qa-category-body-__CATEGORY_KEY__" aria-label="Zwiń kategorię"><span class="dashicons dashicons-arrow-up-alt2" aria-hidden="true"></span></button>
 				<label>
 					<span>Nazwa kategorii</span>
 					<input type="text" name="bemke_college_qa_data[categories][__CATEGORY_KEY__][label]" value="" placeholder="np. Programme">
 				</label>
 				<button type="button" class="button-link-delete" data-qa-remove-category>Usuń kategorię</button>
 			</div>
-			<div id="bemke-qa-category-items-__CATEGORY_KEY__" class="bemke-qa-admin__items" data-qa-sortable-items></div>
-			<button type="button" class="button" data-qa-add-item data-target="bemke-qa-category-items-__CATEGORY_KEY__" data-prefix="bemke_college_qa_data[categories][__CATEGORY_KEY__][items]">Dodaj pytanie w tej kategorii</button>
+			<div id="bemke-qa-category-body-__CATEGORY_KEY__" class="bemke-qa-admin__category-body" data-qa-category-body>
+				<div id="bemke-qa-category-items-__CATEGORY_KEY__" class="bemke-qa-admin__items" data-qa-sortable-items></div>
+				<button type="button" class="button" data-qa-add-item data-target="bemke-qa-category-items-__CATEGORY_KEY__" data-prefix="bemke_college_qa_data[categories][__CATEGORY_KEY__][items]">Dodaj pytanie w tej kategorii</button>
+			</div>
 		</article>
 	</template>
 	<?php

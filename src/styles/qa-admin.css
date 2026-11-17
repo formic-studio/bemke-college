@@ -86,12 +86,50 @@ fieldset.bemke-qa-admin__field label + label {
   background: var(--qa-admin-soft);
 }
 
-.bemke-qa-admin__item-bar strong {
+.bemke-qa-admin__disclosure {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.bemke-qa-admin__disclosure:focus-visible {
+  outline: 2px solid #2271b1;
+  outline-offset: 2px;
+}
+
+.bemke-qa-admin__disclosure .dashicons {
+  flex: 0 0 auto;
+  transition: transform 160ms ease;
+}
+
+.bemke-qa-admin__disclosure.is-collapsed .dashicons {
+  transform: rotate(180deg);
+}
+
+.bemke-qa-admin__disclosure--item {
+  display: flex;
   flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding: 4px 2px;
+  text-align: left;
+}
+
+.bemke-qa-admin__disclosure--item strong {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.bemke-qa-admin__disclosure--category {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 4px 2px;
 }
 
 .bemke-qa-admin__drag {
@@ -119,12 +157,17 @@ fieldset.bemke-qa-admin__field label + label {
   padding: 14px;
 }
 
+.bemke-qa-admin__item-fields[hidden],
+.bemke-qa-admin__category-body[hidden] {
+  display: none;
+}
+
 .bemke-qa-admin__category {
-  padding-bottom: 14px;
+  padding-bottom: 0;
 }
 
 .bemke-qa-admin__category-bar {
-  margin-bottom: 14px;
+  margin-bottom: 0;
 }
 
 .bemke-qa-admin__category-bar label {
@@ -138,13 +181,11 @@ fieldset.bemke-qa-admin__field label + label {
   flex: 1;
 }
 
-.bemke-qa-admin__category > .bemke-qa-admin__items,
-.bemke-qa-admin__category > .button {
-  margin-right: 14px;
-  margin-left: 14px;
+.bemke-qa-admin__category-body {
+  padding: 14px;
 }
 
-.bemke-qa-admin__category > .button {
+.bemke-qa-admin__category-body > .button {
   margin-top: 14px;
 }
 
@@ -177,5 +218,10 @@ fieldset.bemke-qa-admin__field label + label {
   .bemke-qa-admin__category-bar label {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .bemke-qa-admin__disclosure--category,
+  .bemke-qa-admin__drag {
+    align-self: flex-start;
   }
 }
