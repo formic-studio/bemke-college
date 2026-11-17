@@ -17,3 +17,4 @@ require_once get_stylesheet_directory() . '/inc/language-switcher.php';
 require_once get_stylesheet_directory() . '/inc/instagram-feed.php';
 require_once get_stylesheet_directory() . '/inc/footer-links.php';
 require_once get_stylesheet_directory() . '/inc/qa.php';
+require_once get_stylesheet_directory() . '/inc/contact-form.php';

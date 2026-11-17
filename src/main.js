@@ -25,6 +25,7 @@ const reverseCardSelector =
   '.reverse-card > .reverse-card__inner > .reverse-card__front';
 const processTimelineSelector =
   '.process-block > .proces-line + .proces-item';
+const contactFormSelector = '[data-bemke-contact-form]';
 
 const initWhenNearViewport = (selector, init) => {
   const targets = document.querySelectorAll(selector);
@@ -198,6 +199,16 @@ const initProcessTimelineFeature = () => {
   });
 };
 
+const initContactFormFeature = () => {
+  if (!document.querySelector(contactFormSelector)) {
+    return;
+  }
+
+  import('./contact-form.js').then(({ initContactForms }) => {
+    initContactForms();
+  });
+};
+
 const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
@@ -218,6 +229,7 @@ const initBemkeCollege = () => {
   initMobileScrollFeature();
   initPopupFeature();
   initProcessTimelineFeature();
+  initContactFormFeature();
   initWcagToolbar();
   initLanguageSwitcher();
   initMegaMenu();

@@ -5,6 +5,7 @@
 @import './process-timeline.css';
 @import './navigation.css';
 @import './qa.css';
+@import './contact-form.css';
 
 :root {
   --bemke-color-text: #151515;

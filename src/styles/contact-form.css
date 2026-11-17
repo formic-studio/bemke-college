@@ -1,0 +1,297 @@
+.bemke-contact-form-shell {
+  box-sizing: border-box;
+  margin: 3.6rem auto 0;
+  max-width: 50rem;
+  width: 100%;
+}
+
+.brxe-shortcode:has(.bemke-contact-form-shell) {
+  width: 100%;
+}
+
+.bemke-contact-form,
+.bemke-contact-form * {
+  box-sizing: border-box;
+}
+
+.bemke-contact-form {
+  color: #1b0508;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 100%;
+}
+
+.bemke-contact-form__grid {
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bemke-contact-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.bemke-contact-form__field > label {
+  color: #1b0508;
+  font-family: "Season Sans", sans-serif;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.bemke-contact-form :is(input:not([type="checkbox"]), select, textarea) {
+  appearance: none;
+  background: #f5f9fd;
+  border: 0.1rem solid #e0eefe;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 0.8rem rgb(36 77 109 / 8%);
+  color: #1b0508;
+  font-family: "Season Sans", sans-serif;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin: 0;
+  min-height: 5.6rem;
+  padding: 1.6rem 1.6rem 1.2rem;
+  width: 100%;
+}
+
+.bemke-contact-form :is(input:not([type="checkbox"]), select, textarea)::placeholder {
+  color: rgb(27 5 8 / 52%);
+  opacity: 1;
+}
+
+.bemke-contact-form :is(input:not([type="checkbox"]), select, textarea):focus-visible,
+.bemke-contact-form__consent input:focus-visible,
+.bemke-contact-form__button:focus-visible {
+  outline: 0.3rem solid #527da4;
+  outline-offset: 0.2rem;
+}
+
+.bemke-contact-form textarea {
+  min-height: 10.4rem;
+  resize: vertical;
+}
+
+.bemke-contact-form__select-wrap {
+  display: block;
+  position: relative;
+}
+
+.bemke-contact-form__select-wrap::after {
+  background: url('../media/contact-select-arrow.svg') center / contain no-repeat;
+  content: '';
+  height: 0.4rem;
+  pointer-events: none;
+  position: absolute;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  width: 0.7rem;
+}
+
+.bemke-contact-form__select-wrap select {
+  cursor: pointer;
+  padding-right: 4.4rem;
+}
+
+.bemke-contact-form__consent {
+  align-items: flex-start;
+  color: #1b0508;
+  cursor: pointer;
+  display: flex;
+  font-family: "Season Sans", sans-serif;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  gap: 1.2rem;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
+
+.bemke-contact-form__consent input {
+  appearance: none;
+  background: #f5f9fd;
+  border: 0.1rem solid #1b0508;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  flex: 0 0 1.4rem;
+  height: 1.4rem;
+  margin: 0.1rem 0 0;
+  position: relative;
+  width: 1.4rem;
+}
+
+.bemke-contact-form__consent input:checked {
+  background: #244d6d;
+  border-color: #244d6d;
+}
+
+.bemke-contact-form__consent input:checked::after {
+  border: solid #fffdfb;
+  border-width: 0 0.16rem 0.16rem 0;
+  content: '';
+  height: 0.7rem;
+  left: 0.4rem;
+  position: absolute;
+  top: 0.14rem;
+  transform: rotate(45deg);
+  width: 0.35rem;
+}
+
+.bemke-contact-form__consent a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.bemke-contact-form__status {
+  font-family: "Season Sans", sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  margin: -0.8rem 0;
+  min-height: 1.8rem;
+  text-align: center;
+}
+
+.bemke-contact-form__status:empty {
+  display: none;
+}
+
+.bemke-contact-form__status.is-success {
+  color: #245f40;
+}
+
+.bemke-contact-form__status.is-error {
+  color: #8b1f2b;
+}
+
+.bemke-contact-form__submit {
+  display: flex;
+  justify-content: center;
+}
+
+.bemke-contact-form__button {
+  align-items: center;
+  background: #d7e8fd;
+  border: 0;
+  border-radius: 6.6rem;
+  color: #1b0508;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "Season Sans", sans-serif;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 1.2;
+  min-height: 4.8rem;
+  min-width: 17.6rem;
+  padding: 0.9rem 3.6rem 1rem;
+  transition:
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.bemke-contact-form__button:is(:hover, :focus-visible) {
+  background: #bdd9fa;
+  transform: translateY(-0.1rem);
+}
+
+.bemke-contact-form__button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.bemke-contact-form__button-loading {
+  display: none;
+}
+
+.bemke-contact-form[aria-busy="true"] .bemke-contact-form__button-label {
+  display: none;
+}
+
+.bemke-contact-form[aria-busy="true"] .bemke-contact-form__button-loading {
+  display: inline;
+}
+
+.bemke-contact-form__trap {
+  height: 0.1rem;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 0.1rem;
+}
+
+@media (max-width: 767px) {
+  .bemke-contact-form-shell {
+    margin-top: 2.4rem;
+  }
+
+  .bemke-contact-form {
+    gap: 2rem;
+  }
+
+  .bemke-contact-form__grid {
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bemke-contact-form__field > label {
+    font-size: 1.1rem;
+  }
+
+  .bemke-contact-form :is(input:not([type="checkbox"]), select, textarea) {
+    border-color: #eaf3fd;
+    font-size: 1.6rem;
+  }
+
+  .bemke-contact-form__consent {
+    font-size: 1.2rem;
+    gap: 1.2rem;
+  }
+
+  .bemke-contact-form__consent input {
+    flex-basis: 2.4rem;
+    height: 2.4rem;
+    margin-top: 0;
+    width: 2.4rem;
+  }
+
+  .bemke-contact-form__consent input:checked::after {
+    border-width: 0 0.2rem 0.2rem 0;
+    height: 1.2rem;
+    left: 0.8rem;
+    top: 0.3rem;
+    width: 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bemke-contact-form__button {
+    transition: none;
+  }
+
+  .bemke-contact-form__button:is(:hover, :focus-visible) {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .bemke-contact-form :is(input:not([type="checkbox"]), select, textarea),
+  .bemke-contact-form__consent input,
+  .bemke-contact-form__button {
+    border: 0.1rem solid ButtonText;
+  }
+}
