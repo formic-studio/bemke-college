@@ -7,7 +7,7 @@
 
 .bemke-qa__inner {
   width: 100%;
-  padding-block: clamp(7.2rem, 8vw, 12rem);
+  padding: 0 0 clamp(7.2rem, 8vw, 12rem);
 }
 
 .bemke-qa__heading {
@@ -33,7 +33,7 @@
   min-height: 4.8rem;
   padding: 1.2rem 3rem;
   border-radius: 0.9rem;
-  background: color-mix(in srgb, var(--bemke-qa-text) 48%, transparent);
+  background: #8b9aaa;
   color: var(--bemke-qa-bg);
   font-family: "Season Sans", sans-serif;
   font-size: var(--fs-button-small, 1.6rem);
@@ -46,7 +46,7 @@
 
 .bemke-qa__tab.is-active,
 .bemke-qa__tab:hover {
-  background: var(--color-baby-blue, #d4e4ff);
+  background: var(--color-blue-light, #d1e2fb);
   color: var(--bemke-qa-bg);
 }
 
@@ -198,7 +198,7 @@
 @media (max-width: 767px) {
   .bemke-qa__inner {
     width: 100%;
-    padding-block: 6.4rem;
+    padding: 0 0 6.4rem;
   }
 
   .bemke-qa__heading {
