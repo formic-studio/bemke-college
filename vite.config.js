@@ -10,6 +10,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'src/main.js',
+        qaAdmin: 'src/qa-admin.js',
       },
       output: {
         assetFileNames: 'assets/[name].[hash][extname]',

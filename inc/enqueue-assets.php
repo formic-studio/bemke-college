@@ -146,6 +146,7 @@ function bemke_college_module_script_tags( string $tag, string $handle, string $
     $module_handles = array(
         'bemke-college-vite-client',
         'bemke-college-main',
+        'bemke-college-qa-admin',
     );
 
     if ( ! in_array( $handle, $module_handles, true ) ) {
