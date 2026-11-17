@@ -16,6 +16,30 @@ const getLink = (item) =>
 const getButton = (item) =>
   getToggle(item)?.querySelector(':scope > button') ?? null;
 
+const prepareNestedGroups = (submenu) => {
+  submenu
+    .querySelectorAll(':scope > li.menu-item-has-children')
+    .forEach((item) => {
+      const toggle = getToggle(item);
+      const nestedSubmenu = getSubmenu(item);
+
+      if (!toggle || !nestedSubmenu) {
+        return;
+      }
+
+      item.classList.add('college-mega-group');
+      item.setAttribute('data-toggle', 'click');
+      nestedSubmenu.removeAttribute('aria-hidden');
+      nestedSubmenu.removeAttribute('inert');
+
+      // The desktop mega menu presents nested items as an always-visible group.
+      // Removing its redundant toggle prevents Bricks' native hover handler from
+      // racing the custom top-level menu state. The separate mobile menu keeps
+      // its own button and native accordion behaviour.
+      getButton(item)?.remove();
+    });
+};
+
 const setSubmenuFocusable = (submenu, isOpen) => {
   submenu.querySelectorAll(FOCUSABLE_SELECTOR).forEach((element) => {
     if (!element.hasAttribute('data-college-original-tabindex')) {
@@ -125,6 +149,7 @@ const initHeaderMegaMenu = (header) => {
       submenu.setAttribute('aria-labelledby', link.id);
       submenu.classList.add('college-mega-submenu');
       item.classList.add('college-mega-item');
+      prepareNestedGroups(submenu);
 
       if (button) {
         button.setAttribute('aria-controls', submenu.id);
@@ -172,7 +197,8 @@ const initHeaderMegaMenu = (header) => {
     closeTimer = window.setTimeout(() => {
       if (
         activeEntry &&
-        (activeEntry.toggle.contains(document.activeElement) ||
+        (activeEntry.item.matches(':hover') ||
+          activeEntry.toggle.contains(document.activeElement) ||
           activeEntry.submenu.contains(document.activeElement))
       ) {
         return;
