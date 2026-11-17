@@ -2,7 +2,7 @@
   --process-axis-color: #8b9aaa;
   --process-axis-step: clamp(140px, 8.6667vw, 173.333px);
   --process-axis-half-step: clamp(70px, 4.33335vw, 86.6665px);
-  --process-last-segment-extension: 10px;
+  --process-last-segment-extension: 30px;
   --process-axis-height: calc(
     var(--process-axis-step) + var(--process-axis-step) +
       var(--process-axis-step) + var(--process-last-segment-extension)

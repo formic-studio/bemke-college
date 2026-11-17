@@ -99,7 +99,7 @@ const syncDesktopLayout = (state) => {
     173.333,
     Math.max(140, window.innerWidth * 0.086667),
   );
-  const lastSegmentExtension = state.items.length === 4 ? 10 : 0;
+  const lastSegmentExtension = state.items.length === 4 ? 30 : 0;
   const axisHeight =
     step * Math.max(1, state.items.length - 1) + lastSegmentExtension;
 
