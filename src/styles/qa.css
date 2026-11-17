@@ -220,10 +220,6 @@
 }
 
 @media (max-width: 767px) {
-  .bemke-qa {
-    overflow: hidden;
-  }
-
   .bemke-qa__inner {
     width: 100%;
     padding: 6.4rem 0;
@@ -234,13 +230,27 @@
   }
 
   .bemke-qa__tabs {
+    --bemke-qa-tabs-gutter: var(--space-24, 2.4rem);
+    box-sizing: border-box;
     display: flex;
     flex-wrap: nowrap;
     gap: 1.2rem;
-    width: max-content;
+    width: calc(100% + (2 * var(--bemke-qa-tabs-gutter)));
     max-width: none;
-    margin: 0 0 5rem 50%;
-    transform: translateX(-50%);
+    margin: 0 calc(-1 * var(--bemke-qa-tabs-gutter)) 5rem;
+    padding-inline: var(--bemke-qa-tabs-gutter);
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: var(--bemke-qa-tabs-gutter);
+    scroll-snap-type: inline proximity;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bemke-qa__tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .bemke-qa__tab {
@@ -250,6 +260,7 @@
     padding: 0.8rem 3rem;
     border-radius: 0.8rem;
     font-size: var(--fs-caption-small, 1.3rem);
+    scroll-snap-align: start;
   }
 
   .bemke-qa__summary {
