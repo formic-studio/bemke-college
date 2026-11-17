@@ -99,7 +99,9 @@ const syncDesktopLayout = (state) => {
     173.333,
     Math.max(140, window.innerWidth * 0.086667),
   );
-  const axisHeight = step * Math.max(1, state.items.length - 1);
+  const lastSegmentExtension = state.items.length === 4 ? 10 : 0;
+  const axisHeight =
+    step * Math.max(1, state.items.length - 1) + lastSegmentExtension;
 
   setCustomProperty(
     state.block,
@@ -115,10 +117,11 @@ const syncDesktopLayout = (state) => {
   });
 
   state.dots.forEach((dot, index) => {
-    const progress =
-      state.dots.length === 1 ? 0 : index / (state.dots.length - 1);
+    const isLastDot = index === state.dots.length - 1;
+    const dotPosition =
+      index * step + (isLastDot ? lastSegmentExtension : 0);
 
-    dot.style.top = `${5 + progress * axisHeight}px`;
+    dot.style.top = `${5 + dotPosition}px`;
   });
 
   const minimumTail = Math.min(
