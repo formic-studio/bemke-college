@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Ustabilizowano wejście z linku `HISTORY` w globalnym footerze na `/about/#section_history`. Link między podstronami nie jest już przejmowany przez mechanizm kotwic Bricks, a po otwarciu strony pozycja sekcji jest ponownie wyrównywana po inicjalizacji zakładek historii, fontów i zmianach layoutu. Dzięki temu pierwsze wejście z pustym cache kończy się przy sekcji historii, a nie na początku strony; ponowne wyrównywanie zatrzymuje się natychmiast po interakcji użytkownika.
 - Pozycja `HISTORY` w globalnym footerze prowadzi teraz z każdej podstrony bezpośrednio do sekcji `#section_history` na stronie About (`/about/#section_history`). Adres jest dodawany podczas renderowania template’u Bricks, więc link działa od pierwszego HTML bez oczekiwania na JavaScript.
 - Ustabilizowano linki `Programme → Academics → IGCSE/A Level`. Desktopowa grupa `Academics` jest teraz odłączana od natywnego mechanizmu trzeciego poziomu Bricks, który po inicjalizacji potrafił ponownie pozycjonować lub ukrywać jej listę. Linki mają własną warstwę interakcji i dla zwykłego kliknięcia bezpośrednio uruchamiają nawigację; kliknięcia z Ctrl/Cmd/Shift oraz otwieranie w nowej karcie zachowują zachowanie przeglądarki. Osobna struktura mobilna nadal korzysta z natywnego accordionu Bricks.
 - Usunięto kolizję specyficzności w desktopowym mega-menu wprowadzoną przy wygładzaniu pierwszego renderu. Wczesna reguła zamykająca surowe podmenu nie nadpisuje już klasy `.is-college-submenu-open`, dzięki czemu panele ponownie rozwijają się po najechaniu, focusie i kliknięciu strzałki.
