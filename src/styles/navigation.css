@@ -12,7 +12,11 @@
   );
 }
 
-#brx-header .bemke-college-navigation-row {
+#brx-header
+  :is(
+    .bemke-college-navigation-row,
+    .padding-global:has(> .nav-menu.brxe-block > .brxe-nav-menu)
+  ) {
   align-items: center !important;
   column-gap: clamp(3.2rem, 5vw, 9.6rem) !important;
   display: flex !important;
@@ -23,7 +27,12 @@
   width: 100%;
 }
 
-#brx-header .bemke-college-navigation-row > :first-child {
+#brx-header
+  :is(
+    .bemke-college-navigation-row,
+    .padding-global:has(> .nav-menu.brxe-block > .brxe-nav-menu)
+  )
+  > :first-child {
   flex: 0 0 auto;
 }
 
@@ -44,7 +53,11 @@
 }
 
 @media (min-width: 992px) {
-  #brx-header .bemke-college-wcag-toolbar {
+  #brx-header
+    :is(
+      .bemke-college-wcag-toolbar,
+      .padding-global:has(> .lang-switcher-block):has([data-contrast])
+    ) {
     align-items: center !important;
     box-sizing: border-box;
     column-gap: var(--space-48, 4.8rem) !important;
@@ -55,16 +68,32 @@
   }
 
   #brx-header
-    .bemke-college-wcag-toolbar
-    > .bemke-mobile-wcag__control--motion,
+    :is(
+      .bemke-college-wcag-toolbar,
+      .padding-global:has(> .lang-switcher-block):has([data-contrast])
+    )
+    > :is(
+      .bemke-mobile-wcag__control--motion,
+      .lang-switcher-block:has(> .animation-switcher)
+    ),
   #brx-header
-    .bemke-college-wcag-toolbar
-    > .bemke-mobile-wcag__control--motion
+    :is(
+      .bemke-college-wcag-toolbar,
+      .padding-global:has(> .lang-switcher-block):has([data-contrast])
+    )
+    > :is(
+      .bemke-mobile-wcag__control--motion,
+      .lang-switcher-block:has(> .animation-switcher)
+    )
     + svg {
     display: none !important;
   }
 
-  #brx-header .bemke-college-navigation-row {
+  #brx-header
+    :is(
+      .bemke-college-navigation-row,
+      .padding-global:has(> .nav-menu.brxe-block > .brxe-nav-menu)
+    ) {
     box-sizing: border-box;
     height: 6.4rem;
     min-height: 6.4rem;
@@ -241,7 +270,8 @@
     color: var(--college-nav-text);
   }
 
-  #brx-header .college-mega-submenu {
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu) {
     background: var(--college-nav-bg) !important;
     box-shadow: none !important;
     box-sizing: border-box;
@@ -277,7 +307,21 @@
     visibility: visible !important;
   }
 
-  #brx-header .college-mega-submenu li {
+  html:not(.bemke-college-js)
+    #brx-header
+    .bricks-nav-menu
+    > li:is(:hover, :focus-within)
+    > .sub-menu {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    transition-delay: 0s;
+    visibility: visible !important;
+  }
+
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    li {
     display: block;
     height: auto !important;
     margin: 0;
@@ -286,14 +330,23 @@
     text-align: left;
   }
 
-  #brx-header .college-mega-submenu > li + li,
-  #brx-header .college-mega-submenu ul.sub-menu > li + li {
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    > li
+    + li,
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    ul.sub-menu
+    > li
+    + li {
     border-top: 1px solid var(--college-nav-border);
     margin-top: 1.4rem;
     padding-top: 1.4rem;
   }
 
-  #brx-header .college-mega-submenu a {
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    a {
     align-self: stretch;
     background: none !important;
     color: var(--college-nav-text) !important;
@@ -309,38 +362,47 @@
     width: 100%;
   }
 
-  #brx-header .college-mega-submenu a:is(
-    :hover,
-    :focus-visible,
-    [aria-current="page"]
-  ) {
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    a:is(:hover, :focus-visible, [aria-current="page"]) {
     color: var(--college-nav-accent) !important;
   }
 
   #brx-header
-    .college-mega-submenu:has(a:is(:hover, :focus-visible))
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu):has(
+      a:is(:hover, :focus-visible)
+    )
     a {
     color: var(--college-nav-muted) !important;
   }
 
   #brx-header
-    .college-mega-submenu:has(a:is(:hover, :focus-visible))
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu):has(
+      a:is(:hover, :focus-visible)
+    )
     a:is(:hover, :focus-visible) {
     color: var(--college-nav-accent) !important;
   }
 
-  #brx-header .college-mega-submenu .brx-submenu-toggle {
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    .brx-submenu-toggle {
     align-items: stretch;
     display: flex;
     flex-direction: column;
     width: 100%;
   }
 
-  #brx-header .college-mega-submenu .brx-submenu-toggle > button {
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    .brx-submenu-toggle
+    > button {
     display: none !important;
   }
 
-  #brx-header .college-mega-submenu ul.sub-menu {
+  #brx-header
+    :is(.college-mega-submenu, .bricks-nav-menu > li > .sub-menu)
+    ul.sub-menu {
     background: transparent !important;
     box-shadow: none !important;
     display: flex !important;
@@ -381,7 +443,11 @@
     z-index: 1000;
   }
 
-  #brx-header .bemke-college-navigation-row {
+  #brx-header
+    :is(
+      .bemke-college-navigation-row,
+      .padding-global:has(> .nav-menu.brxe-block > .brxe-nav-menu)
+    ) {
     column-gap: 2rem !important;
     min-height: 6.8rem;
     padding-inline: 2rem !important;
@@ -390,11 +456,20 @@
 
   html.bemke-mobile-menu-open
     #brx-header
-    .bemke-college-navigation-row {
+    :is(
+      .bemke-college-navigation-row,
+      .padding-global:has(> .nav-menu.brxe-block > .brxe-nav-menu)
+    ) {
     min-height: 8rem;
   }
 
-  #brx-header .bemke-college-navigation-row > :first-child svg {
+  #brx-header
+    :is(
+      .bemke-college-navigation-row,
+      .padding-global:has(> .nav-menu.brxe-block > .brxe-nav-menu)
+    )
+    > :first-child
+    svg {
     height: auto;
     max-width: 9.7rem;
   }

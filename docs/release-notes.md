@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Wygładzono pierwsze wejście na każdą podstronę przy pustym cache: główny moduł child theme jest teraz pobierany z `<head>` i jako moduł nadal wykonuje się dopiero po sparsowaniu dokumentu, ale jest gotowy wcześniej do inicjalizacji całej strony. Krytyczne odmiany Season Sans i Season Mix są preloadowane przed pierwszym układem tekstu, a desktopowy header i zamknięte podmenu otrzymują docelowy układ bez czekania na klasy dodawane przez JavaScript. Usuwa to widoczny przeskok z bazowych styli Bricks bez zasłaniania strony loaderem.
 - Naprawiono sporadycznie nieklikalne linki w drugim poziomie desktopowego mega-menu, m.in. `Programme → Academics → IGCSE/A Level`. Zagnieżdżona grupa jest prezentowana jako stale widoczna część otwartego panelu, więc natywny przełącznik Bricks nie konkuruje już z obsługą mega-menu, a panel nie zamyka się, gdy kursor nadal znajduje się nad jego zawartością. Mobilny accordion zachowuje własne przyciski i dotychczasowe działanie.
 - Desktopowy pasek dostępności w nowym headerze ma ponownie taki sam układ pionowy jak na bemke.pl: kontrolki i separatory są wyśrodkowane, a pasek zachowuje po `1.2rem` odstępu od góry i dołu. Rozmiary oraz wygląd samych ikon pozostały bez zmian.
 - Przywrócono wyśrodkowanie desktopowej belki dostępności w nowym template headera. Reguła child theme nie wymusza już wyrównania `flex-end`; zachowuje centralne położenie kontrolek oraz projektowy odstęp `--space-48`.

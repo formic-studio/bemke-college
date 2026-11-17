@@ -10,7 +10,36 @@ defined( 'ABSPATH' ) || exit;
 const BEMKE_COLLEGE_VITE_ENTRY = 'src/main.js';
 
 add_action( 'wp_enqueue_scripts', 'bemke_college_enqueue_assets', 20 );
+add_action( 'wp_head', 'bemke_college_preload_critical_fonts', 2 );
 add_filter( 'script_loader_tag', 'bemke_college_module_script_tags', 10, 3 );
+
+/**
+ * Preload the two fonts used in the first viewport.
+ *
+ * Bricks defines the font faces in its inline CSS, but without preload the
+ * browser discovers their files only after it has parsed that CSS and laid out
+ * the first text. On a cold cache that produces a visible fallback-font swap.
+ */
+function bemke_college_preload_critical_fonts(): void {
+    $uploads = wp_get_upload_dir();
+
+    if ( ! empty( $uploads['error'] ) || empty( $uploads['baseurl'] ) ) {
+        return;
+    }
+
+    $font_base = trailingslashit( $uploads['baseurl'] ) . '2026/06/';
+    $fonts     = array(
+        'SeasonSans-Regular.woff2',
+        'SeasonMix-RegularItalic.woff2',
+    );
+
+    foreach ( $fonts as $font ) {
+        printf(
+            '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+            esc_url( $font_base . $font )
+        );
+    }
+}
 
 /**
  * Enqueue Vite assets from the dev server or from the production manifest.
@@ -24,7 +53,7 @@ function bemke_college_enqueue_assets(): void {
             $dev_server . '/@vite/client',
             array(),
             null,
-            true
+            false
         );
 
         wp_enqueue_script(
@@ -32,7 +61,7 @@ function bemke_college_enqueue_assets(): void {
             $dev_server . '/' . BEMKE_COLLEGE_VITE_ENTRY,
             array( 'bemke-college-vite-client' ),
             null,
-            true
+            false
         );
 
         return;
@@ -67,7 +96,7 @@ function bemke_college_enqueue_assets(): void {
         $dist_uri . $entry['file'],
         array(),
         null,
-        true
+        false
     );
 }
 
