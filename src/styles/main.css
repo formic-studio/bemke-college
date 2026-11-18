@@ -196,9 +196,9 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
 
 .bg-claret {
   --bemke-college-button-bg: var(--color-claret);
-  --bemke-college-button-bg-hover: var(--color-blue-dark);
+  --bemke-college-button-bg-hover: #c48a8b;
   --bemke-college-button-text: var(--color-cream);
-  --bemke-college-button-text-hover: var(--color-cream);
+  --bemke-college-button-text-hover: var(--color-brown);
   --bemke-college-button-text-steps: 12;
 }
 
