@@ -778,7 +778,8 @@ html[data-bemke-reduced-motion="true"] .scroll-highlight {
 }
 
 .card-programme.reverse-card[data-bemke-reverse-card-ready="1"] {
-  background-color: transparent;
+  /* Bricks can set a background on the shell by element ID. The faces carry it. */
+  background: none !important;
 }
 
 /* A single programme card spans the row and needs a longer perspective. */
@@ -787,7 +788,6 @@ html[data-bemke-reduced-motion="true"] .scroll-highlight {
 }
 
 .card-programme.reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__face {
-  background-color: var(--color-blue-light);
   justify-content: center;
   padding-inline: var(--space-12);
 }
