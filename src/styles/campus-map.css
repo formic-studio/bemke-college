@@ -183,6 +183,32 @@
   outline-offset: 5px !important;
 }
 
+html[data-contrast]:not([data-contrast="default"]) .campus-map__areas .campus-map__area {
+  fill: transparent !important;
+  stroke: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .campus-map__control svg rect:first-child {
+  fill: var(--a11y-control-bg) !important;
+  fill-opacity: 1;
+  stroke: none !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .campus-map__control svg :is(rect:nth-child(2), path) {
+  fill: none !important;
+  stroke: var(--a11y-control-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .campus-map__tooltip {
+  background: var(--a11y-surface);
+  box-shadow: inset 0 0 0 1px var(--a11y-border);
+  color: var(--a11y-text);
+}
+
+html[data-contrast]:not([data-contrast="default"]) :is(.map-block, .campus-map__control):focus-visible {
+  outline-color: var(--a11y-border) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .campus-map__tooltip {
     transition: none;

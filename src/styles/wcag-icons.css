@@ -1,0 +1,104 @@
+/* Recolor the paint that is actually authored on UI icons. Unpainted shapes,
+   SVG definitions and illustrated media retain their original paint. */
+html[data-contrast]:not([data-contrast="default"]) {
+  & :where(
+    #brx-header svg,
+    #brx-footer svg,
+    .brxe-icon,
+    .arrow svg,
+    .yellow-arrow svg,
+    .accordin-btn svg,
+    .brxe-button svg,
+    .bricks-button svg,
+    .btn svg,
+    button:not(.campus-map__control) svg
+  ) {
+    color: var(--bemke-contrast-ink) !important;
+
+    &[fill]:not([fill="none" i], [fill="transparent" i], [fill^="url(" i]),
+    & svg[fill]:not([fill="none" i], [fill="transparent" i], [fill^="url(" i]),
+    & :where(path, rect, line, circle, ellipse, polygon, polyline, g, use)[fill]:not(
+      [fill="none" i], [fill="transparent" i], [fill^="url(" i], :where(defs, mask, clipPath, pattern) *
+    ) {
+      fill: var(--bemke-contrast-ink) !important;
+    }
+
+    &[stroke]:not([stroke="none" i], [stroke="transparent" i], [stroke^="url(" i]),
+    & svg[stroke]:not([stroke="none" i], [stroke="transparent" i], [stroke^="url(" i]),
+    & :where(path, rect, line, circle, ellipse, polygon, polyline, g, use)[stroke]:not(
+      [stroke="none" i], [stroke="transparent" i], [stroke^="url(" i], :where(defs, mask, clipPath, pattern) *
+    ) {
+      stroke: var(--bemke-contrast-ink) !important;
+    }
+  }
+
+  & #brx-header {
+    --college-nav-bg: var(--a11y-bg);
+    --college-nav-surface: var(--a11y-surface);
+    --college-nav-text: var(--a11y-text);
+    --college-nav-accent: var(--a11y-text);
+    --college-nav-muted: var(--a11y-text);
+    --college-nav-border: var(--a11y-border);
+    --college-nav-arrow-bg: var(--a11y-control-bg);
+  }
+
+  & #brx-header .brx-submenu-toggle > button > svg {
+    background: var(--a11y-control-bg) !important;
+  }
+
+  & #brx-header :is(
+    .brx-submenu-toggle > button,
+    .bemke-mobile-accessibility__toggle
+  )[aria-expanded="true"] {
+    --bemke-contrast-ink: var(--a11y-text);
+    background-color: var(--a11y-surface) !important;
+    border-color: var(--a11y-border) !important;
+
+    & > svg {
+      background: var(--a11y-surface) !important;
+    }
+  }
+
+  & #brx-header .bricks-mobile-menu-toggle > span {
+    background-color: var(--a11y-control-text) !important;
+  }
+
+  & #brx-header :is(
+    .bricks-mobile-menu-toggle,
+    .brx-submenu-toggle > button,
+    .bemke-mobile-accessibility__toggle
+  ):focus-visible,
+  & #brx-footer .social-link:is(:hover, :focus-visible),
+  & :is(.arrow, .yellow-arrow, .accordin-btn):focus-visible {
+    outline: 2px solid var(--a11y-border) !important;
+    outline-offset: 3px;
+  }
+
+  & #brx-header .lang-switcher-block :is(.animation-switcher, .lang-switcher) {
+    background-color: var(--a11y-control-bg) !important;
+
+    & > .switch-block {
+      background-color: var(--a11y-control-text) !important;
+      border-color: var(--a11y-control-text) !important;
+    }
+  }
+
+  & #brx-header
+    .bemke-mobile-wcag__control--language
+    > .bemke-mobile-wcag__options
+    > .lang-switcher
+    > .switch-block {
+    background: var(--a11y-control-text) !important;
+  }
+
+  & #brx-footer .dot {
+    background-color: var(--a11y-border) !important;
+  }
+
+  & .slider .slider-paggination > .arrow.brxe-block:is(.is-disabled, [aria-disabled="true"]) {
+    --bemke-contrast-ink: var(--a11y-text);
+    background-color: var(--a11y-surface) !important;
+    color: var(--a11y-text) !important;
+    opacity: 1 !important;
+  }
+}

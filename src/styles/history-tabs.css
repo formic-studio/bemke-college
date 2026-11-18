@@ -276,6 +276,44 @@ button.tab {
 }
 
 html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"] .tab[role="tab"]:not([aria-selected="true"]) {
+  background-color: var(--a11y-surface) !important;
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"] .tab[role="tab"][aria-selected="true"] {
+  background-color: var(--a11y-control-bg) !important;
+  color: var(--a11y-control-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"] .tab[role="tab"] > * {
+  color: inherit !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"] .tab[role="tab"][aria-selected="false"]::before {
+  display: none;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"] .tab[role="tab"]:hover {
+  text-decoration: underline;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"] .tab[role="tab"]:focus-visible {
+  outline-color: currentColor;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  [data-bemke-history-tabs-ready="1"] .history-tabs-scrollbar:focus-visible {
+  outline: 2px solid var(--a11y-border);
+  outline-offset: 2px;
+}
+
+html[data-contrast]:not([data-contrast="default"])
   [data-bemke-history-tabs-ready="1"]
   .history-tabs-scrollbar__track {
   background-color: var(--a11y-control-border) !important;

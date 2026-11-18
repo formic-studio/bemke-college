@@ -371,6 +371,92 @@
   width: 0.1rem;
 }
 
+html[data-contrast]:not([data-contrast="default"])
+  .brxe-block:has(> .brxe-shortcode > .bemke-contact-form-shell) {
+  background-color: var(--a11y-surface) !important;
+  background-image: none !important;
+  box-shadow: inset 0 0 0 1px var(--a11y-border);
+  color: var(--a11y-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form,
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-contact-form :is(label, label span, .bemke-contact-form__select-error, .bemke-contact-form__status) {
+  color: var(--a11y-text);
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-contact-form :is(input:not([type="checkbox"]), select, textarea, .bemke-contact-form__select-button) {
+  background: var(--a11y-control-bg) !important;
+  border-color: var(--a11y-control-border) !important;
+  box-shadow: none;
+  color: var(--a11y-control-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-contact-form :is(input, select, textarea)::placeholder,
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-contact-form__select-value.is-placeholder {
+  color: var(--a11y-control-text) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form
+  :is(input, select, textarea, .bemke-contact-form__select-button, .bemke-contact-form__button):focus-visible {
+  outline-color: var(--a11y-border);
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  :is(.bemke-contact-form__select-wrap:not(.is-enhanced), .bemke-contact-form__select-button)::after {
+  background: var(--a11y-control-text);
+  mask: url('../media/contact-select-arrow.svg') center / contain no-repeat;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form__select-popup {
+  background: var(--a11y-surface);
+  border-color: var(--a11y-border);
+  box-shadow: none;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form__select-list {
+  color: var(--a11y-text);
+  scrollbar-color: var(--a11y-text) var(--a11y-surface);
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-contact-form__select-option:is(:hover, :focus-visible, [aria-selected="true"]) {
+  background: var(--a11y-control-bg);
+  color: var(--a11y-control-text);
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form__select-option:focus-visible {
+  outline-color: currentColor;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-contact-form__select-option[aria-selected="true"]::after {
+  border-color: currentColor;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .bemke-contact-form__select-wrap.is-invalid .bemke-contact-form__select-button {
+  border-style: dashed !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form__consent input {
+  background: var(--a11y-surface);
+  border-color: var(--a11y-border) !important;
+  color: var(--a11y-text);
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form__consent input:checked {
+  background: var(--a11y-control-bg);
+  color: var(--a11y-control-text);
+}
+
+html[data-contrast]:not([data-contrast="default"]) .bemke-contact-form__consent input:checked::after {
+  border-color: var(--a11y-control-text);
+}
+
 @media (max-width: 767px) {
   .bemke-contact-form-shell {
     margin-top: 2.4rem;

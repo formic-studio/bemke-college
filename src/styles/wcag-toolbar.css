@@ -108,9 +108,9 @@ html[data-contrast]:not([data-contrast="default"]) [data-a11y-scale] {
 }
 
 [data-a11y-contrast-fixed][data-contrast="default"] {
-  background-color: var(--color-baby-blue, #fffdfb) !important;
-  border-color: var(--color-yellow, #edb664) !important;
-  color: var(--color-brown, #131312) !important;
+  background-color: #fffdfb !important;
+  border-color: #edb664 !important;
+  color: #131312 !important;
 }
 
 [data-a11y-contrast-fixed][data-contrast="white-black"] {
@@ -162,6 +162,7 @@ html[data-contrast="yellow-black"] {
 }
 
 html[data-contrast]:not([data-contrast="default"]) {
+  --bemke-contrast-ink: var(--a11y-text);
   --bemke-color-text: var(--a11y-text);
   --bemke-color-muted: var(--a11y-text);
   --bemke-color-accent: var(--a11y-border);
@@ -170,13 +171,19 @@ html[data-contrast]:not([data-contrast="default"]) {
   --color-burgundy: var(--a11y-surface);
   --color-yellow: var(--a11y-surface);
   --color-blue-light: var(--a11y-surface);
+  --color-blue-light-2: var(--a11y-surface);
   --color-baby-blue: var(--a11y-surface);
   --color-red: var(--a11y-surface);
+  --color-red-light: var(--a11y-surface);
   --color-cream: var(--a11y-surface);
+  --color-cream-3: var(--a11y-surface);
+  --color-claret: var(--a11y-surface);
+  --color-claret-light: var(--a11y-surface);
   --color-blue-dark: var(--a11y-surface);
   --color-brown: var(--a11y-text);
   --color-white-blue: var(--a11y-surface);
-  --color-vine: var(--a11y-text);
+  --color-vine: var(--a11y-surface);
+  --egg-shell: var(--a11y-surface);
 }
 
 html[data-contrast]:not([data-contrast="default"]) body,
@@ -228,6 +235,11 @@ html[data-contrast]:not([data-contrast="default"]) :is(
   .section_wcag,
   .page-info,
   .card,
+  .card-programme,
+  .card-dev-program,
+  .card-accomodation,
+  .square-card,
+  .reverse-card__face,
   .accordin-item,
   .slider-text-wrapper,
   .slide-text,
@@ -239,28 +251,21 @@ html[data-contrast]:not([data-contrast="default"]) :is(
 }
 
 html[data-contrast]:not([data-contrast="default"]) :is(
+  h1, h2, h3, h4, h5, h6,
+  p, li, dt, dd, label, blockquote, figcaption,
   .brxe-heading,
   .brxe-text-basic,
+  .brxe-text,
   .brxe-text-link,
-  .page-info,
-  .page-info *,
-  .font-color-DarkCream,
-  .font-color-Cream-dark,
-  .history-slide,
-  .history-slide *,
-  .slider-text-wrapper,
-  .slider-text-wrapper *,
-  .slide-text,
-  .slide-text *
-) {
-  color: var(--a11y-text) !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) a:not([data-contrast]) {
-  color: var(--a11y-text) !important;
+  :is(.brxe-heading, .brxe-text-basic, .brxe-text, .brxe-text-link)
+    :where(div, span, font, strong, em, b, i, small, sup, sub),
+  a[href]
+):not([data-contrast], [data-a11y-contrast-fixed]) {
+  color: var(--bemke-contrast-ink) !important;
 }
 
 html[data-contrast]:not([data-contrast="default"]) :is(
+  .skip-link,
   .brxe-button,
   .btn,
   button,
@@ -272,32 +277,56 @@ html[data-contrast]:not([data-contrast="default"]) :is(
   .accordin-btn,
   .lang-switcher,
   .tab.brxe-block,
-  .brxe-block.tab,
   .bricks-button
 ):not([data-contrast]):not([data-a11y-contrast-fixed]) {
+  --bemke-contrast-ink: var(--a11y-control-text);
   background-color: var(--a11y-control-bg) !important;
   border-color: var(--a11y-control-border) !important;
   border-style: solid !important;
   border-width: 1px !important;
-  color: var(--a11y-control-text) !important;
+  color: var(--bemke-contrast-ink) !important;
+}
+
+html[data-contrast]:not([data-contrast="default"]) #brx-content :is(.point, .badge-ai) {
+  --bemke-contrast-ink: var(--a11y-control-text);
+  background: var(--a11y-control-bg) !important;
+  color: var(--bemke-contrast-ink) !important;
+  box-shadow: inset 0 0 0 1px var(--a11y-border);
+}
+
+html[data-contrast]:not([data-contrast="default"]) .page-info > :not(:last-child) {
+  opacity: 1;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .mobile-scroll[data-bemke-mobile-scroll-active="1"] > .mobile-scroll__track:focus-visible {
+  outline-color: var(--a11y-border) !important;
 }
 
 html[data-contrast]:not([data-contrast="default"]) :is(
-  .brxe-button,
-  .btn,
-  button,
-  .arrow,
-  .yellow-arrow,
-  .accordin-btn,
-  .bricks-button
-):not([data-contrast]):not([data-a11y-contrast-fixed]) :is(
-  .brxe-heading,
-  .brxe-text-basic,
-  .brxe-text-link,
-  span,
-  div
+  .page-info a,
+  #brx-content a:not(.btn, .brxe-button, [role="tab"]):not(:has(img, svg))
 ) {
-  color: var(--a11y-control-text) !important;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+html[data-contrast]:not([data-contrast="default"]) .slider .slide.no-img {
+  opacity: 1 !important;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  .slider .slide.no-img[slide-active="1"] > .card,
+html[data-contrast]:not([data-contrast="default"])
+  .reverse-card[data-bemke-reverse-card-ready="1"]:has(> .reverse-card__toggle:focus-visible) {
+  outline: 2px solid var(--a11y-border);
+  outline-offset: -2px;
+}
+
+html[data-contrast]:not([data-contrast="default"])
+  :is(.card-programme, .card-dev-program, .card-accomodation, .square-card, .reverse-card__face) {
+  border-color: var(--a11y-border) !important;
+  box-shadow: inset 0 0 0 1px var(--a11y-border);
 }
 
 html[data-contrast]:not([data-contrast="default"]) :is(.card, input, select, textarea) {
@@ -308,157 +337,12 @@ html[data-contrast]:not([data-contrast="default"]) .brxe-divider .line {
   border-color: var(--a11y-border) !important;
 }
 
-html[data-contrast]:not([data-contrast="default"]) :is(svg, .brxe-svg) {
-  color: var(--a11y-text) !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) svg,
-html[data-contrast]:not([data-contrast="default"]) svg * {
-  color: currentColor !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) svg :not([fill="none"]) {
-  fill: currentColor !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) svg :not([stroke="none"]) {
-  stroke: currentColor !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) svg [fill="none"] {
-  fill: none !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) svg [stroke="none"] {
-  stroke: none !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) svg [style*="fill:none"],
-html[data-contrast]:not([data-contrast="default"]) svg [style*="fill: none"] {
-  fill: none !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) svg [style*="stroke:none"],
-html[data-contrast]:not([data-contrast="default"]) svg [style*="stroke: none"] {
-  stroke: none !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) :is(
-  .brxe-button,
-  .btn,
-  button,
-  .arrow,
-  .yellow-arrow,
-  .accordin-btn,
-  .bricks-button
-):not([data-contrast]):not([data-a11y-contrast-fixed]) :is(svg, .brxe-svg) {
-  color: var(--a11y-control-text) !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) :is(
-  .brxe-button,
-  .btn,
-  button,
-  .arrow,
-  .yellow-arrow,
-  .accordin-btn,
-  .bricks-button
-):not([data-contrast]):not([data-a11y-contrast-fixed]) svg :not([fill="none"]) {
-  fill: currentColor !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) :is(
-  .brxe-button,
-  .btn,
-  button,
-  .arrow,
-  .yellow-arrow,
-  .accordin-btn,
-  .bricks-button
-):not([data-contrast]):not([data-a11y-contrast-fixed]) svg :not([stroke="none"]) {
-  stroke: currentColor !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] svg {
-  color: inherit !important;
-}
-
 html[data-contrast]:not([data-contrast="default"]) .a11y-decorative-bg,
 html[data-contrast]:not([data-contrast="default"]) [data-a11y-decorative-bg="true"] {
   background-image: none !important;
 }
 
-html[data-contrast]:not([data-contrast="default"]) .a11y-contrast-fixed,
-html[data-contrast]:not([data-contrast="default"]) .contact-form,
-html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] {
-  --color-burgundy: #3b0615;
-  --color-yellow: #edb664;
-  --color-blue-light: #d1e2fb;
-  --color-baby-blue: #fffdfb;
-  --color-red: #924342;
-  --color-cream: #fff9f4;
-  --color-blue-dark: #2d3f53;
-  --color-brown: #131312;
-  --color-white-blue: #e7f2ff;
-  --color-vine: #501819;
-}
-
-html[data-contrast]:not([data-contrast="default"]) .contact-form {
-  background-color: var(--color-blue-dark) !important;
-  color: var(--color-cream) !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) .contact-form :is(
-  .brxe-heading,
-  .brxe-text-basic,
-  .brxe-text-link,
-  a
-) {
-  color: inherit !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) .a11y-contrast-fixed :is(
-  .brxe-heading,
-  .brxe-text-basic,
-  .brxe-text-link,
-  a
-),
-html[data-contrast]:not([data-contrast="default"]) [data-a11y-contrast-fixed="true"] :is(
-  .brxe-heading,
-  .brxe-text-basic,
-  .brxe-text-link,
-  a
-) {
-  color: inherit !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) #brxe-dtelpy {
-  background-color: var(--a11y-control-bg) !important;
-  color: var(--a11y-control-text) !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) :is(
-  #brxe-eytbpv,
-  #brxe-kecesp
-) {
-  color: var(--a11y-control-text) !important;
-}
-
-html[data-contrast]:not([data-contrast="default"]) :is(
-  #brxe-eytbpv,
-  #brxe-kecesp
-) :is(
-  a,
-  button,
-  [role="button"],
-  .brxe-text-link,
-  [data-a11y-scale]
-),
-html[data-contrast]:not([data-contrast="default"]) :is(
-  #brxe-wrkmiw,
-  #brxe-rnhzxp,
-  #brxe-ygpsrr
-) {
-  color: var(--a11y-control-text) !important;
-  text-decoration-color: currentColor !important;
+html[data-contrast]:not([data-contrast="default"])
+  .brxe-section > svg[viewBox="0 0 3840 1707"] {
+  display: none !important;
 }
