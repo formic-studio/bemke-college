@@ -614,6 +614,73 @@ html[data-contrast]:not([data-contrast="default"])
   flex: 0 0 auto;
 }
 
+body.bricks-is-frontend
+  :where(.mobile-scroll, .mobile-scroll > .mobile-scroll__track)
+  > .card:has(> .svg-wrapper > .badge-ai-wrapper > .brxe-image):has(
+    > a.btn.bg-light-blue[href]:not([href=""])
+  ) {
+  --bemke-card-hover-fill: color-mix(
+    in srgb,
+    var(--color-blue-light, #d1e2fb) 75%,
+    var(--color-blue-dark, #284055)
+  );
+  --bemke-card-hover-transition: 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  isolation: isolate;
+  position: relative;
+
+  & > a.btn.bg-light-blue {
+    background-image: linear-gradient(var(--bemke-card-hover-fill), var(--bemke-card-hover-fill));
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: var(--bemke-card-hover-fill-width, 0%) 100%;
+    position: static;
+    transition: background-size var(--bemke-card-hover-transition);
+  }
+
+  /* Stretch the existing link's hit area to the card. */
+  & > a.btn.bg-light-blue::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 8px;
+  }
+
+  & > a.btn.bg-light-blue:focus-visible::after {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+
+  html[data-contrast]:not([data-contrast="default"]) & > a.btn.bg-light-blue {
+    background-image: none;
+  }
+
+  & > .svg-wrapper > .badge-ai-wrapper {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  &:has(> a.btn.bg-light-blue:focus-visible) {
+    --bemke-card-hover-fill-width: 100%;
+    --bemke-card-hover-image-scale: 1.2;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      --bemke-card-hover-fill-width: 100%;
+      --bemke-card-hover-image-scale: 1.2;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:not([data-bemke-reduced-motion="true"]) &
+      > .svg-wrapper > .badge-ai-wrapper > .brxe-image {
+      scale: var(--bemke-card-hover-image-scale, 1);
+      transition: scale var(--bemke-card-hover-transition);
+    }
+  }
+}
+
 /* Keep the programme image and its AI label in one positioning context. */
 .card-img-block > .bemke-programme-image {
   aspect-ratio: 1 / 1.21;
