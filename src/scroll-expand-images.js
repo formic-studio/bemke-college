@@ -82,10 +82,10 @@ function prepareImageLayout(
 
   restoreInlineStyle(container, containerOriginalStyle);
   restoreInlineStyle(image, imageOriginalStyle);
-  // Mobile reserves the final layout size once and animates only the image layer.
-  gsap.set(container, {
-    height: transformOnly ? expandedContainerHeight : initialContainerHeight,
-  });
+  // Mobile keeps the frame at its natural size and animates only the image layer.
+  if (!transformOnly) {
+    gsap.set(container, { height: initialContainerHeight });
+  }
   gsap.set(image, {
     width: "100%",
     scale: startScale,
@@ -117,6 +117,10 @@ function showImageWithoutMotion({
 
 function createScrollAnimation(imageState, { transformOnly = false } = {}) {
   const { container, image } = imageState;
+  // Keep the same scroll distance for the grow phase on mobile.
+  const scrollDistanceRatio = transformOnly
+    ? GROW_DURATION / (GROW_DURATION + FULL_SIZE_DURATION + SHRINK_DURATION)
+    : 1;
   const metrics = {
     expandedContainerHeight: 0,
     initialContainerHeight: 0,
@@ -176,14 +180,11 @@ function createScrollAnimation(imageState, { transformOnly = false } = {}) {
       },
       0,
     );
-  }
 
-  timeline.to(image, {
-    scale: 1,
-    duration: FULL_SIZE_DURATION,
-  });
-
-  if (!transformOnly) {
+    timeline.to(image, {
+      scale: 1,
+      duration: FULL_SIZE_DURATION,
+    });
     timeline.to(
       container,
       {
@@ -192,15 +193,12 @@ function createScrollAnimation(imageState, { transformOnly = false } = {}) {
       },
       "<",
     );
-  }
 
-  timeline.to(image, {
-    scale: () => metrics.startScale,
-    duration: SHRINK_DURATION,
-    force3D: true,
-  });
-
-  if (!transformOnly) {
+    timeline.to(image, {
+      scale: () => metrics.startScale,
+      duration: SHRINK_DURATION,
+      force3D: true,
+    });
     timeline.to(
       container,
       {
@@ -216,10 +214,11 @@ function createScrollAnimation(imageState, { transformOnly = false } = {}) {
     animation: timeline,
     start: SCROLL_START,
     end: () =>
-      `+=${
+      `+=${(
         window.innerHeight * VIEWPORT_SCROLL_DISTANCE +
         metrics.expandedContainerHeight
-      }`,
+      ) * scrollDistanceRatio}`,
+    once: transformOnly,
     scrub: SCROLL_SCRUB,
     invalidateOnRefresh: true,
     onRefreshInit: prepare,
