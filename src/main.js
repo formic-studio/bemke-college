@@ -11,6 +11,7 @@ import { initLanguageSwitcher } from './language-switcher.js';
 import { initHistoryTabs } from './history-tabs.js';
 import { initResponsiveTables } from './responsive-tables.js';
 import { initQaSections } from './qa.js';
+import { initWelcomeMessages } from './welcome-message.js';
 
 const scrollExpandImageSelector =
   '.grid-2x1 > .brxe-block + img.brxe-image.img-border';
@@ -224,6 +225,7 @@ const initBemkeCollege = () => {
   initHistoryTabsFeature();
   initResponsiveTables();
   initQaSections();
+  initWelcomeMessages();
   initCampusMapFeature();
   initReverseCardFeature();
   initMobileScrollFeature();

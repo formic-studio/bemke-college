@@ -1,0 +1,49 @@
+.welcome-message__body {
+  row-gap: 0;
+}
+
+.welcome-message__more {
+  scroll-margin-block-start: var(--space-96, 9.6rem);
+}
+
+.welcome-message__more > .brxe-text > :first-child {
+  margin-block-start: var(--space-16, 1.6rem);
+}
+
+.welcome-message[data-welcome-message-ready] .welcome-message__more {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    visibility 0s linear 420ms;
+  visibility: hidden;
+}
+
+.welcome-message[data-welcome-message-ready] .welcome-message__more > * {
+  min-block-size: 0;
+  overflow: hidden;
+}
+
+.welcome-message[data-welcome-message-ready].welcome-message--expanded .welcome-message__more {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition-delay: 0s;
+  visibility: visible;
+}
+
+.welcome-message__toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+html[data-bemke-reduced-motion="true"] .welcome-message[data-welcome-message-ready] .welcome-message__more {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-message[data-welcome-message-ready] .welcome-message__more {
+    transition: none;
+  }
+}

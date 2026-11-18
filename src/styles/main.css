@@ -6,6 +6,7 @@
 @import './navigation.css';
 @import './qa.css';
 @import './contact-form.css';
+@import './welcome-message.css';
 
 :root {
   --bemke-color-text: #151515;
