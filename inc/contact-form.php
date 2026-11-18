@@ -92,6 +92,48 @@ function bemke_college_contact_topics(): array {
 	return apply_filters( 'bemke_college_contact_topics', $topics );
 }
 
+/** Translate contact form copy using the page language or the submitted form language. */
+function bemke_college_contact_copy( string $text, bool $polish ): string {
+	if ( ! $polish ) {
+		return $text;
+	}
+
+	$translations = array(
+		'Company website' => 'Strona internetowa firmy',
+		'First name' => 'Imię',
+		'Surname' => 'Nazwisko',
+		'Email address' => 'Adres e-mail',
+		'Telephone' => 'Telefon',
+		'Select who you wish to contact' => 'Wybierz temat wiadomości',
+		'Please select' => 'Wybierz temat',
+		'Message' => 'Wiadomość',
+		'I have read the %s and understand how my data will be used to respond to this enquiry.' => 'Znam %s i wiem, w jaki sposób moje dane zostaną wykorzystane do udzielenia odpowiedzi na to zapytanie.',
+		'Privacy Policy' => 'politykę prywatności',
+		'Send message' => 'Wyślij wiadomość',
+		'Sending…' => 'Wysyłanie…',
+		'Admissions' => 'Rekrutacja',
+		'Scholarships & Financial Aid' => 'Stypendia i wsparcie finansowe',
+		'Open Days & School Visits' => 'Dni otwarte i wizyty w szkole',
+		'Fees & Payments' => 'Czesne i płatności',
+		'Safeguarding' => 'Bezpieczeństwo uczniów',
+		'Careers' => 'Praca w Bemke College',
+		'Press & Media' => 'Prasa i media',
+		'Marketing' => 'Marketing',
+		'Partnerships & Support' => 'Partnerstwa i wsparcie',
+		'General Enquiry' => 'Zapytanie ogólne',
+		'Thank you. Your message has been sent.' => 'Dziękujemy. Twoja wiadomość została wysłana.',
+		'We could not send your message. Please try again.' => 'Nie udało się wysłać wiadomości. Spróbuj ponownie.',
+		'Invalid request.' => 'Nieprawidłowe żądanie.',
+		'Your session has expired. Refresh the page and try again.' => 'Sesja wygasła. Odśwież stronę i spróbuj ponownie.',
+		'Please wait a moment and try again.' => 'Poczekaj chwilę i spróbuj ponownie.',
+		'Complete all required fields and check their values.' => 'Uzupełnij wszystkie wymagane pola i sprawdź wpisane dane.',
+		'Your previous message is still being processed. Please wait a moment.' => 'Przetwarzamy Twoją poprzednią wiadomość. Poczekaj chwilę.',
+		'The selected contact route is temporarily unavailable.' => 'Kontakt w wybranym temacie jest chwilowo niedostępny.',
+	);
+
+	return $translations[ $text ] ?? $text;
+}
+
 /**
  * Render the contact form.
  */
@@ -102,6 +144,16 @@ function bemke_college_render_contact_form(): string {
 
 	$prefix             = 'bemke-contact-' . $instance;
 	$privacy_policy_url = get_privacy_policy_url();
+	$polish             = function_exists( 'pll_current_language' ) && 'pl' === pll_current_language( 'slug' );
+	$copy               = static function ( string $text ) use ( $polish ): string {
+		return bemke_college_contact_copy( $text, $polish );
+	};
+	if ( $polish && function_exists( 'pll_get_post' ) ) {
+		$privacy_id = (int) pll_get_post( (int) get_option( 'wp_page_for_privacy_policy' ) ?: 638, 'pl' );
+		if ( $privacy_id && 'publish' === get_post_status( $privacy_id ) ) {
+			$privacy_policy_url = get_permalink( $privacy_id );
+		}
+	}
 	$status             = isset( $_GET['bemke-contact'] ) && is_scalar( $_GET['bemke-contact'] )
 		? sanitize_key( wp_unslash( (string) $_GET['bemke-contact'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		: '';
@@ -109,10 +161,10 @@ function bemke_college_render_contact_form(): string {
 	$status_class       = '';
 
 	if ( 'sent' === $status ) {
-		$status_message = 'Thank you. Your message has been sent.';
+		$status_message = $copy( 'Thank you. Your message has been sent.' );
 		$status_class   = ' is-success';
 	} elseif ( 'error' === $status ) {
-		$status_message = 'We could not send your message. Please try again.';
+		$status_message = $copy( 'We could not send your message. Please try again.' );
 		$status_class   = ' is-error';
 	}
 
@@ -130,66 +182,73 @@ function bemke_college_render_contact_form(): string {
 			method="post"
 		>
 			<input type="hidden" name="action" value="<?php echo esc_attr( BEMKE_COLLEGE_CONTACT_ACTION ); ?>">
+			<input type="hidden" name="bemke_contact_language" value="<?php echo $polish ? 'pl' : 'en'; ?>">
 			<input type="hidden" name="bemke_contact_ajax" value="0" data-bemke-contact-ajax>
 			<input type="hidden" name="bemke_contact_created_at" value="<?php echo esc_attr( (string) time() ); ?>">
 			<input type="hidden" name="bemke_contact_source" value="<?php echo esc_url( get_permalink() ); ?>">
 			<?php wp_nonce_field( BEMKE_COLLEGE_CONTACT_ACTION, BEMKE_COLLEGE_CONTACT_NONCE_NAME ); ?>
 
 			<div class="bemke-contact-form__trap" aria-hidden="true">
-				<label for="<?php echo esc_attr( $prefix ); ?>-company">Company website</label>
+				<label for="<?php echo esc_attr( $prefix ); ?>-company"><?php echo esc_html( $copy( 'Company website' ) ); ?></label>
 				<input id="<?php echo esc_attr( $prefix ); ?>-company" name="bemke_contact_company" type="text" tabindex="-1" autocomplete="off">
 			</div>
 
 			<div class="bemke-contact-form__grid">
 				<div class="bemke-contact-form__field">
-					<label for="<?php echo esc_attr( $prefix ); ?>-first-name">First name <span aria-hidden="true">*</span></label>
-					<input id="<?php echo esc_attr( $prefix ); ?>-first-name" name="first_name" type="text" autocomplete="given-name" maxlength="100" placeholder="First name" required>
+					<label for="<?php echo esc_attr( $prefix ); ?>-first-name"><?php echo esc_html( $copy( 'First name' ) ); ?> <span aria-hidden="true">*</span></label>
+					<input id="<?php echo esc_attr( $prefix ); ?>-first-name" name="first_name" type="text" autocomplete="given-name" maxlength="100" placeholder="<?php echo esc_attr( $copy( 'First name' ) ); ?>" required>
 				</div>
 
 				<div class="bemke-contact-form__field">
-					<label for="<?php echo esc_attr( $prefix ); ?>-last-name">Surname <span aria-hidden="true">*</span></label>
-					<input id="<?php echo esc_attr( $prefix ); ?>-last-name" name="last_name" type="text" autocomplete="family-name" maxlength="100" placeholder="Surname" required>
+					<label for="<?php echo esc_attr( $prefix ); ?>-last-name"><?php echo esc_html( $copy( 'Surname' ) ); ?> <span aria-hidden="true">*</span></label>
+					<input id="<?php echo esc_attr( $prefix ); ?>-last-name" name="last_name" type="text" autocomplete="family-name" maxlength="100" placeholder="<?php echo esc_attr( $copy( 'Surname' ) ); ?>" required>
 				</div>
 
 				<div class="bemke-contact-form__field">
-					<label for="<?php echo esc_attr( $prefix ); ?>-email">Email address <span aria-hidden="true">*</span></label>
-					<input id="<?php echo esc_attr( $prefix ); ?>-email" name="email" type="email" autocomplete="email" maxlength="320" placeholder="Email address" required>
+					<label for="<?php echo esc_attr( $prefix ); ?>-email"><?php echo esc_html( $copy( 'Email address' ) ); ?> <span aria-hidden="true">*</span></label>
+					<input id="<?php echo esc_attr( $prefix ); ?>-email" name="email" type="email" autocomplete="email" maxlength="320" placeholder="<?php echo esc_attr( $copy( 'Email address' ) ); ?>" required>
 				</div>
 
 				<div class="bemke-contact-form__field">
-					<label for="<?php echo esc_attr( $prefix ); ?>-phone">Telephone</label>
-					<input id="<?php echo esc_attr( $prefix ); ?>-phone" name="phone" type="tel" autocomplete="tel" maxlength="50" placeholder="Telephone">
+					<label for="<?php echo esc_attr( $prefix ); ?>-phone"><?php echo esc_html( $copy( 'Telephone' ) ); ?></label>
+					<input id="<?php echo esc_attr( $prefix ); ?>-phone" name="phone" type="tel" autocomplete="tel" maxlength="50" placeholder="<?php echo esc_attr( $copy( 'Telephone' ) ); ?>">
 				</div>
 			</div>
 
 			<div class="bemke-contact-form__field">
-				<label for="<?php echo esc_attr( $prefix ); ?>-topic">Select who you wish to contact <span aria-hidden="true">*</span></label>
+				<label for="<?php echo esc_attr( $prefix ); ?>-topic"><?php echo esc_html( $copy( 'Select who you wish to contact' ) ); ?> <span aria-hidden="true">*</span></label>
 				<div class="bemke-contact-form__select-wrap">
 					<select id="<?php echo esc_attr( $prefix ); ?>-topic" name="topic" required>
-						<option value="" selected disabled>Please select</option>
+						<option value="" selected disabled><?php echo esc_html( $copy( 'Please select' ) ); ?></option>
 						<?php foreach ( bemke_college_contact_topics() as $topic_key => $topic ) : ?>
-							<option value="<?php echo esc_attr( $topic_key ); ?>"><?php echo esc_html( $topic['label'] ); ?></option>
+							<option value="<?php echo esc_attr( $topic_key ); ?>"><?php echo esc_html( $copy( $topic['label'] ) ); ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
 			</div>
 
 			<div class="bemke-contact-form__field">
-				<label for="<?php echo esc_attr( $prefix ); ?>-message">Message <span aria-hidden="true">*</span></label>
-				<textarea id="<?php echo esc_attr( $prefix ); ?>-message" name="message" rows="4" maxlength="5000" placeholder="Message" required></textarea>
+				<label for="<?php echo esc_attr( $prefix ); ?>-message"><?php echo esc_html( $copy( 'Message' ) ); ?> <span aria-hidden="true">*</span></label>
+				<textarea id="<?php echo esc_attr( $prefix ); ?>-message" name="message" rows="4" maxlength="5000" placeholder="<?php echo esc_attr( $copy( 'Message' ) ); ?>" required></textarea>
 			</div>
 
 			<label class="bemke-contact-form__consent">
 				<input name="privacy" type="checkbox" value="1" required>
-				<span>I have read the <a href="<?php echo esc_url( $privacy_policy_url ); ?>">Privacy Policy</a> and understand how my data will be used to respond to this enquiry. <span aria-hidden="true">*</span></span>
+				<span>
+					<?php
+					$privacy_link = sprintf( '<a href="%s">%s</a>', esc_url( $privacy_policy_url ), esc_html( $copy( 'Privacy Policy' ) ) );
+					echo sprintf( esc_html( $copy( 'I have read the %s and understand how my data will be used to respond to this enquiry.' ) ), $privacy_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					?>
+					<span aria-hidden="true">*</span>
+				</span>
 			</label>
 
 			<p class="bemke-contact-form__status<?php echo esc_attr( $status_class ); ?>" data-bemke-contact-status role="status" aria-live="polite" tabindex="-1"><?php echo esc_html( $status_message ); ?></p>
 
 			<div class="bemke-contact-form__submit">
 				<button class="bemke-contact-form__button" type="submit" data-bemke-contact-submit>
-					<span class="bemke-contact-form__button-label">Send message</span>
-					<span class="bemke-contact-form__button-loading" aria-hidden="true">Sending…</span>
+					<span class="bemke-contact-form__button-label"><?php echo esc_html( $copy( 'Send message' ) ); ?></span>
+					<span class="bemke-contact-form__button-loading" aria-hidden="true"><?php echo esc_html( $copy( 'Sending…' ) ); ?></span>
 				</button>
 			</div>
 		</form>
@@ -222,7 +281,8 @@ function bemke_college_contact_is_ajax_request(): bool {
  */
 function bemke_college_contact_respond( bool $success, string $message, int $status_code = 200 ): void {
 	if ( bemke_college_contact_is_ajax_request() ) {
-		$data = array( 'message' => $message );
+		$polish = 'pl' === bemke_college_contact_post_text( 'bemke_contact_language' );
+		$data   = array( 'message' => bemke_college_contact_copy( $message, $polish ) );
 
 		if ( $success ) {
 			wp_send_json_success( $data, $status_code );

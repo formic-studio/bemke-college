@@ -31,7 +31,15 @@ function bemke_college_footer_history_link( array $attributes, string $key, $ele
         return $attributes;
     }
 
-    $attributes[ $key ]['href'] = esc_url( home_url( '/about/#section_history' ) );
+    $history_url = home_url( '/about/' );
+    if ( ! is_front_page() && function_exists( 'pll_current_language' ) && function_exists( 'pll_get_post' ) && 'pl' === pll_current_language( 'slug' ) ) {
+        $about_pl = (int) pll_get_post( 921, 'pl' );
+        if ( $about_pl && 'publish' === get_post_status( $about_pl ) ) {
+            $history_url = get_permalink( $about_pl );
+        }
+    }
+
+    $attributes[ $key ]['href'] = esc_url( $history_url . '#section_history' );
 
     return $attributes;
 }

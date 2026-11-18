@@ -1,3 +1,5 @@
+import { siteText } from './site-language.js';
+
 const setFormState = (form, state, message = '') => {
   const submit = form.querySelector('[data-bemke-contact-submit]');
   const status = form.querySelector('[data-bemke-contact-status]');
@@ -288,7 +290,7 @@ const validateCustomSelects = (form) => {
     button?.setAttribute('aria-invalid', 'true');
 
     if (error instanceof HTMLElement) {
-      error.textContent = 'Please select who you wish to contact.';
+      error.textContent = siteText('Wybierz temat wiadomości.', 'Please select who you wish to contact.');
       error.hidden = false;
     }
 
@@ -310,7 +312,7 @@ const submitContactForm = async (form) => {
 
   const formData = new FormData(form);
   formData.set('bemke_contact_ajax', '1');
-  setFormState(form, 'loading', 'Sending your message…');
+  setFormState(form, 'loading', siteText('Wysyłamy Twoją wiadomość…', 'Sending your message…'));
 
   try {
     const response = await fetch(form.action, {
@@ -323,16 +325,16 @@ const submitContactForm = async (form) => {
     const message = payload?.data?.message;
 
     if (!response.ok || payload?.success !== true) {
-      throw new Error(message || 'We could not send your message. Please try again.');
+      throw new Error(message || siteText('Nie udało się wysłać wiadomości. Spróbuj ponownie.', 'We could not send your message. Please try again.'));
     }
 
     form.reset();
-    setFormState(form, 'success', message || 'Thank you. Your message has been sent.');
+    setFormState(form, 'success', message || siteText('Dziękujemy. Twoja wiadomość została wysłana.', 'Thank you. Your message has been sent.'));
   } catch (error) {
     const message =
       error instanceof Error && error.message
         ? error.message
-        : 'We could not send your message. Please try again.';
+        : siteText('Nie udało się wysłać wiadomości. Spróbuj ponownie.', 'We could not send your message. Please try again.');
 
     setFormState(form, 'error', message);
   } finally {

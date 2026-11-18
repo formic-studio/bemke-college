@@ -1,4 +1,5 @@
 import { isReducedMotion, MOTION_CHANGE_EVENT } from './motion-preference.js';
+import { siteText } from './site-language.js';
 
 const initWelcomeMessage = (message) => {
   const toggle = message.querySelector('.welcome-message__toggle[href]');
@@ -12,7 +13,7 @@ const initWelcomeMessage = (message) => {
     (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim(),
   ) ?? toggle;
   const closedLabel = label.textContent.trim();
-  const openLabel = toggle.dataset.closeLabel || 'Show less';
+  const openLabel = toggle.dataset.closeLabel || siteText('Zwiń', 'Show less');
   let heightAnimation;
 
   const setExpanded = (expanded) => {

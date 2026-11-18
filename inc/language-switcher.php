@@ -15,7 +15,7 @@ add_action( 'wp_head', 'bemke_college_print_language_switch_data', 10 );
 function bemke_college_language_destination( string $language, int $current_id, int $front_page_id ): string {
     $candidate_id = $current_id ? (int) pll_get_post( $current_id, $language ) : 0;
 
-    if ( ! $candidate_id && $front_page_id ) {
+    if ( ( ! $candidate_id || 'publish' !== get_post_status( $candidate_id ) ) && $front_page_id ) {
         $candidate_id = (int) pll_get_post( $front_page_id, $language );
     }
 
