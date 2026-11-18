@@ -164,14 +164,14 @@ function bemke_college_render_contact_form(): string {
 
 			<div class="bemke-contact-form__field">
 				<label for="<?php echo esc_attr( $prefix ); ?>-topic">Select who you wish to contact <span aria-hidden="true">*</span></label>
-				<span class="bemke-contact-form__select-wrap">
+				<div class="bemke-contact-form__select-wrap">
 					<select id="<?php echo esc_attr( $prefix ); ?>-topic" name="topic" required>
 						<option value="" selected disabled>Please select</option>
 						<?php foreach ( bemke_college_contact_topics() as $topic_key => $topic ) : ?>
 							<option value="<?php echo esc_attr( $topic_key ); ?>"><?php echo esc_html( $topic['label'] ); ?></option>
 						<?php endforeach; ?>
 					</select>
-				</span>
+				</div>
 			</div>
 
 			<div class="bemke-contact-form__field">
