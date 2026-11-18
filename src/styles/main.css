@@ -662,13 +662,13 @@ body.bricks-is-frontend
 
   &:has(> a.btn.bg-light-blue:focus-visible) {
     --bemke-card-hover-fill-width: 100%;
-    --bemke-card-hover-image-scale: 1.1;
+    --bemke-card-hover-image-scale: 1.06;
   }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       --bemke-card-hover-fill-width: 100%;
-      --bemke-card-hover-image-scale: 1.1;
+      --bemke-card-hover-image-scale: 1.06;
     }
   }
 
