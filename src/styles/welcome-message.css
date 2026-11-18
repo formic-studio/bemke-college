@@ -2,7 +2,7 @@
   row-gap: 0;
 }
 
-.welcome-message__more {
+:is(.welcome-message__more, .welcome-message__toggle) {
   scroll-margin-block-start: var(--space-96, 9.6rem);
 }
 
@@ -11,40 +11,18 @@
 }
 
 .welcome-message[data-welcome-message-ready] .welcome-message__more {
-  --welcome-message-duration: 500ms;
-
-  display: grid;
-  grid-template-rows: 0fr;
-  transition:
-    grid-template-rows var(--welcome-message-duration) ease-in-out,
-    visibility 0s linear var(--welcome-message-duration);
-  visibility: hidden;
-}
-
-.welcome-message[data-welcome-message-ready] .welcome-message__more > * {
-  min-block-size: 0;
+  box-sizing: border-box;
+  display: flow-root;
+  flex: 0 0 auto;
+  height: 0;
   overflow: hidden;
 }
 
 .welcome-message[data-welcome-message-ready].welcome-message--expanded .welcome-message__more {
-  --welcome-message-duration: 600ms;
-
-  grid-template-rows: 1fr;
-  transition-delay: 0s;
-  visibility: visible;
+  height: auto;
 }
 
 .welcome-message__toggle:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
-}
-
-html[data-bemke-reduced-motion="true"] .welcome-message[data-welcome-message-ready] .welcome-message__more {
-  transition: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .welcome-message[data-welcome-message-ready] .welcome-message__more {
-    transition: none;
-  }
 }
