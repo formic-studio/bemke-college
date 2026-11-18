@@ -149,6 +149,10 @@ footer #brxe-phijrf:not(.bemke-link-hover-reset):is(:hover, :focus-visible) > .b
   --bemke-college-button-text-steps: 12;
 }
 
+.btn.btn-red-light:is(:hover, :focus-visible) {
+  background-color: #ebd7d7;
+}
+
 .bg-pink {
   --bemke-college-button-bg: var(--color-red);
   --bemke-college-button-bg-hover: var(--color-vine);
