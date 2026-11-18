@@ -38,15 +38,15 @@ const clearCustomSelectError = (wrapper) => {
 
 const closeCustomSelect = (wrapper, restoreFocus = false) => {
   const button = wrapper.querySelector('.bemke-contact-form__select-button');
-  const listbox = wrapper.querySelector('.bemke-contact-form__select-list');
+  const popup = wrapper.querySelector('.bemke-contact-form__select-popup');
 
-  if (!(button instanceof HTMLButtonElement) || !(listbox instanceof HTMLElement)) {
+  if (!(button instanceof HTMLButtonElement) || !(popup instanceof HTMLElement)) {
     return;
   }
 
   wrapper.classList.remove('is-open');
   button.setAttribute('aria-expanded', 'false');
-  listbox.hidden = true;
+  popup.hidden = true;
 
   if (restoreFocus) {
     button.focus();
@@ -80,11 +80,15 @@ const initCustomSelect = (select) => {
   const buttonId = `${select.id || 'bemke-contact-select'}-button`;
   const valueId = `${buttonId}-value`;
   const errorId = `${buttonId}-error`;
+  const control = document.createElement('div');
   const button = document.createElement('button');
   const value = document.createElement('span');
+  const popup = document.createElement('div');
   const listbox = document.createElement('ul');
   const error = document.createElement('span');
   const nativeOptions = Array.from(select.options).filter((option) => option.value);
+
+  control.className = 'bemke-contact-form__select-control';
 
   button.type = 'button';
   button.id = buttonId;
@@ -99,10 +103,12 @@ const initCustomSelect = (select) => {
   value.className = 'bemke-contact-form__select-value';
   button.append(value);
 
+  popup.className = 'bemke-contact-form__select-popup';
+  popup.hidden = true;
+
   listbox.id = listboxId;
   listbox.className = 'bemke-contact-form__select-list';
   listbox.setAttribute('role', 'listbox');
-  listbox.hidden = true;
 
   error.id = errorId;
   error.className = 'bemke-contact-form__select-error';
@@ -161,7 +167,7 @@ const initCustomSelect = (select) => {
 
     wrapper.classList.add('is-open');
     button.setAttribute('aria-expanded', 'true');
-    listbox.hidden = false;
+    popup.hidden = false;
 
     const selectedIndex = customOptions.findIndex(
       (option) => option.dataset.value === select.value,
@@ -253,7 +259,9 @@ const initCustomSelect = (select) => {
     }, 0);
   });
 
-  wrapper.append(button, listbox, error);
+  popup.append(listbox);
+  control.append(button, popup);
+  wrapper.append(control, error);
   wrapper.classList.add('is-enhanced');
   syncValue();
 };
