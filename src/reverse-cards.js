@@ -2,6 +2,7 @@ const rootSelector = '.reverse-card';
 const innerSelector = ':scope > .reverse-card__inner';
 const frontSelector = ':scope > .reverse-card__front';
 const backSelector = ':scope > .reverse-card__back';
+const headingSelector = 'h2, h3, h4, h5, h6';
 const readyAttribute = 'data-bemke-reverse-card-ready';
 const flippedClass = 'is-flipped';
 
@@ -14,8 +15,10 @@ const setFaceVisibility = (face, isVisible) => {
   face.toggleAttribute('inert', !isVisible);
 };
 
-const getCardTitle = (front) =>
-  normalizeText(front.querySelector('h2, h3, h4, h5, h6')?.textContent) || 'Card';
+const getCardTitle = (front, back) =>
+  normalizeText(front.querySelector(headingSelector)?.textContent) ||
+  normalizeText(back.querySelector(headingSelector)?.textContent) ||
+  'Card';
 
 const createToggle = (title, backId) => {
   const toggle = document.createElement('button');
@@ -40,17 +43,30 @@ const initReverseCard = (root) => {
   }
 
   const inner = root.querySelector(innerSelector);
-  const front = inner?.querySelector(frontSelector);
-  const back = inner?.querySelector(backSelector);
+  const faces = inner ?? root;
+  const front = faces.querySelector(frontSelector);
+  const back = faces.querySelector(backSelector);
 
-  if (!inner || !front || !back) {
+  if (!front || !back) {
     return;
+  }
+
+  if (!inner) {
+    // Leave directly authored faces in place while editing in the Bricks iframe.
+    if (window.self !== window.top) {
+      return;
+    }
+
+    const rotatingInner = document.createElement('div');
+    rotatingInner.className = 'reverse-card__inner';
+    front.before(rotatingInner);
+    rotatingInner.append(front, back);
   }
 
   cardId += 1;
   back.id ||= 'bemke-reverse-card-panel-' + cardId;
 
-  const title = getCardTitle(front);
+  const title = getCardTitle(front, back);
   const { label, toggle } = createToggle(title, back.id);
   let isHoverSuppressed = false;
   let isPointerInside = false;

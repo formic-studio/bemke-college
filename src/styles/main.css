@@ -777,6 +777,26 @@ html[data-bemke-reduced-motion="true"] .scroll-highlight {
   width: 100%;
 }
 
+.card-programme.reverse-card[data-bemke-reverse-card-ready="1"] {
+  background-color: transparent;
+}
+
+/* A single programme card spans the row and needs a longer perspective. */
+.card-programme.reverse-card[data-bemke-reverse-card-ready="1"]:where(:only-child) {
+  perspective: max(1200px, 200vw);
+}
+
+.card-programme.reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__face {
+  background-color: var(--color-blue-light);
+  justify-content: center;
+  padding-inline: var(--space-12);
+}
+
+.card-programme.reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__back {
+  /* Restore the card's bottom padding on the rotating face. */
+  padding-block-end: var(--space-24) !important;
+}
+
 .reverse-card[data-bemke-reverse-card-ready="1"] .reverse-card__front {
   transform: rotateY(0deg) translateZ(1px);
 }

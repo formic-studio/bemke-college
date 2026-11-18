@@ -22,7 +22,7 @@ const historyTabsSelector = '.tabs-block';
 const campusMapSelector = '.map-block > .map-desktop, .map-block > .map-mobile';
 const mobileScrollSelector = '.mobile-scroll > .card';
 const reverseCardSelector =
-  '.reverse-card > .reverse-card__inner > .reverse-card__front';
+  '.reverse-card > .reverse-card__front, .reverse-card > .reverse-card__inner > .reverse-card__front';
 const processTimelineSelector =
   '.process-block > .proces-line + .proces-item';
 const contactFormSelector = '[data-bemke-contact-form]';
