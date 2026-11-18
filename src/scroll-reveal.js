@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MOTION_CHANGE_EVENT, isReducedMotion } from "./motion-preference.js";
 
-const REVEAL_SELECTOR = "[data-scroll-reveal]";
+const REVEAL_SELECTOR = "[data-scroll-reveal]:not([data-bemke-hero-text])";
 const READY_ATTRIBUTE = "data-bemke-scroll-reveal-ready";
 const COMPLETE_ATTRIBUTE = "data-bemke-scroll-reveal-complete";
 

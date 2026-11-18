@@ -11,7 +11,31 @@ const BEMKE_COLLEGE_VITE_ENTRY = 'src/main.js';
 
 add_action( 'wp_enqueue_scripts', 'bemke_college_enqueue_assets', 20 );
 add_action( 'wp_head', 'bemke_college_preload_critical_fonts', 2 );
+add_action( 'wp_head', 'bemke_college_prepare_hero_intro', 3 );
 add_filter( 'script_loader_tag', 'bemke_college_module_script_tags', 10, 3 );
+
+/**
+ * Prevent a flash of the final hero text before the intro module is ready.
+ */
+function bemke_college_prepare_hero_intro(): void {
+	wp_print_inline_script_tag(
+		<<<'JS'
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  try {
+    if (localStorage.getItem('bemke_a11y_reduce_motion') === 'true') return;
+  } catch {
+    // The system preference also applies when storage is unavailable.
+  }
+
+  const root = document.documentElement;
+  root.setAttribute('data-bemke-hero-pending', '');
+  window.setTimeout(() => root.removeAttribute('data-bemke-hero-pending'), 850);
+})();
+JS
+	);
+}
 
 /**
  * Preload the two fonts used in the first viewport.

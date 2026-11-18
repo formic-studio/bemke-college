@@ -1,6 +1,6 @@
 import './styles/main.css';
 import { initBricksFormA11y } from './bricks-form-a11y.js';
-import { initMotionPreference } from './motion-preference.js';
+import { initMotionPreference, isReducedMotion } from './motion-preference.js';
 import { initAccessibilityMotionSwitch } from './accessibility-motion-switch.js';
 import { initDecorativeVideoMotion } from './decorative-video-motion.js';
 import { initMobileMenu } from './mobile-menu.js';
@@ -16,7 +16,7 @@ import { initWelcomeMessages } from './welcome-message.js';
 const scrollExpandImageSelector =
   '.grid-2x1 > .brxe-block + img.brxe-image.img-border';
 const scrollHighlightSelector = '.scroll-highlight';
-const scrollRevealSelector = '[data-scroll-reveal]';
+const scrollRevealSelector = '[data-scroll-reveal]:not([data-bemke-hero-text])';
 const imageUpSelector = '[img-up]';
 const numberCounterSelector = '.number-counter';
 const historyTabsSelector = '.tabs-block';
@@ -100,6 +100,39 @@ const initScrollHighlightFeature = () => {
       initScrollHighlights();
     });
   });
+};
+
+const initHeroIntroFeature = () => {
+  const root = document.documentElement;
+  const content = document.querySelector('body.bricks-is-frontend #brx-content');
+  const explicitHeroes = Array.from(content?.querySelectorAll('.section_hero') ?? []);
+  const fallbackHero = content?.querySelector(':scope > .brxe-section:has(h1)');
+  const heroes = explicitHeroes.length ? explicitHeroes : [fallbackHero].filter(Boolean);
+  const groups = [];
+
+  for (const hero of heroes) {
+    const heading = hero.querySelector('h1, h2.brxe-heading, h3.brxe-heading');
+    if (!heading) continue;
+
+    const elements = Array.from(heading.parentElement.children).filter(
+      (element) =>
+        element.matches('h1, h2, h3, h4, h5, h6, .brxe-text-basic, .brxe-text, p') &&
+        !element.matches('a, button, .btn, .page-info') &&
+        element.textContent.trim(),
+    );
+
+    elements.forEach((element) => element.setAttribute('data-bemke-hero-text', ''));
+    groups.push(elements);
+  }
+
+  if (!groups.length || !root.hasAttribute('data-bemke-hero-pending') || isReducedMotion()) {
+    root.removeAttribute('data-bemke-hero-pending');
+    return;
+  }
+
+  import('./hero-intro.js')
+    .then(({ revealHeroText }) => revealHeroText(groups))
+    .catch(() => root.removeAttribute('data-bemke-hero-pending'));
 };
 
 const initScrollRevealFeature = () => {
@@ -214,6 +247,7 @@ const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
   initAccessibilityMotionSwitch();
+  initHeroIntroFeature();
   initDecorativeVideoMotion();
   initBricksFormA11y();
   initSliderFeature();

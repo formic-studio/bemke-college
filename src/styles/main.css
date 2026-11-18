@@ -33,6 +33,27 @@ body {
   color: var(--bemke-color-text);
 }
 
+/* Clip the text itself while preparing its line entrances. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-bemke-hero-pending]:not([data-bemke-reduced-motion="true"])
+    body.bricks-is-frontend
+    #brx-content
+    :is(
+      .section_hero,
+      :where(#brx-content:not(:has(.section_hero))) > .brxe-section:has(h1)
+    )
+    :has(> :is(h1, h2.brxe-heading, h3.brxe-heading))
+    > :is(h1, h2, h3, h4, h5, h6, .brxe-text-basic, .brxe-text, p):not(
+      a, button, .btn, .page-info
+    ) {
+    clip-path: inset(100% 0 0);
+  }
+}
+
+.bemke-hero-intro-line {
+  display: block;
+}
+
 /* Global breadcrumbs: labels and separators before the current page are
    visually secondary. The alternating Bricks structure is label / separator. */
 .page-info > :not(:last-child) {
