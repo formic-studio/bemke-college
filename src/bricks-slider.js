@@ -110,6 +110,10 @@ function createHomeSlider(root) {
     return;
   }
 
+  const stretchSlides = slides.every((slide) => slide.classList.contains("no-img"));
+  const sideScaleY = stretchSlides ? 1 : SIDE_SLIDE_SCALE;
+  track.toggleAttribute("data-bemke-slider-stretch", stretchSlides);
+
   const controls = getControls(root);
   let activeIndex = getInitialActiveIndex(slides);
   let currentOffset = 0;
@@ -257,9 +261,9 @@ function createHomeSlider(root) {
     "resize",
     debounce(() => {
       cancelMovement();
-      arrangeSlides(track, slides, activeIndex);
+      arrangeSlides(track, slides, activeIndex, sideScaleY);
       syncSlides(slides, activeIndex);
-      updateSlideDepth(slides, activeIndex, false);
+      updateSlideDepth(slides, activeIndex, sideScaleY, false);
       currentOffset = recenterActive(
         root,
         track,
@@ -271,9 +275,9 @@ function createHomeSlider(root) {
 
   root.__bemkeHomeSliderRefresh = () => {
     cancelMovement();
-    arrangeSlides(track, slides, activeIndex);
+    arrangeSlides(track, slides, activeIndex, sideScaleY);
     syncSlides(slides, activeIndex);
-    updateSlideDepth(slides, activeIndex, false);
+    updateSlideDepth(slides, activeIndex, sideScaleY, false);
     currentOffset = recenterActive(
       root,
       track,
@@ -282,9 +286,9 @@ function createHomeSlider(root) {
     );
   };
 
-  arrangeSlides(track, slides, activeIndex);
+  arrangeSlides(track, slides, activeIndex, sideScaleY);
   syncSlides(slides, activeIndex);
-  updateSlideDepth(slides, activeIndex, false);
+  updateSlideDepth(slides, activeIndex, sideScaleY, false);
   currentOffset = recenterActive(
     root,
     track,
@@ -309,9 +313,9 @@ function createHomeSlider(root) {
 
     cancelMovement();
     activeIndex = getInitialActiveIndex(slides);
-    arrangeSlides(track, slides, activeIndex);
+    arrangeSlides(track, slides, activeIndex, sideScaleY);
     syncSlides(slides, activeIndex);
-    updateSlideDepth(slides, activeIndex, false);
+    updateSlideDepth(slides, activeIndex, sideScaleY, false);
     currentOffset = recenterActive(
       root,
       track,
@@ -344,11 +348,16 @@ function createHomeSlider(root) {
 
     preloadSlideWindow(slides, nextIndex);
     syncSlides(slides, nextIndex);
-    updateSlideDepth(slides, nextIndex, !shouldReduceMotion && distance !== 0);
+    updateSlideDepth(
+      slides,
+      nextIndex,
+      sideScaleY,
+      !shouldReduceMotion && distance !== 0,
+    );
 
     if (shouldReduceMotion || distance === 0) {
       activeIndex = nextIndex;
-      arrangeSlides(track, slides, activeIndex);
+      arrangeSlides(track, slides, activeIndex, sideScaleY);
       currentOffset = recenterActive(
         root,
         track,
@@ -372,7 +381,7 @@ function createHomeSlider(root) {
         movementTween = null;
         isAnimating = false;
         activeIndex = nextIndex;
-        arrangeSlides(track, slides, activeIndex);
+        arrangeSlides(track, slides, activeIndex, sideScaleY);
         currentOffset = recenterActive(
           root,
           track,
@@ -519,7 +528,7 @@ function getInitialActiveIndex(slides) {
   return activeIndex >= 0 ? activeIndex : 0;
 }
 
-function arrangeSlides(track, slides, activeIndex) {
+function arrangeSlides(track, slides, activeIndex, sideScaleY) {
   removeGhostSlides(track);
 
   const orderedSlides = [];
@@ -529,7 +538,7 @@ function arrangeSlides(track, slides, activeIndex) {
   }
 
   track.appendChild(
-    createGhostSlide(slides[wrapIndex(activeIndex - 2, slides.length)]),
+    createGhostSlide(slides[wrapIndex(activeIndex - 2, slides.length)], sideScaleY),
   );
 
   orderedSlides.forEach((slide) => {
@@ -537,7 +546,7 @@ function arrangeSlides(track, slides, activeIndex) {
   });
 
   track.appendChild(
-    createGhostSlide(slides[wrapIndex(activeIndex - 1, slides.length)]),
+    createGhostSlide(slides[wrapIndex(activeIndex - 1, slides.length)], sideScaleY),
   );
 }
 
@@ -550,9 +559,10 @@ function syncSlides(slides, activeIndex) {
   });
 }
 
-function updateSlideDepth(slides, activeIndex, shouldAnimate) {
+function updateSlideDepth(slides, activeIndex, sideScaleY, shouldAnimate) {
   const activeSlide = slides[activeIndex];
   const sideSlides = slides.filter((_, index) => index !== activeIndex);
+  const sideScale = { scaleX: SIDE_SLIDE_SCALE, scaleY: sideScaleY };
 
   gsap.killTweensOf(slides, "scale");
 
@@ -561,13 +571,13 @@ function updateSlideDepth(slides, activeIndex, shouldAnimate) {
   });
 
   if (!shouldAnimate) {
-    gsap.set(sideSlides, { scale: SIDE_SLIDE_SCALE });
+    gsap.set(sideSlides, sideScale);
     gsap.set(activeSlide, { scale: 1 });
     return;
   }
 
   gsap.to(sideSlides, {
-    scale: SIDE_SLIDE_SCALE,
+    ...sideScale,
     duration: ANIMATION_DURATION,
     ease: ANIMATION_EASE,
     overwrite: "auto",
@@ -582,7 +592,7 @@ function updateSlideDepth(slides, activeIndex, shouldAnimate) {
   });
 }
 
-function createGhostSlide(sourceSlide) {
+function createGhostSlide(sourceSlide, sideScaleY) {
   const ghost = sourceSlide.cloneNode(true);
 
   copyGhostPresentation(sourceSlide, ghost);
@@ -593,7 +603,7 @@ function createGhostSlide(sourceSlide) {
   ghost.removeAttribute("id");
   ghost.setAttribute("tabindex", "-1");
   ghost.style.zIndex = "1";
-  gsap.set(ghost, { scale: SIDE_SLIDE_SCALE });
+  gsap.set(ghost, { scaleX: SIDE_SLIDE_SCALE, scaleY: sideScaleY });
 
   if ("inert" in ghost) {
     ghost.inert = true;

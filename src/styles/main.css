@@ -874,6 +874,14 @@ html[data-bemke-reduced-motion="true"]
   will-change: transform;
 }
 
+.slider-wrapper[data-bemke-slider-stretch] {
+  align-items: stretch;
+}
+
+.slider-wrapper[data-bemke-slider-stretch] > .slide > .card {
+  flex-grow: 1;
+}
+
 .slider:not(.slider-thinktank)[data-bemke-slider-ready="1"] .slide {
   --bemke-home-slide-width: min(
     clamp(280px, 61.7vw, 1024px),
