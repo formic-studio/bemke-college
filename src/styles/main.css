@@ -38,8 +38,10 @@ body {
    duplicated track so refreshed Instagram query results keep the same motion. */
 .bemke-infinity-loop-track {
   --bemke-infinity-loop-offset: 0px;
+  align-self: flex-start !important;
   flex-direction: row;
   flex-wrap: nowrap;
+  margin-inline: 0 !important;
   max-width: none;
   width: max-content;
   will-change: transform;
