@@ -82,7 +82,7 @@ body {
   z-index: 2;
   top: 0;
   right: var(--space-24, 2.4rem);
-  display: flex;
+  display: none;
   gap: 0.6rem;
   align-items: center;
 }

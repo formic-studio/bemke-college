@@ -17,7 +17,7 @@ function getInterfaceCopy() {
     ? {
         label: 'Posty Bemke College na Instagramie',
         instructions:
-          'Karuzela postów na Instagramie. Przeciągnij myszką lub palcem, użyj przycisków poprzedni i następny albo strzałek w lewo i w prawo. Każdy post jest dostępny jako osobny link.',
+          'Karuzela postów na Instagramie. Przeciągnij myszką lub palcem albo użyj strzałek w lewo i w prawo. Każdy post jest dostępny jako osobny link.',
         pause: 'Pauza',
         resume: 'Wznów',
         motionDisabled: 'Animacja wyłączona',
@@ -28,7 +28,7 @@ function getInterfaceCopy() {
     : {
         label: 'Bemke College Instagram posts',
         instructions:
-          'Instagram posts carousel. Drag with a mouse or touch, use the Previous and Next buttons, or use the Left and Right Arrow keys. Every post is available as a separate link.',
+          'Instagram posts carousel. Drag with a mouse or touch, or use the Left and Right Arrow keys. Every post is available as a separate link.',
         pause: 'Pause',
         resume: 'Resume',
         motionDisabled: 'Animation off',
@@ -362,9 +362,17 @@ function createInfiniteLoop(track) {
     dragging = false;
     dragPointerId = null;
     suppressClickUntil = dragMoved ? window.performance.now() + 500 : 0;
+    pointerPaused = false;
 
-    if (event.pointerType !== 'mouse') {
-      pointerPaused = false;
+    if (dragMoved) {
+      focusPaused = false;
+
+      if (
+        document.activeElement instanceof HTMLElement &&
+        track.contains(document.activeElement)
+      ) {
+        document.activeElement.blur();
+      }
     }
 
     syncPausedState();
@@ -402,8 +410,6 @@ function createInfiniteLoop(track) {
     }
 
     event.preventDefault();
-    userPaused = true;
-    syncPausedState();
     applyOffset(dragStartOffset - distance);
   };
 
@@ -415,9 +421,7 @@ function createInfiniteLoop(track) {
   };
 
   const moveManually = (direction, large = false) => {
-    userPaused = true;
     applyOffset(offset + direction * getManualStep(large));
-    syncPausedState();
     syncAnimation();
   };
 

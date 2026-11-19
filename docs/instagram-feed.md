@@ -76,8 +76,8 @@ Taśmę można obsługiwać:
 
 - przeciągając ją myszką lub palcem,
 - strzałkami w lewo i w prawo po ustawieniu fokusu na karuzeli lub jej linku,
-- przyciskami poprzedni/następny, które zapewniają alternatywę bez przeciągania,
-- przyciskiem `Pauza/Wznów`, który trwale zatrzymuje lub ponownie uruchamia autoplay,
 - klawiszem `Tab`, który przechodzi po oryginalnych linkach i automatycznie odsłania aktualnie fokusowany kafelek.
+
+Lokalne przyciski poprzedni/pauza/następny są obecnie ukryte. Po puszczeniu przeciąganej taśmy autoplay uruchamia się ponownie, o ile użytkownik nie ma włączonego ograniczenia animacji.
 
 Przy włączonym `prefers-reduced-motion` lub przełączniku ograniczania animacji autoplay pozostaje wyłączony, ale przeciąganie, strzałki i dostęp do wszystkich linków nadal działają.
