@@ -12,7 +12,7 @@
     "name": "gsap"
   },
   "src/bricks-slider.js": {
-    "file": "assets/bricks-slider.D6KBHmf2.js",
+    "file": "assets/bricks-slider.BDTLCllv.js",
     "name": "bricks-slider",
     "src": "src/bricks-slider.js",
     "isDynamicEntry": true,
@@ -22,7 +22,7 @@
     ]
   },
   "src/campus-map.js": {
-    "file": "assets/campus-map.pXdxq5BU.js",
+    "file": "assets/campus-map.BsmDfLwK.js",
     "name": "campus-map",
     "src": "src/campus-map.js",
     "isDynamicEntry": true,
@@ -41,7 +41,7 @@
     "isDynamicEntry": true
   },
   "src/hero-intro.js": {
-    "file": "assets/hero-intro.BD-FlBqh.js",
+    "file": "assets/hero-intro.qCFj6xov.js",
     "name": "hero-intro",
     "src": "src/hero-intro.js",
     "isDynamicEntry": true,
@@ -51,7 +51,7 @@
     ]
   },
   "src/image-up-reveal.js": {
-    "file": "assets/image-up-reveal.DoSrYlTo.js",
+    "file": "assets/image-up-reveal.DQLsmzA8.js",
     "name": "image-up-reveal",
     "src": "src/image-up-reveal.js",
     "isDynamicEntry": true,
@@ -62,7 +62,7 @@
     ]
   },
   "src/main.js": {
-    "file": "assets/main.DGMpbVwb.js",
+    "file": "assets/main.DQDEI54m.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -100,7 +100,7 @@
     "isDynamicEntry": true
   },
   "src/number-counter.js": {
-    "file": "assets/number-counter.B3VA3qFv.js",
+    "file": "assets/number-counter.B0YkVQOE.js",
     "name": "number-counter",
     "src": "src/number-counter.js",
     "isDynamicEntry": true,
@@ -117,7 +117,7 @@
     "isDynamicEntry": true
   },
   "src/process-timeline.js": {
-    "file": "assets/process-timeline.C8Potc-v.js",
+    "file": "assets/process-timeline.DtM7qdPZ.js",
     "name": "process-timeline",
     "src": "src/process-timeline.js",
     "isDynamicEntry": true,
@@ -137,13 +137,16 @@
     ]
   },
   "src/reverse-cards.js": {
-    "file": "assets/reverse-cards.DFIK5bdd.js",
+    "file": "assets/reverse-cards.CNdxniZj.js",
     "name": "reverse-cards",
     "src": "src/reverse-cards.js",
-    "isDynamicEntry": true
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ]
   },
   "src/scroll-expand-images.js": {
-    "file": "assets/scroll-expand-images.D1HFEPev.js",
+    "file": "assets/scroll-expand-images.BSRX_iR7.js",
     "name": "scroll-expand-images",
     "src": "src/scroll-expand-images.js",
     "isDynamicEntry": true,
@@ -154,7 +157,7 @@
     ]
   },
   "src/scroll-highlight.js": {
-    "file": "assets/scroll-highlight.CrsTcFSv.js",
+    "file": "assets/scroll-highlight.B4pAvMvO.js",
     "name": "scroll-highlight",
     "src": "src/scroll-highlight.js",
     "isDynamicEntry": true,
@@ -166,7 +169,7 @@
     ]
   },
   "src/scroll-reveal.js": {
-    "file": "assets/scroll-reveal.DD8FwRXA.js",
+    "file": "assets/scroll-reveal.BpWtEJVD.js",
     "name": "scroll-reveal",
     "src": "src/scroll-reveal.js",
     "isDynamicEntry": true,

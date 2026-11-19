@@ -1,3 +1,5 @@
+import { siteText } from './site-language.js';
+
 const rootSelector = '.reverse-card';
 const innerSelector = ':scope > .reverse-card__inner';
 const frontSelector = ':scope > .reverse-card__front';
@@ -18,9 +20,9 @@ const setFaceVisibility = (face, isVisible) => {
 const getCardTitle = (front, back) =>
   normalizeText(front.querySelector(headingSelector)?.textContent) ||
   normalizeText(back.querySelector(headingSelector)?.textContent) ||
-  'Card';
+  siteText('Karta', 'Card');
 
-const createToggle = (title, backId) => {
+const createToggle = (backId) => {
   const toggle = document.createElement('button');
   const label = document.createElement('span');
 
@@ -31,7 +33,6 @@ const createToggle = (title, backId) => {
   toggle.setAttribute('data-a11y-contrast-fixed', 'true');
 
   label.className = 'reverse-card__toggle-label';
-  label.textContent = title + ': show details';
   toggle.append(label);
 
   return { label, toggle };
@@ -67,7 +68,9 @@ const initReverseCard = (root) => {
   back.id ||= 'bemke-reverse-card-panel-' + cardId;
 
   const title = getCardTitle(front, back);
-  const { label, toggle } = createToggle(title, back.id);
+  const detailsLabel = siteText('pokaż szczegóły', 'show details');
+  const frontLabel = siteText('pokaż przód karty', 'show front');
+  const { label, toggle } = createToggle(back.id);
   let isHoverSuppressed = false;
   let isPointerInside = false;
   let isPinned = false;
@@ -77,9 +80,7 @@ const initReverseCard = (root) => {
     isFlipped = isPinned || (isPointerInside && !isHoverSuppressed);
     root.classList.toggle(flippedClass, isFlipped);
     toggle.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
-    label.textContent = isFlipped
-      ? title + ': show front'
-      : title + ': show details';
+    label.textContent = title + ': ' + (isFlipped ? frontLabel : detailsLabel);
     setFaceVisibility(front, !isFlipped);
     setFaceVisibility(back, isFlipped);
   };
