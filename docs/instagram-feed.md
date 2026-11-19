@@ -61,3 +61,13 @@ Home v2 korzysta z Query Loop Bricks ustawionego na `instagram_post`. Alternatyw
 ```
 
 Przycisk prowadzący do Instagrama jest osobnym elementem Bricks i jego adres trzeba ustawić ręcznie na profil Bemke College.
+
+## Nieskończona taśma na Home v2
+
+Query Loop na Home v2 powinien zachować klasy Bricks używane przez motyw:
+
+- kontener z wpisami: `infinity-loop-block`,
+- każdy link/kafelek wpisu: `img-wrapper`,
+- obraz: `img-grayscale`.
+
+Motyw klonuje kafelki wyłącznie wizualnie i przesuwa taśmę w sposób ciągły. Ruch zatrzymuje się po najechaniu kursorem oraz podczas obsługi fokusem z klawiatury, a aktywny kafelek przechodzi z grayscale do koloru. Przy włączonym `prefers-reduced-motion` lub przełączniku ograniczania animacji taśma pozostaje nieruchoma.

@@ -34,6 +34,43 @@ body {
   color: var(--bemke-color-text);
 }
 
+/* Bricks supplies the feed cards. The theme turns their row into a continuous,
+   duplicated track so refreshed Instagram query results keep the same motion. */
+.bemke-infinity-loop-track {
+  --bemke-infinity-loop-offset: 0px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  max-width: none;
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(var(--bemke-infinity-loop-offset), 0, 0);
+}
+
+.bemke-infinity-loop-track > .img-wrapper {
+  flex: 0 0 auto;
+}
+
+.bemke-infinity-loop-track .img-grayscale {
+  filter: grayscale(100%);
+  transition: filter 400ms ease;
+}
+
+.bemke-infinity-loop-track
+  .img-wrapper:is(:hover, :focus-visible)
+  .img-grayscale {
+  filter: grayscale(0%);
+}
+
+.bemke-infinity-loop-track.is-motion-reduced {
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bemke-infinity-loop-track .img-grayscale {
+    transition: none;
+  }
+}
+
 /* Clip the text itself while preparing its line entrances. */
 @media (prefers-reduced-motion: no-preference) {
   html[data-bemke-hero-pending]:not([data-bemke-reduced-motion="true"])

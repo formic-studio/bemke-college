@@ -27,6 +27,8 @@ const reverseCardSelector =
 const processTimelineSelector =
   '.process-block > .proces-line + .proces-item';
 const contactFormSelector = '[data-bemke-contact-form]';
+const instagramInfiniteLoopSelector =
+  '.infinity-loop-block > .img-wrapper';
 
 const initWhenNearViewport = (selector, init) => {
   const targets = document.querySelectorAll(selector);
@@ -243,6 +245,20 @@ const initContactFormFeature = () => {
   });
 };
 
+const initInstagramInfiniteLoopFeature = () => {
+  if (!document.querySelector(instagramInfiniteLoopSelector)) {
+    return;
+  }
+
+  initWhenNearViewport('.infinity-loop-block', () => {
+    import('./instagram-infinite-loop.js').then(
+      ({ initInstagramInfiniteLoops }) => {
+        initInstagramInfiniteLoops();
+      },
+    );
+  });
+};
+
 const initBemkeCollege = () => {
   document.documentElement.classList.add('bemke-college-js');
   initMotionPreference();
@@ -266,6 +282,7 @@ const initBemkeCollege = () => {
   initPopupFeature();
   initProcessTimelineFeature();
   initContactFormFeature();
+  initInstagramInfiniteLoopFeature();
   initWcagToolbar();
   initLanguageSwitcher();
   initMegaMenu();
