@@ -70,4 +70,14 @@ Query Loop na Home v2 powinien zachować klasy Bricks używane przez motyw:
 - każdy link/kafelek wpisu: `img-wrapper`,
 - obraz: `img-grayscale`.
 
-Motyw klonuje kafelki wyłącznie wizualnie i przesuwa taśmę w sposób ciągły. Ruch zatrzymuje się po najechaniu kursorem oraz podczas obsługi fokusem z klawiatury, a aktywny kafelek przechodzi z grayscale do koloru. Przy włączonym `prefers-reduced-motion` lub przełączniku ograniczania animacji taśma pozostaje nieruchoma.
+Motyw klonuje kafelki wyłącznie wizualnie i przesuwa taśmę w sposób ciągły. Ruch zatrzymuje się po najechaniu kursorem oraz podczas obsługi fokusem z klawiatury, a aktywny kafelek przechodzi z grayscale do koloru.
+
+Taśmę można obsługiwać:
+
+- przeciągając ją myszką lub palcem,
+- strzałkami w lewo i w prawo po ustawieniu fokusu na karuzeli lub jej linku,
+- przyciskami poprzedni/następny, które zapewniają alternatywę bez przeciągania,
+- przyciskiem `Pauza/Wznów`, który trwale zatrzymuje lub ponownie uruchamia autoplay,
+- klawiszem `Tab`, który przechodzi po oryginalnych linkach i automatycznie odsłania aktualnie fokusowany kafelek.
+
+Przy włączonym `prefers-reduced-motion` lub przełączniku ograniczania animacji autoplay pozostaje wyłączony, ale przeciąganie, strzałki i dostęp do wszystkich linków nadal działają.
