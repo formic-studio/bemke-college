@@ -636,6 +636,11 @@ html[data-contrast]:not([data-contrast="default"])
   flex: 0 0 auto;
 }
 
+/* The A Level card row shares this Bricks ID across both translations. */
+#brxe-zrirdw > .card-programme {
+  justify-content: flex-start;
+}
+
 body.bricks-is-frontend
   :where(.mobile-scroll, .mobile-scroll > .mobile-scroll__track)
   > .card:has(> .svg-wrapper > .badge-ai-wrapper > .brxe-image):has(

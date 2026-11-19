@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'init', 'bemke_college_disable_frontend_emoji_assets' );
 add_filter( 'wp_get_attachment_image_attributes', 'bemke_college_tune_slider_image_loading', 20, 3 );
+add_filter( 'bricks/frontend/render_element', 'bemke_college_load_hero_background_immediately', 20, 2 );
 add_filter( 'bricks/frontend/render_element', 'bemke_college_prepare_programme_images', 20, 2 );
 add_filter( 'bricks/frontend/render_element', 'bemke_college_defer_hero_video', 20, 2 );
 
@@ -51,6 +52,32 @@ function bemke_college_tune_slider_image_loading( array $attr, WP_Post $attachme
     $attr['sizes']         = '(max-width: 767px) 100vw, 800px';
 
     return $attr;
+}
+
+/**
+ * Allow the browser to fetch the hero's responsive CSS background on first render.
+ *
+ * @param string $html    Rendered Bricks element HTML.
+ * @param object $element Bricks element instance.
+ * @return string
+ */
+function bemke_college_load_hero_background_immediately( string $html, $element ): string {
+    if (
+        'section' !== ( $element->name ?? '' ) ||
+        false === strpos( $html, 'section_hero' ) ||
+        ! bricks_is_frontend()
+    ) {
+        return $html;
+    }
+
+    $tag = new WP_HTML_Tag_Processor( $html );
+    if ( ! $tag->next_tag() || ! $tag->has_class( 'section_hero' ) ) {
+        return $html;
+    }
+
+    $tag->remove_class( 'bricks-lazy-hidden' );
+
+    return $tag->get_updated_html();
 }
 
 /**
