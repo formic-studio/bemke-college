@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 const BEMKE_COLLEGE_VITE_ENTRY = 'src/main.js';
 
+add_action( 'litespeed_init', 'bemke_college_purge_cached_pages_after_build' );
 add_action( 'wp_enqueue_scripts', 'bemke_college_enqueue_assets', 20 );
 add_action( 'wp_head', 'bemke_college_preload_critical_fonts', 2 );
 add_action( 'wp_head', 'bemke_college_prepare_hero_intro', 3 );
@@ -161,6 +162,30 @@ function bemke_college_vite_manifest(): array {
     $manifest = is_array( $decoded ) ? $decoded : array();
 
     return $manifest;
+}
+
+/**
+ * Invalidate cached HTML when a deploy replaces the shared frontend assets.
+ */
+function bemke_college_purge_cached_pages_after_build(): void {
+    if ( bemke_college_vite_dev_server() || ! has_action( 'litespeed_purge' ) ) {
+        return;
+    }
+
+    $manifest = bemke_college_vite_manifest();
+    $entry    = $manifest[ BEMKE_COLLEGE_VITE_ENTRY ]['file'] ?? '';
+    $option   = 'bemke_college_litespeed_frontend_build';
+
+    if ( ! $entry || get_option( $option ) === $entry ) {
+        return;
+    }
+
+    if ( ! is_file( get_stylesheet_directory() . '/dist/' . $entry ) ) {
+        return;
+    }
+
+    do_action( 'litespeed_purge', '*' );
+    update_option( $option, $entry, true );
 }
 
 /**
