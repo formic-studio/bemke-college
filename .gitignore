@@ -7,6 +7,8 @@ dist/*
 !dist/assets/
 !dist/assets/*.css
 !dist/assets/*.js
+!dist/assets/campus-map-desktop.*.webp
+!dist/assets/campus-map-mobile.*.webp
 
 # Local environment
 .env
