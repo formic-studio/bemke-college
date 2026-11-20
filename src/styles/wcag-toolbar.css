@@ -30,7 +30,9 @@
 }
 
 .lang-switcher-block[data-bemke-motion-switch-ready="1"] .animation-switcher {
-  align-items: flex-end;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
   transition: background-color 0.2s ease;
 }
 
@@ -52,8 +54,12 @@ html[lang^="pl"] .lang-switcher-block .lang-switcher.brxe-block {
 }
 
 .lang-switcher-block.is-active .animation-switcher {
-  align-items: flex-start;
   background-color: var(--color-blue-dark, #2d3f53);
+  justify-content: flex-start;
+}
+
+.lang-switcher-block.is-active .animation-switcher > .switch-block {
+  background-color: var(--color-cream, #fff9f4);
 }
 
 html[data-bemke-reduced-motion="true"] {

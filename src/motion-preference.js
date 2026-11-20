@@ -37,9 +37,8 @@ export function isReducedMotion() {
 }
 
 function applyMotionState(emitChange = true) {
-  const previousState =
-    document.documentElement.getAttribute(MOTION_ATTR) === 'true';
-  const reduced = isReducedMotion();
+  const system = isSystemReducedMotion();
+  const reduced = userReducedMotion || system;
 
   if (reduced) {
     document.documentElement.setAttribute(MOTION_ATTR, 'true');
@@ -47,12 +46,12 @@ function applyMotionState(emitChange = true) {
     document.documentElement.removeAttribute(MOTION_ATTR);
   }
 
-  if (emitChange && previousState !== reduced) {
+  if (emitChange) {
     document.dispatchEvent(
       new CustomEvent(MOTION_CHANGE_EVENT, {
         detail: {
           reduced,
-          system: isSystemReducedMotion(),
+          system,
           user: userReducedMotion,
         },
       }),

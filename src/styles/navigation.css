@@ -67,26 +67,9 @@
     padding-block: 1.2rem !important;
   }
 
-  #brx-header
-    :is(
-      .bemke-college-wcag-toolbar,
-      .padding-global:has(> .lang-switcher-block):has([data-contrast])
-    )
-    > :is(
-      .bemke-mobile-wcag__control--motion,
-      .lang-switcher-block:has(> .animation-switcher)
-    ),
-  #brx-header
-    :is(
-      .bemke-college-wcag-toolbar,
-      .padding-global:has(> .lang-switcher-block):has([data-contrast])
-    )
-    > :is(
-      .bemke-mobile-wcag__control--motion,
-      .lang-switcher-block:has(> .animation-switcher)
-    )
-    + svg {
-    display: none !important;
+  #brx-header .lang-switcher-block[data-bemke-motion-switch-ready] {
+    align-items: center;
+    min-height: 24px;
   }
 
   #brx-header
@@ -947,14 +930,14 @@
   }
 
   #brx-header .bemke-mobile-wcag__control--language {
-    border-bottom: 0;
     order: 3;
-    padding-top: 2.4rem !important;
+    padding-block: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__control--motion {
-    display: none !important;
+    border-bottom: 0;
     order: 4;
+    padding-top: 2.4rem !important;
   }
 
   #brx-header .bemke-mobile-wcag__label {
@@ -1067,6 +1050,15 @@
     min-height: 2.4rem !important;
     min-width: 2.4rem !important;
     width: 2.4rem !important;
+  }
+
+  #brx-header .bemke-mobile-wcag__control--motion > .animation-switcher {
+    width: 4.2rem;
+  }
+
+  #brx-header .bemke-mobile-wcag__control--motion .switch-block {
+    height: 2.4rem;
+    width: 2.4rem;
   }
 
   #brx-header .bemke-mobile-wcag__control--motion .brxe-text-basic {
